@@ -25,7 +25,13 @@ class FirstScreen extends StatelessWidget {
               width: double.infinity,
               height: 144.0,
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    ctxt,
+                    new MaterialPageRoute(
+                        builder: (ctxt) => new SecondScreen()),
+                  );
+                },
                 child: Card(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -51,7 +57,13 @@ class FirstScreen extends StatelessWidget {
               width: double.infinity,
               height: 144.0,
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    ctxt,
+                    new MaterialPageRoute(
+                        builder: (ctxt) => new SecondScreen()),
+                  );
+                },
                 child: Card(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -77,7 +89,13 @@ class FirstScreen extends StatelessWidget {
               width: double.infinity,
               height: 144.0,
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    ctxt,
+                    new MaterialPageRoute(
+                        builder: (ctxt) => new SecondScreen()),
+                  );
+                },
                 child: Card(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -103,7 +121,13 @@ class FirstScreen extends StatelessWidget {
               width: double.infinity,
               height: 144.0,
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    ctxt,
+                    new MaterialPageRoute(
+                        builder: (ctxt) => new SecondScreen()),
+                  );
+                },
                 child: Card(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
