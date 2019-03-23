@@ -20,10 +20,10 @@ class FirstScreen extends StatelessWidget {
       body: new Column(
         children: <Widget>[
           new Container(
-            margin: new EdgeInsets.only(left: 10.0, right: 10.0, top: 40),
+            margin: new EdgeInsets.only(left: 10.0, right: 10.0, top: 10),
             child: new SizedBox(
               width: double.infinity,
-              height: 130.0,
+              height: 144.0,
               child: InkWell(
                 onTap: () {},
                 child: Card(
@@ -49,7 +49,7 @@ class FirstScreen extends StatelessWidget {
             margin: new EdgeInsets.only(left: 10.0, right: 10.0, top: 10),
             child: new SizedBox(
               width: double.infinity,
-              height: 130.0,
+              height: 144.0,
               child: InkWell(
                 onTap: () {},
                 child: Card(
@@ -75,7 +75,7 @@ class FirstScreen extends StatelessWidget {
             margin: new EdgeInsets.only(left: 10.0, right: 10.0, top: 10),
             child: new SizedBox(
               width: double.infinity,
-              height: 130.0,
+              height: 144.0,
               child: InkWell(
                 onTap: () {},
                 child: Card(
@@ -101,7 +101,7 @@ class FirstScreen extends StatelessWidget {
             margin: new EdgeInsets.only(left: 10.0, right: 10.0, top: 10),
             child: new SizedBox(
               width: double.infinity,
-              height: 130.0,
+              height: 144.0,
               child: InkWell(
                 onTap: () {},
                 child: Card(
@@ -125,6 +125,18 @@ class FirstScreen extends StatelessWidget {
           ),
         ], // List of cards end here
       ),
+    );
+  }
+}
+
+class SecondScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext ctxt) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text("Multi Page Application Page 2"),
+      ),
+      body: new Text("Another Page...!!!!!!"),
     );
   }
 }
