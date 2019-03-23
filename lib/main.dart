@@ -31,7 +31,11 @@ class FirstScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       const ListTile(
-                        leading: Icon(Icons.looks_one),
+                        leading: Icon(
+                          Icons.looks_one,
+                          color: Colors.blue,
+                          size: 50.0,
+                        ),
                         title: Text('Week 1'),
                         subtitle: Text('3 sets of 5 reps'),
                       ),
@@ -53,7 +57,11 @@ class FirstScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       const ListTile(
-                        leading: Icon(Icons.looks_two),
+                        leading: Icon(
+                          Icons.looks_two,
+                          color: Colors.blue,
+                          size: 50.0,
+                        ),
                         title: Text('Week 2'),
                         subtitle: Text('3 sets of 3 reps'),
                       ),
@@ -75,7 +83,11 @@ class FirstScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       const ListTile(
-                        leading: Icon(Icons.looks_3),
+                        leading: Icon(
+                          Icons.looks_3,
+                          color: Colors.blue,
+                          size: 50.0,
+                        ),
                         title: Text('Week 3'),
                         subtitle: Text('5/3/1 sets'),
                       ),
@@ -97,7 +109,11 @@ class FirstScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       const ListTile(
-                        leading: Icon(Icons.looks_4),
+                        leading: Icon(
+                          Icons.looks_4,
+                          color: Colors.blue,
+                          size: 50.0,
+                        ),
                         title: Text('Week 4'),
                         subtitle: Text('Deload week'),
                       ),
