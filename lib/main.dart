@@ -18,22 +18,31 @@ class Weeks extends StatefulWidget {
     this.argTitle,
     this.subTitle,
     this.cardIcon,
+    this.weekNum,
   }) : super(key: key);
 
   final Widget argTitle;
   final Widget subTitle;
   final Icon cardIcon;
+  final int weekNum;
   @override
   _WeekWidgetState createState() => _WeekWidgetState();
 }
 
 class _WeekWidgetState extends State<Weeks> {
-  String _text = 'active';
-
-  refresh() {
+  String _text = 'active'; // By default each week us active
+  void refresh() {
     setState(() {
       _text = 'inactive';
     });
+  }
+
+  Widget _getNextScreen() {
+    Widget nextScreen = new SecondScreen();
+    if (widget.weekNum == 3) {
+      nextScreen = new ThirdScreen(notifyParent: refresh);
+    }
+    return nextScreen;
   }
 
   @override
@@ -48,7 +57,7 @@ class _WeekWidgetState extends State<Weeks> {
             Navigator.push(
               ctxt,
               new MaterialPageRoute(
-                  builder: (ctxt) => new ThirdScreen(notifyParent: refresh)),
+                builder: (ctxt) => _getNextScreen()),
             );
           },
           child: Card(
@@ -93,6 +102,7 @@ class FirstScreen extends StatelessWidget {
             // subTitle: new Text("5/3/1 sets"),
             subTitle: new Text("active"),
             cardIcon: new Icon(Icons.looks_3, color: Colors.red, size: 50.0),
+            weekNum: 3,
           ),
           new Weeks(
             argTitle: new Text("Week 4"),
