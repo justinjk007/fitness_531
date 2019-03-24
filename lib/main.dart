@@ -12,12 +12,25 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Weeks extends StatelessWidget {
-  Weeks({this.argTitle, this.subTitle, this.cardIcon, this.secondScreenName});
+class Weeks extends StatefulWidget {
+  Weeks({
+    Key key,
+    this.argTitle,
+    this.subTitle,
+    this.cardIcon,
+    this.secondScreenName,
+  }) : super(key: key);
+
   final Widget argTitle;
   final Widget subTitle;
   final Icon cardIcon;
   final Widget secondScreenName;
+  @override
+  _WeekWidgetState createState() => _WeekWidgetState();
+}
+
+class _WeekWidgetState extends State<Weeks> {
+  bool _isActive = true; // The one and only state variable for this widget
   @override
   Widget build(BuildContext ctxt) {
     return (new Container(
@@ -29,7 +42,7 @@ class Weeks extends StatelessWidget {
           onTap: () {
             Navigator.push(
               ctxt,
-              new MaterialPageRoute(builder: (ctxt) => secondScreenName),
+              new MaterialPageRoute(builder: (ctxt) => widget.secondScreenName),
             );
           },
           child: Card(
@@ -37,9 +50,9 @@ class Weeks extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 ListTile(
-                  leading: cardIcon,
-                  title: argTitle,
-                  subtitle: subTitle,
+                  leading: widget.cardIcon,
+                  title: widget.argTitle,
+                  subtitle: widget.subTitle,
                 ),
               ], // End of list
             ),
@@ -106,7 +119,13 @@ class ThirdScreen extends StatelessWidget {
       appBar: new AppBar(
         title: new Text("Multi Page Application Page 3"),
       ),
-      body: new Text("Another Page...!!!!!!"),
+      body: new RaisedButton(
+        padding: const EdgeInsets.all(8.0),
+        textColor: Colors.white,
+        color: Colors.blue,
+        // onPressed: addNumbers,
+        child: new Text("Add"),
+      ),
     );
   }
 }
