@@ -18,19 +18,26 @@ class Weeks extends StatefulWidget {
     this.argTitle,
     this.subTitle,
     this.cardIcon,
-    this.secondScreenName,
+    // this.secondScreenName,
   }) : super(key: key);
 
   final Widget argTitle;
   final Widget subTitle;
   final Icon cardIcon;
-  final Widget secondScreenName;
+  // final Widget secondScreenName;
   @override
   _WeekWidgetState createState() => _WeekWidgetState();
 }
 
 class _WeekWidgetState extends State<Weeks> {
-  bool _isActive = true; // The one and only state variable for this widget
+  String _text = 'active';
+
+  refresh() {
+    setState(() {
+      _text = 'inactive';
+    });
+  }
+
   @override
   Widget build(BuildContext ctxt) {
     return (new Container(
@@ -42,7 +49,8 @@ class _WeekWidgetState extends State<Weeks> {
           onTap: () {
             Navigator.push(
               ctxt,
-              new MaterialPageRoute(builder: (ctxt) => widget.secondScreenName),
+              new MaterialPageRoute(
+                  builder: (ctxt) => new ThirdScreen(notifyParent: refresh)),
             );
           },
           child: Card(
@@ -52,7 +60,7 @@ class _WeekWidgetState extends State<Weeks> {
                 ListTile(
                   leading: widget.cardIcon,
                   title: widget.argTitle,
-                  subtitle: widget.subTitle,
+                  subtitle: Text(_text),
                 ),
               ], // End of list
             ),
@@ -72,27 +80,31 @@ class FirstScreen extends StatelessWidget {
         children: <Widget>[
           new Weeks(
             argTitle: new Text("Week 1"),
-            subTitle: new Text("3 sets of 5 reps"),
-            cardIcon: new Icon(Icons.looks_one, color: Colors.blue, size: 50.0),
-            secondScreenName: new ThirdScreen(),
+            // subTitle: new Text("3 sets of 5 reps"),
+            subTitle: new Text("active"),
+            cardIcon: new Icon(Icons.looks_one, color: Colors.red, size: 50.0),
+            // secondScreenName: new ThirdScreen(),
           ),
           new Weeks(
             argTitle: new Text("Week 2"),
-            subTitle: new Text("3 sets of 3 reps"),
-            cardIcon: new Icon(Icons.looks_two, color: Colors.blue, size: 50.0),
-            secondScreenName: new ThirdScreen(),
+            // subTitle: new Text("3 sets of 3 reps"),
+            subTitle: new Text("active"),
+            cardIcon: new Icon(Icons.looks_two, color: Colors.red, size: 50.0),
+            // secondScreenName: new ThirdScreen(),
           ),
           new Weeks(
             argTitle: new Text("Week 3"),
-            subTitle: new Text("5/3/1 sets"),
-            cardIcon: new Icon(Icons.looks_3, color: Colors.blue, size: 50.0),
-            secondScreenName: new SecondScreen(),
+            // subTitle: new Text("5/3/1 sets"),
+            subTitle: new Text("active"),
+            cardIcon: new Icon(Icons.looks_3, color: Colors.red, size: 50.0),
+            // secondScreenName: new SecondScreen(),
           ),
           new Weeks(
             argTitle: new Text("Week 4"),
-            subTitle: new Text("Deload week"),
-            cardIcon: new Icon(Icons.looks_4, color: Colors.blue, size: 50.0),
-            secondScreenName: new SecondScreen(),
+            // subTitle: new Text("Deload week"),
+            subTitle: new Text("active"),
+            cardIcon: new Icon(Icons.looks_4, color: Colors.red, size: 50.0),
+            // secondScreenName: new SecondScreen(),
           ),
         ], // List of cards end here
       ),
@@ -113,6 +125,9 @@ class SecondScreen extends StatelessWidget {
 }
 
 class ThirdScreen extends StatelessWidget {
+  final Function() notifyParent;
+  ThirdScreen({Key key, @required this.notifyParent}) : super(key: key);
+
   @override
   Widget build(BuildContext ctxt) {
     return new Scaffold(
@@ -123,7 +138,9 @@ class ThirdScreen extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         textColor: Colors.white,
         color: Colors.blue,
-        // onPressed: addNumbers,
+        onPressed: () {
+          notifyParent();
+        },
         child: new Text("Add"),
       ),
     );
