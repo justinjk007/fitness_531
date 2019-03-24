@@ -18,13 +18,11 @@ class Weeks extends StatefulWidget {
     this.argTitle,
     this.subTitle,
     this.cardIcon,
-    // this.secondScreenName,
   }) : super(key: key);
 
   final Widget argTitle;
   final Widget subTitle;
   final Icon cardIcon;
-  // final Widget secondScreenName;
   @override
   _WeekWidgetState createState() => _WeekWidgetState();
 }
@@ -83,28 +81,24 @@ class FirstScreen extends StatelessWidget {
             // subTitle: new Text("3 sets of 5 reps"),
             subTitle: new Text("active"),
             cardIcon: new Icon(Icons.looks_one, color: Colors.red, size: 50.0),
-            // secondScreenName: new ThirdScreen(),
           ),
           new Weeks(
             argTitle: new Text("Week 2"),
             // subTitle: new Text("3 sets of 3 reps"),
             subTitle: new Text("active"),
             cardIcon: new Icon(Icons.looks_two, color: Colors.red, size: 50.0),
-            // secondScreenName: new ThirdScreen(),
           ),
           new Weeks(
             argTitle: new Text("Week 3"),
             // subTitle: new Text("5/3/1 sets"),
             subTitle: new Text("active"),
             cardIcon: new Icon(Icons.looks_3, color: Colors.red, size: 50.0),
-            // secondScreenName: new SecondScreen(),
           ),
           new Weeks(
             argTitle: new Text("Week 4"),
             // subTitle: new Text("Deload week"),
             subTitle: new Text("active"),
             cardIcon: new Icon(Icons.looks_4, color: Colors.red, size: 50.0),
-            // secondScreenName: new SecondScreen(),
           ),
         ], // List of cards end here
       ),
