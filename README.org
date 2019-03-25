@@ -1,0 +1,27 @@
+* fitness_531
+
+A new Flutter project.
+
+** Getting Started
+
+#+begin_src sh
+flutter doctor # To ensure flutter is installed correctly
+flutter run # On the root of the project to run it on a connected device or simulator
+#+end_src
+
+** Icons to download
+
+- https://icons8.com/icon/38915/deadlift
+- https://icons8.com/icon/13386/bench-press
+- https://icons8.com/icon/16962/squats
+- https://icons8.com/icon/16971/weightlifting
+  
+
+Main icon: https://www.flaticon.com/free-icon/barbell_1690609#term=barbell&page=1&position=23
+#+begin_export html
+<div>Icons made by <a href="https://www.freepik.com/"
+title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"
+title="Flaticon">www.flaticon.com</a> is licensed by <a
+href="http://creativecommons.org/licenses/by/3.0/" title="Creative
+Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+#+end_export
