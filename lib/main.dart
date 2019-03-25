@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // For reading and writing data to disk with ease
 
 void main() => runApp(MyApp());
 
@@ -10,6 +11,18 @@ class MyApp extends StatelessWidget {
       home: new FirstScreen(),
     );
   }
+}
+
+Future<void> saveWeekState(String weekNum, bool state) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setBool(weekNum, state); // Example("week1",true) , true means active
+}
+
+Future<bool> getWeekState(String weekNum) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool state =
+      prefs.getBool(weekNum); // Example("week1",true) , true means active
+  return state;
 }
 
 class Weeks extends StatefulWidget {
@@ -31,9 +44,20 @@ class Weeks extends StatefulWidget {
 
 class _WeekWidgetState extends State<Weeks> {
   String _text = 'active'; // By default each week us active
+  bool week1;
+
+  void getData() async {
+    week1 = await getWeekState('week1');
+    print("GETTING DATA from memory");
+  }
+
   void refresh() {
     setState(() {
-      _text = 'inactive';
+      if (week1) {
+        _text = 'active';
+      } else {
+        _text = 'inactive';
+      }
     });
   }
 
@@ -56,8 +80,7 @@ class _WeekWidgetState extends State<Weeks> {
           onTap: () {
             Navigator.push(
               ctxt,
-              new MaterialPageRoute(
-                builder: (ctxt) => _getNextScreen()),
+              new MaterialPageRoute(builder: (ctxt) => _getNextScreen()),
             );
           },
           child: Card(
@@ -132,6 +155,12 @@ class ThirdScreen extends StatelessWidget {
   final Function() notifyParent;
   ThirdScreen({Key key, @required this.notifyParent}) : super(key: key);
 
+  void saveData() {
+    saveWeekState("week1", false);
+    print("Week1 is set to false");
+    notifyParent();
+  }
+
   @override
   Widget build(BuildContext ctxt) {
     return new Scaffold(
@@ -143,7 +172,7 @@ class ThirdScreen extends StatelessWidget {
         textColor: Colors.white,
         color: Colors.blue,
         onPressed: () {
-          notifyParent();
+          saveData();
         },
         child: new Text("Add"),
       ),
