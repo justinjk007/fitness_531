@@ -25,3 +25,7 @@ title="Flaticon">www.flaticon.com</a> is licensed by <a
 href="http://creativecommons.org/licenses/by/3.0/" title="Creative
 Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 #+end_export
+
+** App icons are made like this
+
+https://pub.dartlang.org/packages/flutter_launcher_icons
