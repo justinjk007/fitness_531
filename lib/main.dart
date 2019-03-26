@@ -33,9 +33,8 @@ class Weeks extends StatefulWidget {
 class _WeekWidgetState extends State<Weeks> {
   String _text = 'active'; // By default each week us active
 
-  void notifyReceiver() {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool state = prefs.getBool("week1");
+  void notifyReceiver() async {
+    bool state = await SaveStateHelper.getWeek3();
     setState(() {
       if (state) {
         _text = 'active';
@@ -72,10 +71,16 @@ class _WeekWidgetState extends State<Weeks> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 ListTile(
-                  leading: widget.cardIcon,
-                  title: widget.argTitle,
-                  subtitle: Text(_text),
-                ),
+                    leading: widget.cardIcon,
+                    title: widget.argTitle,
+                    subtitle: FutureBuilder<Widget>(
+                        future: SaveStateHelper.getWeek3(),
+                        initialData: true,
+                        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                          return Text("inactive")
+                              ? (snapshot.data)
+                              : Text("active");
+                        })),
               ], // End of list
             ),
           ),
@@ -139,9 +144,8 @@ class ThirdScreen extends StatelessWidget {
   final Function() notifyParent;
   ThirdScreen({Key key, @required this.notifyParent}) : super(key: key);
 
-  void saveData() {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool("week1", false); // Example("week1",true) , true means active
+  void saveData() async {
+    await SaveStateHelper.setWeek3(false);
     notifyParent();
   }
 

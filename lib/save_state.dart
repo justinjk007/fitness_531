@@ -14,7 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // Some logic
 
-class saveStateHelper {
+class SaveStateHelper {
   //////////////////////////////////////////////////////////////////////
   // These are just keywords(keys) of each saved state aka preference //
   //////////////////////////////////////////////////////////////////////
