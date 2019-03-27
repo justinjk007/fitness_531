@@ -18,21 +18,17 @@ class Weeks extends StatefulWidget {
     Key key,
     this.argTitle,
     this.subTitle,
-    this.cardIcon,
     this.weekNum,
   }) : super(key: key);
 
   final Widget argTitle;
   final Widget subTitle;
-  final Icon cardIcon;
   final int weekNum;
   @override
   _WeekWidgetState createState() => _WeekWidgetState();
 }
 
 class _WeekWidgetState extends State<Weeks> {
-  String _text = 'active'; // By default each week us active
-
   void notifyReceiver() {
     setState(() {
       // Empty method just to refresh widget, collecting new data is handled
@@ -41,16 +37,21 @@ class _WeekWidgetState extends State<Weeks> {
   }
 
   Widget _getNextScreen() {
-    Widget nextScreen = new SecondScreen();
-    if (widget.weekNum == 3) {
-      nextScreen = new ThirdScreen(notifyParent: notifyReceiver);
-    }
+    // Widget nextScreen = new SecondScreen();
+    // if (widget.weekNum == 1) {
+    //   nextScreen = new ThirdScreen(notifyParent: notifyReceiver);
+    // }
+    Widget nextScreen = new ThirdScreen(notifyParent: notifyReceiver);
     return nextScreen;
   }
 
   @override
   Widget build(BuildContext ctxt) {
     return (new Container(
+      // foregroundDecoration: BoxDecoration(
+      //   color: Colors.grey,
+      //   backgroundBlendMode: BlendMode.saturation,
+      // ),
       margin: new EdgeInsets.only(left: 10.0, right: 10.0, top: 10),
       child: new SizedBox(
         width: double.infinity,
@@ -67,25 +68,27 @@ class _WeekWidgetState extends State<Weeks> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 ListTile(
-                    leading: widget.cardIcon,
-                    title: widget.argTitle,
-                    subtitle: FutureBuilder<bool>(
-                        future: SaveStateHelper.getWeek3(),
-                        initialData: true,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<bool> snapshot) {
-                          if (snapshot.hasError) {
-                            return Text('Error: ${snapshot.error}');
+                  title: widget.argTitle,
+                  subtitle: widget.subTitle,
+                  leading: FutureBuilder<bool>(
+                      future: SaveStateHelper.getWeek3(),
+                      initialData: true,
+                      builder: (BuildContext context,
+                          AsyncSnapshot<bool> snapshot) {
+                        if (snapshot.hasError) {
+                          return Icon(Icons.check_box_outline_blank, color: Colors.red, size: 50.0);
+                        } else {
+                          if (snapshot.data == true) {
+                            // Still active
+                            return Icon(Icons.check_box_outline_blank, color: Colors.red, size: 50.0);
                           } else {
-                            if (snapshot.data) {
-                              return Text('active');
-                            } else {
-                              return Text('inactive');
-                            }
+                            // Inactive
+                            return Icon(Icons.check_box, color: Colors.red, size: 50.0);
                           }
-                        } // End of  builder
-                        ) // End of FutureBuilder
-                    )
+                        }
+                      } // End of  builder
+                      ), // End of FutureBuilder
+                )
               ], // End of list
             ),
           ),
@@ -104,43 +107,22 @@ class FirstScreen extends StatelessWidget {
         children: <Widget>[
           new Weeks(
             argTitle: new Text("Week 1"),
-            // subTitle: new Text("3 sets of 5 reps"),
-            subTitle: new Text("active"),
-            cardIcon: new Icon(Icons.looks_one, color: Colors.red, size: 50.0),
+            subTitle: new Text("3 sets of 5 reps\n\n65% x 5     75% x 5     85% x 5 \n\nMaximum weight will be 220 lbs" ),
           ),
           new Weeks(
-            argTitle: new Text("Week 2"),
-            // subTitle: new Text("3 sets of 3 reps"),
-            subTitle: new Text("active"),
-            cardIcon: new Icon(Icons.looks_two, color: Colors.red, size: 50.0),
+            argTitle: new Text("Week 1"),
+            subTitle: new Text("3 sets of 5 reps\n\n65% x 5     75% x 5     85% x 5 \n\nMaximum weight will be 220 lbs" ),
           ),
           new Weeks(
-            argTitle: new Text("Week 3"),
-            // subTitle: new Text("5/3/1 sets"),
-            subTitle: new Text("active"),
-            cardIcon: new Icon(Icons.looks_3, color: Colors.red, size: 50.0),
-            weekNum: 3,
+            argTitle: new Text("Week 1"),
+            subTitle: new Text("3 sets of 5 reps\n\n65% x 5     75% x 5     85% x 5 \n\nMaximum weight will be 220 lbs" ),
           ),
           new Weeks(
-            argTitle: new Text("Week 4"),
-            // subTitle: new Text("Deload week"),
-            subTitle: new Text("active"),
-            cardIcon: new Icon(Icons.looks_4, color: Colors.red, size: 50.0),
+            argTitle: new Text("Week 1"),
+            subTitle: new Text("3 sets of 5 reps\n\n65% x 5     75% x 5     85% x 5 \n\nMaximum weight will be 220 lbs" ),
           ),
         ], // List of cards end here
       ),
-    );
-  }
-}
-
-class SecondScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext ctxt) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Multi Page Application Page 2"),
-      ),
-      body: new Text("Another Page...!!!!!!"),
     );
   }
 }
