@@ -33,14 +33,10 @@ class Weeks extends StatefulWidget {
 class _WeekWidgetState extends State<Weeks> {
   String _text = 'active'; // By default each week us active
 
-  void notifyReceiver() async {
-    bool state = await SaveStateHelper.getWeek3();
+  void notifyReceiver() {
     setState(() {
-      if (state) {
-        _text = 'active';
-      } else {
-        _text = 'inactive';
-      }
+      // Empty method just to refresh widget, collecting new data is handled
+      // by FutureBuilder
     });
   }
 
@@ -73,14 +69,24 @@ class _WeekWidgetState extends State<Weeks> {
                 ListTile(
                     leading: widget.cardIcon,
                     title: widget.argTitle,
-                    subtitle: FutureBuilder<Widget>(
+                    subtitle: FutureBuilder<bool>(
                         future: SaveStateHelper.getWeek3(),
                         initialData: true,
-                        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                          return Text("inactive")
-                              ? (snapshot.data)
-                              : Text("active");
-                        })),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<bool> snapshot) {
+                          if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else {
+                            return Text('Results: ${snapshot.data}');
+                            // if (snapshot.data) {
+                            //   return Text('active');
+                            // } else {
+                            //   return Text('inactive');
+                            // }
+                          }
+                        } // End of  builder
+                        ) // End of FutureBuilder
+                    )
               ], // End of list
             ),
           ),
