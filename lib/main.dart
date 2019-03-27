@@ -48,22 +48,18 @@ class _WeekWidgetState extends State<Weeks> {
   @override
   Widget build(BuildContext ctxt) {
     return (new Container(
-      // foregroundDecoration: BoxDecoration(
-      //   color: Colors.grey,
-      //   backgroundBlendMode: BlendMode.saturation,
-      // ),
       margin: new EdgeInsets.only(left: 10.0, right: 10.0, top: 10),
-      child: new SizedBox(
-        width: double.infinity,
-        height: 144.0,
-        child: InkWell(
-          onTap: () {
-            Navigator.push(
-              ctxt,
-              new MaterialPageRoute(builder: (ctxt) => _getNextScreen()),
-            );
-          },
-          child: Card(
+      child: Card(
+        child: new SizedBox(
+          width: double.infinity,
+          height: 144.0,
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                ctxt,
+                new MaterialPageRoute(builder: (ctxt) => _getNextScreen()),
+              );
+            },
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -73,17 +69,20 @@ class _WeekWidgetState extends State<Weeks> {
                   leading: FutureBuilder<bool>(
                       future: SaveStateHelper.getWeek3(),
                       initialData: true,
-                      builder: (BuildContext context,
-                          AsyncSnapshot<bool> snapshot) {
+                      builder:
+                          (BuildContext context, AsyncSnapshot<bool> snapshot) {
                         if (snapshot.hasError) {
-                          return Icon(Icons.check_box_outline_blank, color: Colors.red, size: 50.0);
+                          return Icon(Icons.check_box_outline_blank,
+                              color: Colors.red, size: 50.0);
                         } else {
                           if (snapshot.data == true) {
                             // Still active
-                            return Icon(Icons.check_box_outline_blank, color: Colors.red, size: 50.0);
+                            return Icon(Icons.check_box_outline_blank,
+                                color: Colors.red, size: 50.0);
                           } else {
                             // Inactive
-                            return Icon(Icons.check_box, color: Colors.red, size: 50.0);
+                            return Icon(Icons.check_box,
+                                color: Colors.red, size: 50.0);
                           }
                         }
                       } // End of  builder
@@ -107,19 +106,23 @@ class FirstScreen extends StatelessWidget {
         children: <Widget>[
           new Weeks(
             argTitle: new Text("Week 1"),
-            subTitle: new Text("3 sets of 5 reps\n\n65% x 5     75% x 5     85% x 5 \n\nMaximum weight will be 220 lbs" ),
+            subTitle:
+                new Text("3 sets of 5 reps\n\n65% x 5     75% x 5     85% x 5"),
           ),
           new Weeks(
-            argTitle: new Text("Week 1"),
-            subTitle: new Text("3 sets of 5 reps\n\n65% x 5     75% x 5     85% x 5 \n\nMaximum weight will be 220 lbs" ),
+            argTitle: new Text("Week 2"),
+            subTitle:
+                new Text("3 sets of 3 reps\n\n70% x 3     80% x 3     90% x 3"),
           ),
           new Weeks(
-            argTitle: new Text("Week 1"),
-            subTitle: new Text("3 sets of 5 reps\n\n65% x 5     75% x 5     85% x 5 \n\nMaximum weight will be 220 lbs" ),
+            argTitle: new Text("Week 3"),
+            subTitle: new Text(
+                "3 sets of 5/3/1 reps\n\n75% x 5     85% x 3     95% x 1"),
           ),
           new Weeks(
-            argTitle: new Text("Week 1"),
-            subTitle: new Text("3 sets of 5 reps\n\n65% x 5     75% x 5     85% x 5 \n\nMaximum weight will be 220 lbs" ),
+            argTitle: new Text("Week 4"),
+            subTitle:
+                new Text("Deload week\n\n40% x 5     50% x 5     60% x 5"),
           ),
         ], // List of cards end here
       ),
