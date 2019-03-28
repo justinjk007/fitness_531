@@ -34,5 +34,4 @@ class SaveStateHelper {
     bool val = prefs.getBool(week) ?? false; // If no data exist return false
     return prefs.setBool(week, !val);
   }
-
 }
