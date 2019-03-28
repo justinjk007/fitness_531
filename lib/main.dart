@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'week_card.dart';
+import 'week_widget.dart';
 
 void main() => runApp(MyApp());
 
