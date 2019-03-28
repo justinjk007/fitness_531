@@ -15,64 +15,24 @@ import 'package:shared_preferences/shared_preferences.dart';
 // Some logic
 
 class SaveStateHelper {
-  //////////////////////////////////////////////////////////////////////
-  // These are just keywords(keys) of each saved state aka preference //
-  //////////////////////////////////////////////////////////////////////
-  static final String _week1 = "week1";
-  static final String _week2 = "week2";
-  static final String _week3 = "week3";
-  static final String _week4 = "week4";
-
-  static final String _bench = "bench";
-  static final String _press = "press";
-  static final String _overhead = "overhead";
-  static final String _squat = "squat";
-
-  // Return _week1's value or false if it doesn't exist
-  static Future<bool> getWeek1() async {
+  // Return 'week''s value or false if it doesn't exist
+  static Future<bool> getWeek(String week) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(_week1) ?? false; // If not _week1 return false
+    // week will be strings like 'week1' , 'week2' ...
+    return prefs.getBool(week) ?? false; // If no data exist return false
   }
 
-  // Save _week1's status to disk
-  static Future<bool> setWeek1(bool value) async {
+  // Save 'week''s status to disk
+  static Future<bool> setWeek(String week, bool value) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setBool(_week1, value);
+    return prefs.setBool(week, value);
   }
 
-  // Return _week2's value or false if it doesn't exist
-  static Future<bool> getWeek2() async {
+  // Save inverse of weeks status, so save false if true is in memory
+  static Future<bool> toggleWeek(String week) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(_week2) ?? false; // If not _week2 return false
+    bool val = prefs.getBool(week) ?? false; // If no data exist return false
+    return prefs.setBool(week, !val);
   }
 
-  // Save _week2's status to disk
-  static Future<bool> setWeek2(bool value) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setBool(_week2, value);
-  }
-
-  // Return _week3's value or false if it doesn't exist
-  static Future<bool> getWeek3() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(_week3) ?? false; // If not _week3 return false
-  }
-
-  // Save _week3's status to disk
-  static Future<bool> setWeek3(bool value) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setBool(_week3, value);
-  }
-
-  // Return _week4's value or false if it doesn't exist
-  static Future<bool> getWeek4() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(_week4) ?? false; // If not _week4 return false
-  }
-
-  // Save _week4's status to disk
-  static Future<bool> setWeek4(bool value) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setBool(_week4, value);
-  }
 }

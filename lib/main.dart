@@ -18,12 +18,12 @@ class Weeks extends StatefulWidget {
     Key key,
     this.argTitle,
     this.subTitle,
-    this.weekNum,
+    this.weekID,
   }) : super(key: key);
 
   final Widget argTitle;
   final Widget subTitle;
-  final int weekNum;
+  final String weekID;
   @override
   _WeekWidgetState createState() => _WeekWidgetState();
 }
@@ -31,17 +31,15 @@ class Weeks extends StatefulWidget {
 class _WeekWidgetState extends State<Weeks> {
   void notifyReceiver() {
     setState(() {
-      // Empty method just to refresh widget, collecting new data is handled
-      // by FutureBuilder
+      // Empty method just to refresh widget, collecting new data is handled by
+      // FutureBuilder. It gets data from memory and loads a default if it
+      // doens't find any
     });
   }
 
   Widget _getNextScreen() {
-    // Widget nextScreen = new SecondScreen();
-    // if (widget.weekNum == 1) {
-    //   nextScreen = new ThirdScreen(notifyParent: notifyReceiver);
-    // }
-    Widget nextScreen = new ThirdScreen(notifyParent: notifyReceiver);
+    Widget nextScreen = new ThirdScreen(
+        notifyParent: notifyReceiver, weekIDForChild: widget.weekID);
     return nextScreen;
   }
 
@@ -67,7 +65,7 @@ class _WeekWidgetState extends State<Weeks> {
                   title: widget.argTitle,
                   subtitle: widget.subTitle,
                   leading: FutureBuilder<bool>(
-                      future: SaveStateHelper.getWeek3(),
+                      future: SaveStateHelper.getWeek(widget.weekID),
                       initialData: true,
                       builder:
                           (BuildContext context, AsyncSnapshot<bool> snapshot) {
@@ -105,21 +103,25 @@ class FirstScreen extends StatelessWidget {
       body: new Column(
         children: <Widget>[
           new Weeks(
+            weekID: 'week1',
             argTitle: new Text("Week 1"),
             subTitle:
                 new Text("3 sets of 5 reps\n\n65% x 5     75% x 5     85% x 5"),
           ),
           new Weeks(
+            weekID: 'week2',
             argTitle: new Text("Week 2"),
             subTitle:
                 new Text("3 sets of 3 reps\n\n70% x 3     80% x 3     90% x 3"),
           ),
           new Weeks(
+            weekID: 'week3',
             argTitle: new Text("Week 3"),
             subTitle: new Text(
                 "3 sets of 5/3/1 reps\n\n75% x 5     85% x 3     95% x 1"),
           ),
           new Weeks(
+            weekID: 'week4',
             argTitle: new Text("Week 4"),
             subTitle:
                 new Text("Deload week\n\n40% x 5     50% x 5     60% x 5"),
@@ -132,10 +134,15 @@ class FirstScreen extends StatelessWidget {
 
 class ThirdScreen extends StatelessWidget {
   final Function() notifyParent;
-  ThirdScreen({Key key, @required this.notifyParent}) : super(key: key);
+  final String weekIDForChild;
+  ThirdScreen({
+    Key key,
+    @required this.notifyParent,
+    @required this.weekIDForChild,
+  }) : super(key: key);
 
   void saveData() async {
-    await SaveStateHelper.setWeek3(false);
+    await SaveStateHelper.toggleWeek(weekIDForChild);
     notifyParent();
   }
 
