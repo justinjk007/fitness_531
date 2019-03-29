@@ -27,7 +27,7 @@ class _WeekWidgetState extends State<Weeks> {
   }
 
   Widget _getNextScreen() {
-    Widget nextScreen = new ThirdScreen(
+    Widget nextScreen = new ActivityPage(
         notifyParent: notifyReceiver, weekIDForChild: widget.weekID);
     return nextScreen;
   }
