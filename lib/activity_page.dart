@@ -34,20 +34,34 @@ class ActivityPage extends StatelessWidget {
             Row(
               children: <Widget>[
                 Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.all(8.0),
-                    height: 300,
+                  child: Material(
                     color: Colors.purple[200],
-                    child : Image.asset('assets/squat.png')
+                    elevation: 4.0,
+                    child: Ink.image(
+                      image: AssetImage('assets/squat.png'),
+                      // fit: BoxFit.cover,
+                      width: 120.0,
+                      height: 300.0,
+                      child: InkWell(
+                        onTap: () {},
+                      ),
+                    ),
                   ),
                 ),
                 SizedBox(width: 10.0),
                 Expanded(
-                  child: Container(
-                    height: 300,
-                    padding: const EdgeInsets.all(8.0),
+                  child: Material(
                     color: Colors.blue[200],
-                    child : Image.asset('assets/bench.png')
+                    elevation: 4.0,
+                    child: Ink.image(
+                      image: AssetImage('assets/bench.png'),
+                      // fit: BoxFit.cover,
+                      width: 120.0,
+                      height: 300.0,
+                      child: InkWell(
+                        onTap: () {},
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -56,20 +70,34 @@ class ActivityPage extends StatelessWidget {
             Row(
               children: <Widget>[
                 Expanded(
-                  child: Container(
-                    height: 300,
-                    padding: const EdgeInsets.all(8.0),
-                    color: Colors.yellow[200],
-                    child : Image.asset('assets/deadlift.png')
+                  child: Material(
+                    color: Colors.green[200],
+                    elevation: 4.0,
+                    child: Ink.image(
+                      image: AssetImage('assets/deadlift.png'),
+                      // fit: BoxFit.cover,
+                      width: 120.0,
+                      height: 300.0,
+                      child: InkWell(
+                        onTap: () {},
+                      ),
+                    ),
                   ),
                 ),
                 SizedBox(width: 10.0),
                 Expanded(
-                  child: Container(
-                    height: 300,
-                    padding: const EdgeInsets.all(8.0),
-                    color: Colors.green[200],
-                    child : Image.asset('assets/press.png'),
+                  child: Material(
+                    color: Colors.yellow[200],
+                    elevation: 4.0,
+                    child: Ink.image(
+                      image: AssetImage('assets/press.png'),
+                      // fit: BoxFit.cover,
+                      width: 120.0,
+                      height: 300.0,
+                      child: InkWell(
+                        onTap: () {},
+                      ),
+                    ),
                   ),
                 ),
               ],
