@@ -39,7 +39,7 @@ class _WeekWidgetState extends State<Weeks> {
       child: Card(
         child: new SizedBox(
           width: double.infinity,
-          height: 144.0,
+          height: 130.0,
           child: InkWell(
             onTap: () {
               Navigator.push(
