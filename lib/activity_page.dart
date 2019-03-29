@@ -37,8 +37,8 @@ class ActivityPage extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(8.0),
                     height: 300,
-                    color: Colors.red,
-                    child: new Text("Select today's activity!"),
+                    color: Colors.purple[200],
+                    child : Image.asset('assets/squat.png')
                   ),
                 ),
                 SizedBox(width: 10.0),
@@ -46,8 +46,8 @@ class ActivityPage extends StatelessWidget {
                   child: Container(
                     height: 300,
                     padding: const EdgeInsets.all(8.0),
-                    color: Colors.blue,
-                    child: new Text("Select today's activity!"),
+                    color: Colors.blue[200],
+                    child : Image.asset('assets/bench.png')
                   ),
                 ),
               ],
@@ -59,8 +59,8 @@ class ActivityPage extends StatelessWidget {
                   child: Container(
                     height: 300,
                     padding: const EdgeInsets.all(8.0),
-                    color: Colors.yellow,
-                    child: new Text("Select today's activity!"),
+                    color: Colors.yellow[200],
+                    child : Image.asset('assets/deadlift.png')
                   ),
                 ),
                 SizedBox(width: 10.0),
@@ -68,8 +68,8 @@ class ActivityPage extends StatelessWidget {
                   child: Container(
                     height: 300,
                     padding: const EdgeInsets.all(8.0),
-                    color: Colors.green,
-                    child: new Text("Select today's activity!"),
+                    color: Colors.green[200],
+                    child : Image.asset('assets/press.png'),
                   ),
                 ),
               ],
