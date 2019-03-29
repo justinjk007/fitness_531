@@ -60,16 +60,16 @@ class _WeekWidgetState extends State<Weeks> {
                           (BuildContext context, AsyncSnapshot<bool> snapshot) {
                         if (snapshot.hasError) {
                           return Icon(Icons.check_box_outline_blank,
-                              color: Colors.red, size: 50.0);
+                              color: Colors.red[300], size: 50.0);
                         } else {
                           if (snapshot.data == true) {
                             // Still active
                             return Icon(Icons.check_box_outline_blank,
-                                color: Colors.red, size: 50.0);
+                                color: Colors.red[300], size: 50.0);
                           } else {
                             // Inactive
                             return Icon(Icons.check_box,
-                                color: Colors.red, size: 50.0);
+                                color: Colors.red[300], size: 50.0);
                           }
                         }
                       } // End of  builder
