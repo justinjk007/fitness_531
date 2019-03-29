@@ -22,41 +22,61 @@ class ActivityPage extends StatelessWidget {
       appBar: new AppBar(
         title: new Text("Select today's activity!"),
       ),
-      body: Table(
-        defaultColumnWidth: IntrinsicColumnWidth(),
-        border: TableBorder.all(width: 1, color: Colors.grey),
-        children: [
-          TableRow(
-            children: [
-              TableCell(
-                child: Text("This is first test"),
-              ),
-              TableCell(
-                child: Text("This is second test"),
-              ),
-            ], // End of row 1
-          ),
-          TableRow(
-            children: [
-              TableCell(
-                child: Text("This is third test"),
-              ),
-              TableCell(
-                child: Text("This is fourth test"),
-              ),
-            ], // End of row 2
-          ),
-        ], // End of tables children
+      body: Container(
+        padding: const EdgeInsets.only(
+          left: 40.0,
+          right: 40.0,
+          top: 50,
+          bottom: 50,
+        ),
+        child: new Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    height: 300,
+                    color: Colors.red,
+                    child: new Text("Select today's activity!"),
+                  ),
+                ),
+                SizedBox(width: 10.0),
+                Expanded(
+                  child: Container(
+                    height: 300,
+                    padding: const EdgeInsets.all(8.0),
+                    color: Colors.blue,
+                    child: new Text("Select today's activity!"),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 10.0),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    height: 300,
+                    padding: const EdgeInsets.all(8.0),
+                    color: Colors.yellow,
+                    child: new Text("Select today's activity!"),
+                  ),
+                ),
+                SizedBox(width: 10.0),
+                Expanded(
+                  child: Container(
+                    height: 300,
+                    padding: const EdgeInsets.all(8.0),
+                    color: Colors.green,
+                    child: new Text("Select today's activity!"),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
-      // body: new RaisedButton(
-      //   padding: const EdgeInsets.all(8.0),
-      //   textColor: Colors.white,
-      //   color: Colors.blue,
-      //   onPressed: () {
-      //     saveData();
-      //   },
-      //   child: new Text("Click to notify parent!"),
-      // ),
     );
   }
 }
