@@ -19,7 +19,7 @@ class ActivityPage extends StatelessWidget {
   }
 
   Widget _getNextScreen(String activity, String weekID) {
-    Widget nextScreen = new SetsAndRepsPage(activity:activity, weekID:weekID);
+    Widget nextScreen = new SetsAndRepsPage(activity: activity, weekID: weekID);
     return nextScreen;
   }
 
@@ -45,7 +45,9 @@ class ActivityPage extends StatelessWidget {
                     Navigator.push(
                       ctxt,
                       new MaterialPageRoute(
-                          builder: (ctxt) => _getNextScreen('squat',weekIDForChild)),
+                        builder: (ctxt) =>
+                            _getNextScreen('squat', weekIDForChild),
+                      ),
                     );
                   },
                   image: 'assets/squat.png',
@@ -53,7 +55,15 @@ class ActivityPage extends StatelessWidget {
                 ),
                 SizedBox(width: 10.0),
                 new Activity(
-                  action: saveData,
+                  action: () {
+                    Navigator.push(
+                      ctxt,
+                      new MaterialPageRoute(
+                        builder: (ctxt) =>
+                            _getNextScreen('bench', weekIDForChild),
+                      ),
+                    );
+                  },
                   image: 'assets/bench.png',
                   color: Colors.red[50],
                 ),
@@ -63,13 +73,29 @@ class ActivityPage extends StatelessWidget {
             Row(
               children: <Widget>[
                 new Activity(
-                  action: saveData,
+                  action: () {
+                    Navigator.push(
+                      ctxt,
+                      new MaterialPageRoute(
+                        builder: (ctxt) =>
+                            _getNextScreen('deadlift', weekIDForChild),
+                      ),
+                    );
+                  },
                   image: 'assets/deadlift.png',
                   color: Colors.red[50],
                 ),
                 SizedBox(width: 10.0),
                 new Activity(
-                  action: saveData,
+                  action: () {
+                    Navigator.push(
+                      ctxt,
+                      new MaterialPageRoute(
+                        builder: (ctxt) =>
+                            _getNextScreen('press', weekIDForChild),
+                      ),
+                    );
+                  },
                   image: 'assets/press.png',
                   color: Colors.red[50],
                 ),
