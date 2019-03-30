@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'save_state.dart';
 
-class FirstScreen extends StatelessWidget {
+class SetsAndReps extends StatelessWidget {
   @override
   Widget build(BuildContext ctxt) {
     return ListTile(

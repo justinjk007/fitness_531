@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'save_state.dart';
 import 'activity_widget.dart';
+import 'setsandreps_page.dart';
 
 // This is the page where the four activities of the week are displayed
 class ActivityPage extends StatelessWidget {
@@ -15,6 +16,11 @@ class ActivityPage extends StatelessWidget {
   void saveData() async {
     await SaveStateHelper.toggleWeek(weekIDForChild);
     notifyParent();
+  }
+
+  Widget _getNextScreen() {
+    Widget nextScreen = new SetsAndRepsPage();
+    return nextScreen;
   }
 
   @override
@@ -35,7 +41,13 @@ class ActivityPage extends StatelessWidget {
             Row(
               children: <Widget>[
                 new Activity(
-                  action: saveData,
+                  action: () {
+                    Navigator.push(
+                      ctxt,
+                      new MaterialPageRoute(
+                          builder: (ctxt) => _getNextScreen()),
+                    );
+                  },
                   image: 'assets/squat.png',
                   color: Colors.red[50],
                 ),
