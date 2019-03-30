@@ -17,8 +17,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SaveStateHelper {
   // Return 'week''s value or false if it doesn't exist
   static Future<bool> getWeek(String week) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
     // week will be strings like 'week1' , 'week2' ...
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool(week) ?? false; // If no data exist return false
   }
 
@@ -33,5 +33,16 @@ class SaveStateHelper {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     bool val = prefs.getBool(week) ?? false; // If no data exist return false
     return prefs.setBool(week, !val);
+  }
+
+  static int getMaxRep(String activity) {
+    // The maximum rep of each activity stored in lbs
+    Map<String, int> stuff = {
+      'bench': 225,
+      'press': 225,
+      'deadlift': 250,
+      'squat': 225,
+    };
+    return stuff[activity] ?? null;
   }
 }

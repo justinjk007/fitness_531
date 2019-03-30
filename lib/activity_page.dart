@@ -25,8 +25,8 @@ class ActivityPage extends StatelessWidget {
       ),
       body: Container(
         padding: const EdgeInsets.only(
-          left: 40.0,
-          right: 40.0,
+          left: 40,
+          right: 40,
           top: 50,
           bottom: 50,
         ),
@@ -37,13 +37,13 @@ class ActivityPage extends StatelessWidget {
                 new Activity(
                   action: saveData,
                   image: 'assets/squat.png',
-                  color: Colors.purple[200],
+                  color: Colors.red[50],
                 ),
                 SizedBox(width: 10.0),
                 new Activity(
                   action: saveData,
                   image: 'assets/bench.png',
-                  color: Colors.green[200],
+                  color: Colors.red[50],
                 ),
               ],
             ),
@@ -53,13 +53,13 @@ class ActivityPage extends StatelessWidget {
                 new Activity(
                   action: saveData,
                   image: 'assets/deadlift.png',
-                  color: Colors.blue[200],
+                  color: Colors.red[50],
                 ),
                 SizedBox(width: 10.0),
                 new Activity(
                   action: saveData,
                   image: 'assets/press.png',
-                  color: Colors.yellow[200],
+                  color: Colors.red[50],
                 ),
               ],
             ),
