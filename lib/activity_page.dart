@@ -39,12 +39,9 @@ class ActivityPage extends StatelessWidget {
                     elevation: 4.0,
                     child: Ink.image(
                       image: AssetImage('assets/squat.png'),
-                      // fit: BoxFit.cover,
                       width: 120.0,
-                      height: 300.0,
-                      child: InkWell(
-                        onTap: () {},
-                      ),
+                      height: 250.0,
+                      child: InkWell(onTap: saveData),
                     ),
                   ),
                 ),
@@ -55,12 +52,9 @@ class ActivityPage extends StatelessWidget {
                     elevation: 4.0,
                     child: Ink.image(
                       image: AssetImage('assets/bench.png'),
-                      // fit: BoxFit.cover,
                       width: 120.0,
-                      height: 300.0,
-                      child: InkWell(
-                        onTap: () {},
-                      ),
+                      height: 250.0,
+                      child: InkWell(onTap: saveData),
                     ),
                   ),
                 ),
@@ -75,28 +69,22 @@ class ActivityPage extends StatelessWidget {
                     elevation: 4.0,
                     child: Ink.image(
                       image: AssetImage('assets/deadlift.png'),
-                      // fit: BoxFit.cover,
                       width: 120.0,
-                      height: 300.0,
-                      child: InkWell(
-                        onTap: () {},
-                      ),
+                      height: 250.0,
+                      child: InkWell(onTap: saveData),
                     ),
                   ),
                 ),
                 SizedBox(width: 10.0),
                 Expanded(
                   child: Material(
-                    color: Colors.yellow[200],
+                    color: Colors.red[200],
                     elevation: 4.0,
                     child: Ink.image(
                       image: AssetImage('assets/press.png'),
-                      // fit: BoxFit.cover,
                       width: 120.0,
-                      height: 300.0,
-                      child: InkWell(
-                        onTap: () {},
-                      ),
+                      height: 250.0,
+                      child: InkWell(onTap: saveData),
                     ),
                   ),
                 ),
