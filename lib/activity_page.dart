@@ -18,8 +18,8 @@ class ActivityPage extends StatelessWidget {
     notifyParent();
   }
 
-  Widget _getNextScreen() {
-    Widget nextScreen = new SetsAndRepsPage();
+  Widget _getNextScreen(String activity) {
+    Widget nextScreen = new SetsAndRepsPage(activity:activity);
     return nextScreen;
   }
 
@@ -45,7 +45,7 @@ class ActivityPage extends StatelessWidget {
                     Navigator.push(
                       ctxt,
                       new MaterialPageRoute(
-                          builder: (ctxt) => _getNextScreen()),
+                          builder: (ctxt) => _getNextScreen('squat')),
                     );
                   },
                   image: 'assets/squat.png',
