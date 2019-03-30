@@ -20,7 +20,7 @@ class ActivityPage extends StatelessWidget {
   Widget build(BuildContext ctxt) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("Select today's activity!"),
+        title: new Text("Select today's activity"),
       ),
       body: Container(
         padding: const EdgeInsets.only(
@@ -34,27 +34,59 @@ class ActivityPage extends StatelessWidget {
             Row(
               children: <Widget>[
                 Expanded(
-                  child: Material(
-                    color: Colors.purple[200],
-                    elevation: 4.0,
-                    child: Ink.image(
-                      image: AssetImage('assets/squat.png'),
-                      width: 120.0,
-                      height: 250.0,
-                      child: InkWell(onTap: saveData),
+                  child: SizedBox(
+                    height: 250,
+                    child: Material(
+                      color: Colors.purple[200],
+                      elevation: 4.0,
+                      child: Stack(
+                        children: [
+                          Center(
+                            child: Icon(Icons.beenhere,
+                                color: Colors.white.withOpacity(0.5),
+                                size: 150.0),
+                          ),
+                          Positioned.fill(
+                            child: Ink.image(
+                              image: AssetImage('assets/squat.png'),
+                              width: 120.0,
+                              child: InkWell(
+                                onTap: saveData,
+                                splashColor: Colors.red[200],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(width: 10.0),
                 Expanded(
-                  child: Material(
-                    color: Colors.blue[200],
-                    elevation: 4.0,
-                    child: Ink.image(
-                      image: AssetImage('assets/bench.png'),
-                      width: 120.0,
-                      height: 250.0,
-                      child: InkWell(onTap: saveData),
+                  child: SizedBox(
+                    height: 250,
+                    child: Material(
+                      color: Colors.green[200],
+                      elevation: 4.0,
+                      child: Stack(
+                        children: [
+                          Center(
+                            child: Icon(Icons.beenhere,
+                                color: Colors.white.withOpacity(0.5),
+                                size: 150.0),
+                          ),
+                          Positioned.fill(
+                            child: Ink.image(
+                              image: AssetImage('assets/bench.png'),
+                              width: 120.0,
+                              child: InkWell(
+                                onTap: saveData,
+                                splashColor: Colors.red[200],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -64,27 +96,59 @@ class ActivityPage extends StatelessWidget {
             Row(
               children: <Widget>[
                 Expanded(
-                  child: Material(
-                    color: Colors.green[200],
-                    elevation: 4.0,
-                    child: Ink.image(
-                      image: AssetImage('assets/deadlift.png'),
-                      width: 120.0,
-                      height: 250.0,
-                      child: InkWell(onTap: saveData),
+                  child: SizedBox(
+                    height: 250,
+                    child: Material(
+                      color: Colors.blue[200],
+                      elevation: 4.0,
+                      child: Stack(
+                        children: [
+                          Center(
+                            child: Icon(Icons.beenhere,
+                                color: Colors.white.withOpacity(0.5),
+                                size: 150.0),
+                          ),
+                          Positioned.fill(
+                            child: Ink.image(
+                              image: AssetImage('assets/deadlift.png'),
+                              width: 120.0,
+                              child: InkWell(
+                                onTap: saveData,
+                                splashColor: Colors.red[200],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(width: 10.0),
                 Expanded(
-                  child: Material(
-                    color: Colors.red[200],
-                    elevation: 4.0,
-                    child: Ink.image(
-                      image: AssetImage('assets/press.png'),
-                      width: 120.0,
-                      height: 250.0,
-                      child: InkWell(onTap: saveData),
+                  child: SizedBox(
+                    height: 250,
+                    child: Material(
+                      color: Colors.yellow[200],
+                      elevation: 4.0,
+                      child: Stack(
+                        children: [
+                          Center(
+                            child: Icon(Icons.beenhere,
+                                color: Colors.white.withOpacity(0.5),
+                                size: 150.0),
+                          ),
+                          Positioned.fill(
+                            child: Ink.image(
+                              image: AssetImage('assets/press.png'),
+                              width: 120.0,
+                              child: InkWell(
+                                onTap: saveData,
+                                splashColor: Colors.red[200],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
