@@ -6,12 +6,10 @@ class SetsAndReps extends StatelessWidget {
     Key key,
     this.argTitle,
     this.subTitle,
-    this.weekID,
   }) : super(key: key);
 
   final String argTitle;
   final String subTitle;
-  final String weekID;
 
   @override
   Widget build(BuildContext ctxt) {

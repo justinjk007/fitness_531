@@ -33,3 +33,7 @@ https://pub.dartlang.org/packages/flutter_launcher_icons
 On android, every size of the splash screen image name
 =ic_launcher.png= is just the raw image(same size), just so the icon
 splash screen is bigger.
+
+** References
+
+- https://exrx.net/WeightTraining/Powerlifting/531
