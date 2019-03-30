@@ -34,7 +34,7 @@ class _ActivityWidgetState extends State<Activity> {
             children: [
               Center(
                 child: Icon(Icons.beenhere,
-                    color: Colors.white.withOpacity(0.5), size: 150.0),
+                    color: Colors.red[300].withOpacity(0.5), size: 150.0),
               ),
               Positioned.fill(
                 child: Ink.image(
