@@ -16,6 +16,11 @@ class Calc {
   }
 
   static String getRealSet(int repMax, int setNum, String weekID) {
+    var val = getRealSetVals(repMax, setNum, weekID);
+    return ("${val[0]} x ${val[1]}");
+  }
+
+  static List getRealSetVals(int repMax, int setNum, String weekID) {
     double weight;
     int repNum = 5;
     if (weekID == 'week1') {
@@ -27,7 +32,7 @@ class Calc {
       } else if (setNum == 3) {
         weight = repMax * 0.85;
       } else {
-        return ("Can't calculate reps for set: $setNum");
+        return null;
       }
     } else if (weekID == 'week2') {
       repNum = 3;
@@ -38,7 +43,7 @@ class Calc {
       } else if (setNum == 3) {
         weight = repMax * 0.90;
       } else {
-        return ("Can't calculate reps for set: $setNum");
+        return null;
       }
     } else if (weekID == 'week3') {
       if (setNum == 1) {
@@ -51,7 +56,7 @@ class Calc {
         repNum = 1;
         weight = repMax * 0.95;
       } else {
-        return ("Can't calculate reps for set: $setNum");
+        return null;
       }
     } else if (weekID == 'week4') {
       repNum = 5;
@@ -62,14 +67,14 @@ class Calc {
       } else if (setNum == 3) {
         weight = repMax * 0.60;
       } else {
-        return ("Can't calculate reps for set: $setNum");
+        return null;
       }
     } else {
-      return ("Can't calculate reps for $weekID");
+      return null;
     }
 
     weight = weight + ((5 - (weight % 5)) % 5); // Rounding to the nearest 5
-    return ("$weight x $repNum");
+    return [weight, repNum];
   }
 
   static String getAssistanceSet(int repMax) {
@@ -77,5 +82,33 @@ class Calc {
     weight = repMax * 0.5; // 50% of RM
     weight = weight + ((5 - (weight % 5)) % 5); // Rounding to the nearest 5
     return ("$weight x 5 x 10");
+  }
+
+  static String plateCalculator(int repMax, int setNum, String weekID) {
+    // index 0 returns the weight for this set
+    double weight = getRealSetVals(repMax, setNum, weekID)[0];
+    const double BAR_WEIGHT = 45; // lbs
+    var plates = [45, 35, 25, 10, 5, 2.5];
+    var plateCount = [0, 0, 0, 0, 0, 0];
+
+    if (weight < BAR_WEIGHT) {
+      return ("No plates required");
+    }
+    double weightAfterBar = weight - BAR_WEIGHT;
+
+    for (int i = 0; i < plates.length; i++) {
+      while (weightAfterBar / plates[i] >= 2) {
+        weightAfterBar -= (plates[i] * 2);
+        plateCount[i] += 2;
+      }
+    }
+    String val = "Load ";
+    for (int j = 0; j < plates.length; j++) {
+      int plateNum = plateCount[j] ~/ 2;
+      if (plateNum != 0) {
+        val += "$plateNum ${plates[j]}lb plates ";
+      }
+    }
+    return val;
   }
 }

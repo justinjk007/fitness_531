@@ -64,7 +64,8 @@ class SetsAndRepsPage extends StatelessWidget {
             SetsAndReps(
               argTitle: Calc.getRealSet(
                   SaveStateHelper.getMaxRep(activity), 1, weekID),
-              subTitle: "    Real $activity set 1",
+              subTitle: "    Real $activity set 1"
+                  "\n    ${Calc.plateCalculator(SaveStateHelper.getMaxRep(activity), 1, weekID)}",
             ),
             SizedBox(height: 15.0),
             SetsAndReps(
