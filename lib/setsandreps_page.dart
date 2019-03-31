@@ -21,6 +21,21 @@ class SetsAndRepsPage extends StatelessWidget {
     notifyParent();
   }
 
+  String getAssistanceActivity(String activity) {
+    // Return the assistance activity done with a particular activity
+    switch (activity) {
+      case 'bench':
+        return 'press';
+      case 'press':
+        return 'bench';
+      case 'deadlift':
+        return 'squat';
+      case 'squat':
+        return 'deadlift';
+    }
+    return 'This is impossible';
+  }
+
   @override
   Widget build(BuildContext ctxt) {
     return new Scaffold(
@@ -62,6 +77,13 @@ class SetsAndRepsPage extends StatelessWidget {
               argTitle: Calc.getRealSet(
                   SaveStateHelper.getMaxRep(activity), 3, weekID),
               subTitle: "    Real $activity set 3",
+            ),
+            SizedBox(height: 15.0),
+            SetsAndReps(
+              argTitle: Calc.getAssistanceSet(
+                  SaveStateHelper.getMaxRep(getAssistanceActivity(activity))),
+              subTitle:
+                  "    Assistance ${getAssistanceActivity(activity)} sets",
             ),
           ],
         ),

@@ -71,4 +71,11 @@ class Calc {
     weight = weight + ((5 - (weight % 5)) % 5); // Rounding to the nearest 5
     return ("$weight x $repNum");
   }
+
+  static String getAssistanceSet(int repMax) {
+    double weight;
+    weight = repMax * 0.5; // 50% of RM
+    weight = weight + ((5 - (weight % 5)) % 5); // Rounding to the nearest 5
+    return ("$weight x 5 x 10");
+  }
 }
