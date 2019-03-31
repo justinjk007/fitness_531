@@ -59,7 +59,7 @@ class _ActivityWidgetState extends State<Activity> {
                     widget.weekID,
                     widget.activity,
                   ), // This is where Future is trying to get data from
-                  initialData: true,
+                  initialData: false,
                   builder:
                       (BuildContext context, AsyncSnapshot<bool> snapshot) {
                     if (snapshot.hasError) {
@@ -67,11 +67,11 @@ class _ActivityWidgetState extends State<Activity> {
                           color: Colors.red[300].withOpacity(0.5), size: 0);
                     } else {
                       if (snapshot.data == true) {
-                        // Still active
+                        // Item is marked undone
                         return Icon(Icons.beenhere,
                             color: Colors.red[300].withOpacity(0.5), size: 0);
                       } else {
-                        // Inactive
+                        // Item is marked done
                         return Icon(Icons.beenhere,
                             color: Colors.red[300].withOpacity(0.5), size: 150);
                       }

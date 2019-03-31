@@ -13,7 +13,6 @@ class ActivityPage extends StatelessWidget {
   }) : super(key: key);
 
   void saveData() async {
-    await SaveStateHelper.toggleWeek(weekIDForChild);
     notifyParent();
   }
 

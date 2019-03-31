@@ -23,6 +23,8 @@ class _WeekWidgetState extends State<Weeks> {
       // Empty method just to refresh widget, collecting new data is handled by
       // FutureBuilder. It gets data from memory and loads a default if it
       // doens't find any
+
+      // This will refresh week widgets status
     });
   }
 
@@ -63,11 +65,11 @@ class _WeekWidgetState extends State<Weeks> {
                             color: Colors.red[300], size: 50.0);
                       } else {
                         if (snapshot.data == true) {
-                          // Still active
+                          // Item is marked undone
                           return Icon(Icons.check_box_outline_blank,
                               color: Colors.red[300], size: 50.0);
                         } else {
-                          // Inactive
+                          // Item is marked done
                           return Icon(Icons.check_box,
                               color: Colors.red[300], size: 50.0);
                         }
