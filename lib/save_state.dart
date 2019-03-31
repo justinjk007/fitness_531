@@ -22,17 +22,49 @@ class SaveStateHelper {
     return prefs.getBool(week) ?? false; // If no data exist return false
   }
 
-  // Save 'week''s status to disk
-  static Future<bool> setWeek(String week, bool value) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setBool(week, value);
-  }
-
   // Save inverse of weeks status, so save false if true is in memory
   static Future<bool> toggleWeek(String week) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     bool val = prefs.getBool(week) ?? false; // If no data exist return false
     return prefs.setBool(week, !val);
+  }
+
+  // Return each activities if complete or not status
+  static Future<bool> getActivity(String week, String activity) async {
+    // week will be strings like 'week1' , 'week2' ...
+    // activity will be strings like 'press', 'bench' ...
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool weekStatus =
+        prefs.getBool(week) ?? false; // If no data exist return false
+    if (weekStatus) {
+      // Week is marked complete so anything in here should be complete
+      return true;
+    } else {
+      // Week is not marked complete so return activity status
+      return prefs.getBool(activity) ?? false; // If no data exist return false
+    }
+  }
+
+  // Save inverse of activities status
+  static Future<bool> toggleActivity(String week, String activity) async {
+    // week will be strings like 'week1' , 'week2' ...
+    // activity will be strings like 'press', 'bench' ...
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool val =
+        prefs.getBool(activity) ?? false; // If no data exist return false
+    prefs.setBool(activity, !val); // Set activity status
+
+    bool benchStatus = prefs.getBool('bench') ?? false;
+    bool squatStatus = prefs.getBool('squat') ?? false;
+    bool deadliftStatus = prefs.getBool('deadlift') ?? false;
+    bool pressStatus = prefs.getBool('press') ?? false;
+
+    if (benchStatus && squatStatus && deadliftStatus && pressStatus) {
+      // if all activities are done this week is done
+      return prefs.setBool(week, true);
+    } else {
+      return prefs.setBool(week, false);
+    }
   }
 
   static int getMaxRep(String activity) {

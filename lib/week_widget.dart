@@ -54,26 +54,26 @@ class _WeekWidgetState extends State<Weeks> {
                   title: widget.argTitle,
                   subtitle: widget.subTitle,
                   leading: FutureBuilder<bool>(
-                      future: SaveStateHelper.getWeek(widget.weekID),
-                      initialData: true,
-                      builder:
-                          (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                        if (snapshot.hasError) {
+                    future: SaveStateHelper.getWeek(widget.weekID),
+                    initialData: true,
+                    builder:
+                        (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                      if (snapshot.hasError) {
+                        return Icon(Icons.check_box_outline_blank,
+                            color: Colors.red[300], size: 50.0);
+                      } else {
+                        if (snapshot.data == true) {
+                          // Still active
                           return Icon(Icons.check_box_outline_blank,
                               color: Colors.red[300], size: 50.0);
                         } else {
-                          if (snapshot.data == true) {
-                            // Still active
-                            return Icon(Icons.check_box_outline_blank,
-                                color: Colors.red[300], size: 50.0);
-                          } else {
-                            // Inactive
-                            return Icon(Icons.check_box,
-                                color: Colors.red[300], size: 50.0);
-                          }
+                          // Inactive
+                          return Icon(Icons.check_box,
+                              color: Colors.red[300], size: 50.0);
                         }
-                      } // End of  builder
-                      ), // End of FutureBuilder
+                      }
+                    }, // End of  builder
+                  ), // End of FutureBuilder
                 )
               ], // End of list
             ),

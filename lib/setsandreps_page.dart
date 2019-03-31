@@ -9,16 +9,23 @@ class SetsAndRepsPage extends StatelessWidget {
     Key key,
     this.activity,
     this.weekID,
+    this.notifyParent,
   }) : super(key: key);
 
   final String activity;
   final String weekID;
+  final Function notifyParent; // Call back to notify if activity is complete
+
+  void saveDataandRefreshParent() async {
+    await SaveStateHelper.toggleActivity(weekID, activity);
+    notifyParent();
+  }
 
   @override
   Widget build(BuildContext ctxt) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("Today's sets and reps for $activity"),
+        title: new Text("Today's sets for $activity"),
       ),
       body: Padding(
         padding: EdgeInsets.all(10.0),
@@ -60,9 +67,10 @@ class SetsAndRepsPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: saveDataandRefreshParent,
         icon: Icon(Icons.done_all),
         label: Text("Done"),
+        tooltip: "Mark today's activities done !",
         backgroundColor: Colors.red[400],
       ),
     );

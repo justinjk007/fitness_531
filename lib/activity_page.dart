@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'save_state.dart';
 import 'activity_widget.dart';
-import 'setsandreps_page.dart';
 
 // This is the page where the four activities of the week are displayed
 class ActivityPage extends StatelessWidget {
-  final Function() notifyParent;
+  final Function notifyParent;
   final String weekIDForChild;
   ActivityPage({
     Key key,
@@ -16,11 +15,6 @@ class ActivityPage extends StatelessWidget {
   void saveData() async {
     await SaveStateHelper.toggleWeek(weekIDForChild);
     notifyParent();
-  }
-
-  Widget _getNextScreen(String activity, String weekID) {
-    Widget nextScreen = new SetsAndRepsPage(activity: activity, weekID: weekID);
-    return nextScreen;
   }
 
   @override
@@ -41,31 +35,17 @@ class ActivityPage extends StatelessWidget {
             Row(
               children: <Widget>[
                 new Activity(
-                  action: () {
-                    Navigator.push(
-                      ctxt,
-                      new MaterialPageRoute(
-                        builder: (ctxt) =>
-                            _getNextScreen('squat', weekIDForChild),
-                      ),
-                    );
-                  },
                   image: 'assets/squat.png',
                   color: Colors.red[50],
+                  activity: 'squat',
+                  weekID: weekIDForChild,
                 ),
                 SizedBox(width: 10.0),
                 new Activity(
-                  action: () {
-                    Navigator.push(
-                      ctxt,
-                      new MaterialPageRoute(
-                        builder: (ctxt) =>
-                            _getNextScreen('bench', weekIDForChild),
-                      ),
-                    );
-                  },
                   image: 'assets/bench.png',
                   color: Colors.red[50],
+                  activity: 'bench',
+                  weekID: weekIDForChild,
                 ),
               ],
             ),
@@ -73,31 +53,17 @@ class ActivityPage extends StatelessWidget {
             Row(
               children: <Widget>[
                 new Activity(
-                  action: () {
-                    Navigator.push(
-                      ctxt,
-                      new MaterialPageRoute(
-                        builder: (ctxt) =>
-                            _getNextScreen('deadlift', weekIDForChild),
-                      ),
-                    );
-                  },
                   image: 'assets/deadlift.png',
                   color: Colors.red[50],
+                  activity: 'deadlift',
+                  weekID: weekIDForChild,
                 ),
                 SizedBox(width: 10.0),
                 new Activity(
-                  action: () {
-                    Navigator.push(
-                      ctxt,
-                      new MaterialPageRoute(
-                        builder: (ctxt) =>
-                            _getNextScreen('press', weekIDForChild),
-                      ),
-                    );
-                  },
                   image: 'assets/press.png',
                   color: Colors.red[50],
+                  activity: 'press',
+                  weekID: weekIDForChild,
                 ),
               ],
             ),
