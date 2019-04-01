@@ -21,147 +21,36 @@ class CustomCard extends StatelessWidget {
   Widget getPlatesWidget(double weight) {
     Map<double, int> platesMap = Calc.getPlateCalculatorMap(weight);
 
+    bool noPlatesRequired = true;
+
+    for (var plateCount in platesMap.values) {
+      if (plateCount != 0) {
+        noPlatesRequired = false;
+      }
+    }
+
+    if (noPlatesRequired) {
+      return Row(
+        children: [
+          SizedBox(width: 5),
+          Text(
+            "No plates required!",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 17,
+            ),
+          ),
+        ],
+      );
+    }
+
     return Row(
       children: [
-        Visibility(
-          visible: !checkEqual(platesMap[2.5], 0),
-          child: Row(
-            children: [
-              Text(
-                "${platesMap[2.5]} x ",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
-                ),
-              ),
-              Image.asset(
-                'assets/2.5.png',
-                width: 17,
-                height: 17,
-                fit: BoxFit.cover,
-              ),
-              Text(
-                " · ",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
-                ),
-              ),
-            ],
-          ),
-        ), // Visibility widget ends her
-        Visibility(
-          visible: !checkEqual(platesMap[5], 0),
-          child: Row(
-            children: [
-              Text(
-                "${platesMap[5]} x ",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
-                ),
-              ),
-              Image.asset(
-                'assets/5.png',
-                width: 17,
-                height: 17,
-                fit: BoxFit.cover,
-              ),
-              Text(
-                " · ",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
-                ),
-              ),
-            ],
-          ),
-        ), // Visibility widget ends her
-        Visibility(
-          visible: !checkEqual(platesMap[10], 0),
-          child: Row(
-            children: [
-              Text(
-                "${platesMap[10]} x ",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
-                ),
-              ),
-              Image.asset(
-                'assets/10.png',
-                width: 17,
-                height: 17,
-                fit: BoxFit.cover,
-              ),
-              Text(
-                " · ",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
-                ),
-              ),
-            ],
-          ),
-        ), // Visibility widget ends her
-        Visibility(
-          visible: !checkEqual(platesMap[25], 0),
-          child: Row(
-            children: [
-              Text(
-                "${platesMap[25]} x ",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
-                ),
-              ),
-              Image.asset(
-                'assets/25.png',
-                width: 17,
-                height: 17,
-                fit: BoxFit.cover,
-              ),
-              Text(
-                " · ",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
-                ),
-              ),
-            ],
-          ),
-        ), // Visibility widget ends her
-        Visibility(
-          visible: !checkEqual(platesMap[35], 0),
-          child: Row(
-            children: [
-              Text(
-                "${platesMap[35]} x ",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
-                ),
-              ),
-              Image.asset(
-                'assets/35.png',
-                width: 17,
-                height: 17,
-                fit: BoxFit.cover,
-              ),
-              Text(
-                " · ",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
-                ),
-              ),
-            ],
-          ),
-        ), // Visibility widget ends her
         Visibility(
           visible: !checkEqual(platesMap[45], 0),
           child: Row(
             children: [
+              SizedBox(width: 5),
               Text(
                 "${platesMap[45]} x ",
                 style: TextStyle(
@@ -175,11 +64,122 @@ class CustomCard extends StatelessWidget {
                 height: 17,
                 fit: BoxFit.cover,
               ),
+              SizedBox(width: 5),
             ],
           ),
         ),
+        Visibility(
+          visible: !checkEqual(platesMap[35], 0),
+          child: Row(
+            children: [
+              SizedBox(width: 5),
+              Text(
+                "${platesMap[35]} x ",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17,
+                ),
+              ),
+              Image.asset(
+                'assets/35.png',
+                width: 17,
+                height: 17,
+                fit: BoxFit.cover,
+              ),
+              SizedBox(width: 5),
+            ],
+          ),
+        ), // Visibility widget ends her
+        Visibility(
+          visible: !checkEqual(platesMap[25], 0),
+          child: Row(
+            children: [
+              SizedBox(width: 5),
+              Text(
+                "${platesMap[25]} x ",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17,
+                ),
+              ),
+              Image.asset(
+                'assets/25.png',
+                width: 17,
+                height: 17,
+                fit: BoxFit.cover,
+              ),
+              SizedBox(width: 5),
+            ],
+          ),
+        ), // Visibility widget ends her
+        Visibility(
+          visible: !checkEqual(platesMap[10], 0),
+          child: Row(
+            children: [
+              SizedBox(width: 5),
+              Text(
+                "${platesMap[10]} x ",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17,
+                ),
+              ),
+              Image.asset(
+                'assets/10.png',
+                width: 17,
+                height: 17,
+                fit: BoxFit.cover,
+              ),
+              SizedBox(width: 5),
+            ],
+          ),
+        ), // Visibility widget ends her
+        Visibility(
+          visible: !checkEqual(platesMap[5], 0),
+          child: Row(
+            children: [
+              SizedBox(width: 5),
+              Text(
+                "${platesMap[5]} x ",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17,
+                ),
+              ),
+              Image.asset(
+                'assets/5.png',
+                width: 17,
+                height: 17,
+                fit: BoxFit.cover,
+              ),
+              SizedBox(width: 5),
+            ],
+          ),
+        ), // Visibility widget ends her
+        Visibility(
+          visible: !checkEqual(platesMap[2.5], 0),
+          child: Row(
+            children: [
+              SizedBox(width: 5),
+              Text(
+                "${platesMap[2.5]} x ",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17,
+                ),
+              ),
+              Image.asset(
+                'assets/2.5.png',
+                width: 17,
+                height: 17,
+                fit: BoxFit.cover,
+              ),
+              SizedBox(width: 5),
+            ],
+          ),
+        ), // Visibility widget ends her
       ],
-    ); // Visibility widget ends her
+    );
   }
 
   @override
