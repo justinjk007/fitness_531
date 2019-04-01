@@ -42,47 +42,69 @@ class SetsAndRepsPage extends StatelessWidget {
       appBar: new AppBar(
         title: new Text("Today's sets for $activity"),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(10.0),
-        child: ListView(
-          children: <Widget>[
-            CustomCard(
-              argTitle: Calc.getWarmup(SaveStateHelper.getMaxRep(activity), 1),
-              subTitle: "    Warmup set 1",
-            ),
-            CustomCard(
-              argTitle: Calc.getWarmup(SaveStateHelper.getMaxRep(activity), 2),
-              subTitle: "    Warmup set 2",
-            ),
-            CustomCard(
-              argTitle: Calc.getWarmup(SaveStateHelper.getMaxRep(activity), 3),
-              subTitle: "    Warmup set 3",
-            ),
-            CustomCard(
-              argTitle: Calc.getRealSet(
-                  SaveStateHelper.getMaxRep(activity), 1, weekID),
-              subTitle: "    Real $activity set 1"
-                  "\n    ${Calc.plateCalculator(SaveStateHelper.getMaxRep(activity), 1, weekID)}",
-            ),
-            CustomCard(
-              argTitle: Calc.getRealSet(
-                  SaveStateHelper.getMaxRep(activity), 2, weekID),
-              subTitle: "    Real $activity set 2",
-            ),
-            CustomCard(
-              argTitle: Calc.getRealSet(
-                  SaveStateHelper.getMaxRep(activity), 3, weekID),
-              subTitle: "    Real $activity set 3",
-            ),
-            CustomCard(
-              argTitle: Calc.getAssistanceSet(
-                  SaveStateHelper.getMaxRep(getAssistanceActivity(activity))),
-              subTitle:
-                  "    Assistance ${getAssistanceActivity(activity)} sets",
-            ),
-            SizedBox(height: 60),
-          ],
-        ),
+      body: ListView(
+        children: <Widget>[
+          CustomCard(
+            argTitle: Calc.getWarmup(SaveStateHelper.getMaxRep(activity), 1),
+            subTitle: "    Warmup set 1",
+            setWeight: Calc.getWarmupVals(
+              SaveStateHelper.getMaxRep(activity),
+              1,
+            )[0], // First index of the list is this sets weight
+          ),
+          CustomCard(
+            argTitle: Calc.getWarmup(SaveStateHelper.getMaxRep(activity), 2),
+            subTitle: "    Warmup set 2",
+            setWeight: Calc.getWarmupVals(
+              SaveStateHelper.getMaxRep(activity),
+              2,
+            )[0], // First index of the list is this sets weight
+          ),
+          CustomCard(
+            argTitle: Calc.getWarmup(SaveStateHelper.getMaxRep(activity), 3),
+            subTitle: "    Warmup set 3",
+            setWeight: Calc.getWarmupVals(
+              SaveStateHelper.getMaxRep(activity),
+              3,
+            )[0], // First index of the list is this sets weight
+          ),
+          CustomCard(
+            argTitle:
+                Calc.getRealSet(SaveStateHelper.getMaxRep(activity), 1, weekID),
+            subTitle: "    Real $activity set 1",
+            setWeight: Calc.getRealSetVals(
+              SaveStateHelper.getMaxRep(activity),
+              1,
+              weekID,
+            )[0], // First index of the list is this sets weight
+          ),
+          CustomCard(
+            argTitle:
+                Calc.getRealSet(SaveStateHelper.getMaxRep(activity), 2, weekID),
+            subTitle: "    Real $activity set 2",
+            setWeight: Calc.getRealSetVals(
+              SaveStateHelper.getMaxRep(activity),
+              2,
+              weekID,
+            )[0], // First index of the list is this sets weight
+          ),
+          CustomCard(
+            argTitle:
+                Calc.getRealSet(SaveStateHelper.getMaxRep(activity), 3, weekID),
+            subTitle: "    Real $activity set 3",
+            setWeight: Calc.getRealSetVals(
+              SaveStateHelper.getMaxRep(activity),
+              3,
+              weekID,
+            )[0], // First index of the list is this sets weight
+          ),
+          // CustomCard(
+          //   argTitle: Calc.getAssistanceSet(
+          //       SaveStateHelper.getMaxRep(getAssistanceActivity(activity))),
+          //   subTitle: "    Assistance ${getAssistanceActivity(activity)} sets",
+          // ),
+          SizedBox(height: 60),
+        ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: saveDataandRefreshParent,

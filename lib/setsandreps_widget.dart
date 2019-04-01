@@ -1,45 +1,140 @@
 import 'package:flutter/material.dart';
 import 'save_state.dart';
-
-class SetsAndReps extends StatelessWidget {
-  SetsAndReps({
-    Key key,
-    this.argTitle,
-    this.subTitle,
-  }) : super(key: key);
-
-  final String argTitle;
-  final String subTitle;
-
-  @override
-  Widget build(BuildContext ctxt) {
-    return ListTile(
-      title: Text(
-        argTitle,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 40,
-        ),
-      ),
-      subtitle: Text(
-        subTitle,
-        style: TextStyle(
-          color: Colors.red[200],
-        ),
-      ),
-    );
-  }
-}
+import 'calc.dart';
 
 class CustomCard extends StatelessWidget {
   CustomCard({
     Key key,
     this.argTitle,
     this.subTitle,
+    this.setWeight,
   }) : super(key: key);
 
   final String argTitle;
   final String subTitle;
+  final double setWeight;
+
+  Widget getPlatesWidget(double weight) {
+    Map<double, int> platesMap = Calc.getPlateCalculatorMap(weight);
+
+    return Row(
+      children: [
+        Text(
+          "${platesMap[2.5]} x ",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 17,
+          ),
+        ),
+        Image.asset(
+          'assets/2.5.png',
+          width: 17,
+          height: 17,
+          fit: BoxFit.cover,
+        ),
+        Text(
+          " · ",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 17,
+          ),
+        ),
+        Text(
+          "${platesMap[5]} x ",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 17,
+          ),
+        ),
+        Image.asset(
+          'assets/5.png',
+          width: 17,
+          height: 17,
+          fit: BoxFit.cover,
+        ),
+        Text(
+          " · ",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 17,
+          ),
+        ),
+        Text(
+          "${platesMap[10]} x ",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 17,
+          ),
+        ),
+        Image.asset(
+          'assets/10.png',
+          width: 17,
+          height: 17,
+          fit: BoxFit.cover,
+        ),
+        Text(
+          " · ",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 17,
+          ),
+        ),
+        Text(
+          "${platesMap[25]} x ",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 17,
+          ),
+        ),
+        Image.asset(
+          'assets/25.png',
+          width: 17,
+          height: 17,
+          fit: BoxFit.cover,
+        ),
+        Text(
+          " · ",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 17,
+          ),
+        ),
+        Text(
+          "${platesMap[35]} x ",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 17,
+          ),
+        ),
+        Image.asset(
+          'assets/35.png',
+          width: 17,
+          height: 17,
+          fit: BoxFit.cover,
+        ),
+        Text(
+          " · ",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 17,
+          ),
+        ),
+        Text(
+          "${platesMap[45]} x ",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 17,
+          ),
+        ),
+        Image.asset(
+          'assets/45.png',
+          width: 17,
+          height: 17,
+          fit: BoxFit.cover,
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext ctxt) {
@@ -90,123 +185,7 @@ class CustomCard extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20),
-                Row(
-                  children: [
-                    Text(
-                      "5 x ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17,
-                      ),
-                    ),
-                    Image.asset(
-                      'assets/2.5.png',
-                      width: 17,
-                      height: 17,
-                      fit: BoxFit.cover,
-                    ),
-                    Text(
-                      " · ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17,
-                      ),
-                    ),
-                    Text(
-                      "5 x ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17,
-                      ),
-                    ),
-                    Image.asset(
-                      'assets/5.png',
-                      width: 17,
-                      height: 17,
-                      fit: BoxFit.cover,
-                    ),
-                    Text(
-                      " · ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17,
-                      ),
-                    ),
-                    Text(
-                      "5 x ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17,
-                      ),
-                    ),
-                    Image.asset(
-                      'assets/10.png',
-                      width: 17,
-                      height: 17,
-                      fit: BoxFit.cover,
-                    ),
-                    Text(
-                      " · ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17,
-                      ),
-                    ),
-                    Text(
-                      "5 x ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17,
-                      ),
-                    ),
-                    Image.asset(
-                      'assets/25.png',
-                      width: 17,
-                      height: 17,
-                      fit: BoxFit.cover,
-                    ),
-                    Text(
-                      " · ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17,
-                      ),
-                    ),
-                    Text(
-                      "5 x ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17,
-                      ),
-                    ),
-                    Image.asset(
-                      'assets/35.png',
-                      width: 17,
-                      height: 17,
-                      fit: BoxFit.cover,
-                    ),
-                    Text(
-                      " · ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17,
-                      ),
-                    ),
-                    Text(
-                      "5 x ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17,
-                      ),
-                    ),
-                    Image.asset(
-                      'assets/45.png',
-                      width: 17,
-                      height: 17,
-                      fit: BoxFit.cover,
-                    ),
-                  ],
-                ),
+                getPlatesWidget(setWeight),
               ],
             ),
           ),
