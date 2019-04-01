@@ -1,7 +1,7 @@
 class Calc {
   static String getWarmup(int repMax, int setNum) {
     var val = getWarmupVals(repMax, setNum);
-    return ("${val[0]} x ${val[1]}");
+    return ("${val[0].toInt()} x ${val[1]}");
   }
 
   static List getWarmupVals(int repMax, int setNum) {
@@ -23,7 +23,7 @@ class Calc {
 
   static String getRealSet(int repMax, int setNum, String weekID) {
     var val = getRealSetVals(repMax, setNum, weekID);
-    return ("${val[0]} x ${val[1]}");
+    return ("${val[0].toInt()} x ${val[1]}");
   }
 
   static List getRealSetVals(int repMax, int setNum, String weekID) {
@@ -84,10 +84,14 @@ class Calc {
   }
 
   static String getAssistanceSet(int repMax) {
+    return ("${getAssistanceSetVals(repMax).toInt()} x 5 x 10");
+  }
+
+  static double getAssistanceSetVals(int repMax) {
     double weight;
     weight = repMax * 0.5; // 50% of RM
     weight = weight + ((5 - (weight % 5)) % 5); // Rounding to the nearest 5
-    return ("${weight.toInt()} x 5 x 10");
+    return weight;
   }
 
   static Map getPlateCalculatorMap(double weight) {
@@ -125,31 +129,4 @@ class Calc {
     return platesMap;
   }
 
-  static String plateCalculator(int repMax, int setNum, String weekID) {
-    // index 0 returns the weight for this set
-    double weight = getRealSetVals(repMax, setNum, weekID)[0];
-    const double BAR_WEIGHT = 45; // lbs
-    var plates = [45, 35, 25, 10, 5, 2.5];
-    var plateCount = [0, 0, 0, 0, 0, 0];
-
-    if (weight < BAR_WEIGHT) {
-      return ("No plates required");
-    }
-    double weightAfterBar = weight - BAR_WEIGHT;
-
-    for (int i = 0; i < plates.length; i++) {
-      while (weightAfterBar / plates[i] >= 2) {
-        weightAfterBar -= (plates[i] * 2);
-        plateCount[i] += 2;
-      }
-    }
-    String val = "Load ";
-    for (int j = 0; j < plates.length; j++) {
-      int plateNum = plateCount[j] ~/ 2;
-      if (plateNum != 0) {
-        val += "$plateNum ${plates[j]}lb plates ";
-      }
-    }
-    return val;
-  }
 }

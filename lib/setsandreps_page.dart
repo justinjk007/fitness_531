@@ -98,12 +98,15 @@ class SetsAndRepsPage extends StatelessWidget {
               weekID,
             )[0], // First index of the list is this sets weight
           ),
-          // CustomCard(
-          //   argTitle: Calc.getAssistanceSet(
-          //       SaveStateHelper.getMaxRep(getAssistanceActivity(activity))),
-          //   subTitle: "    Assistance ${getAssistanceActivity(activity)} sets",
-          // ),
-          SizedBox(height: 60),
+          CustomCard(
+            argTitle: Calc.getAssistanceSet(
+                SaveStateHelper.getMaxRep(getAssistanceActivity(activity))),
+            subTitle: "    Assisting ${getAssistanceActivity(activity)} sets",
+            setWeight: Calc.getAssistanceSetVals(
+              SaveStateHelper.getMaxRep(getAssistanceActivity(activity)),
+            ),
+          ),
+          SizedBox(height: 70),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
