@@ -46,46 +46,41 @@ class SetsAndRepsPage extends StatelessWidget {
         padding: EdgeInsets.all(10.0),
         child: ListView(
           children: <Widget>[
-            SetsAndReps(
+            CustomCard(
               argTitle: Calc.getWarmup(SaveStateHelper.getMaxRep(activity), 1),
               subTitle: "    Warmup set 1",
             ),
-            SizedBox(height: 15.0),
-            SetsAndReps(
+            CustomCard(
               argTitle: Calc.getWarmup(SaveStateHelper.getMaxRep(activity), 2),
               subTitle: "    Warmup set 2",
             ),
-            SizedBox(height: 15.0),
-            SetsAndReps(
+            CustomCard(
               argTitle: Calc.getWarmup(SaveStateHelper.getMaxRep(activity), 3),
               subTitle: "    Warmup set 3",
             ),
-            SizedBox(height: 15.0),
-            SetsAndReps(
+            CustomCard(
               argTitle: Calc.getRealSet(
                   SaveStateHelper.getMaxRep(activity), 1, weekID),
               subTitle: "    Real $activity set 1"
                   "\n    ${Calc.plateCalculator(SaveStateHelper.getMaxRep(activity), 1, weekID)}",
             ),
-            SizedBox(height: 15.0),
-            SetsAndReps(
+            CustomCard(
               argTitle: Calc.getRealSet(
                   SaveStateHelper.getMaxRep(activity), 2, weekID),
               subTitle: "    Real $activity set 2",
             ),
-            SizedBox(height: 15.0),
-            SetsAndReps(
+            CustomCard(
               argTitle: Calc.getRealSet(
                   SaveStateHelper.getMaxRep(activity), 3, weekID),
               subTitle: "    Real $activity set 3",
             ),
-            SizedBox(height: 15.0),
-            SetsAndReps(
+            CustomCard(
               argTitle: Calc.getAssistanceSet(
                   SaveStateHelper.getMaxRep(getAssistanceActivity(activity))),
               subTitle:
                   "    Assistance ${getAssistanceActivity(activity)} sets",
             ),
+            SizedBox(height: 60),
           ],
         ),
       ),
