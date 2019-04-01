@@ -64,16 +64,16 @@ class _ActivityWidgetState extends State<Activity> {
                       (BuildContext context, AsyncSnapshot<bool> snapshot) {
                     if (snapshot.hasError) {
                       return Icon(Icons.beenhere,
-                          color: Colors.red[300].withOpacity(0.5), size: 0);
+                          color: Colors.red[300].withOpacity(0.3), size: 0);
                     } else {
                       if (snapshot.data == true) {
                         // Item is marked undone
                         return Icon(Icons.beenhere,
-                            color: Colors.red[300].withOpacity(0.5), size: 0);
+                            color: Colors.red[300].withOpacity(0.3), size: 0);
                       } else {
                         // Item is marked done
                         return Icon(Icons.beenhere,
-                            color: Colors.red[300].withOpacity(0.5), size: 150);
+                            color: Colors.red[300].withOpacity(0.3), size: 150);
                       }
                     }
                   }, // End of  builder
