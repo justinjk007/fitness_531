@@ -2,21 +2,6 @@ import 'package:flutter/material.dart';
 import 'save_state.dart';
 import 'activity_page.dart';
 
-class Weeks extends StatefulWidget {
-  Weeks({
-    Key key,
-    this.argTitle,
-    this.subTitle,
-    this.weekID,
-  }) : super(key: key);
-
-  final Widget argTitle;
-  final Widget subTitle;
-  final String weekID;
-  @override
-  _WeekWidgetState createState() => _WeekWidgetState();
-}
-
 class _WeekWidgetState extends State<Weeks> {
   void notifyReceiver() {
     setState(() {
@@ -84,4 +69,19 @@ class _WeekWidgetState extends State<Weeks> {
       ),
     ));
   }
+}
+
+class Weeks extends StatefulWidget {
+  Weeks({
+    Key key,
+    this.argTitle,
+    this.subTitle,
+    this.weekID,
+  }) : super(key: key);
+
+  final Widget argTitle;
+  final Widget subTitle;
+  final String weekID;
+  @override
+  _WeekWidgetState createState() => _WeekWidgetState();
 }
