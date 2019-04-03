@@ -26,13 +26,6 @@ class SaveStateHelper {
     }
   }
 
-  // // Save inverse of weeks status, so save false if true is in memory
-  // static Future<bool> toggleWeek(String week) async {
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   bool val = prefs.getBool(week) ?? false; // If no data exist return false
-  //   return prefs.setBool(week, !val);
-  // }
-
   // Return each activities if complete or not status
   static Future<bool> getActivity(String week, String activity) async {
     // week will be strings like 'week1' , 'week2' ...
@@ -69,5 +62,19 @@ class SaveStateHelper {
       'squat': 215,
     };
     return stuff[activity] ?? null;
+  }
+
+  static Future<int> getMaxRepFromMemory(String activity) async {
+    // activity will be strings like 'bench' , 'squat' ...
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    int activityStatus =
+        prefs.getInt(activity) ?? 0; // If no data exist return 0
+    return activityStatus;
+  }
+
+  static Future<bool> setMaxRepToMemory(String activity, int val) async {
+    // activity will be strings like 'bench' , 'squat' ...
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.setInt(activity, val); // Inverse activity status
   }
 }
