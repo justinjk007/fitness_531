@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'about_page.dart';
+import 'records.dart';
 
 class SideDrawer extends StatelessWidget {
   @override
@@ -25,8 +26,10 @@ class SideDrawer extends StatelessWidget {
             leading: Icon(Icons.tune, color: Colors.red[400], size: 30),
             title: Text('Set 1RM records'),
             onTap: () {
-              // Update the state of the app
-              // ...
+              Navigator.push(
+                ctxt,
+                new MaterialPageRoute(builder: (ctxt) => new RecordsPage()),
+              );
             },
           ),
           ListTile(
