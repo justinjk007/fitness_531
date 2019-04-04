@@ -1,4 +1,4 @@
-package com.example.fitness_531;
+package com.kaipada.fitness_531;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
