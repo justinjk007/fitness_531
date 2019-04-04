@@ -37,3 +37,4 @@ splash screen is bigger.
 ** References
 
 - https://exrx.net/WeightTraining/Powerlifting/531
+- https://medium.com/flutter-community/simple-recipes-app-made-in-flutter-firebase-and-google-sign-in-14d1535e9a59
