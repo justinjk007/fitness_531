@@ -71,3 +71,4 @@
 
 # Don't include firebase keyfiles
 google-services.json
+google-services.json.bak
