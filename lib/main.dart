@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext ctxt) {
     return MaterialApp(
-      // debugShowCheckedModeBanner: false,
+      // debugShowCheckedModeBanner: false, // This will automatically go away during release build
       theme: ThemeData(
         primarySwatch: MaterialColor(Colors.red.shade200.value, {
           50: Colors.red.shade50,
