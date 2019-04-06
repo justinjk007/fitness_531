@@ -30,7 +30,7 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon" 
   ios: true
-  image_path: "assets/barbell_background.png"
+  image_path: "assets/barbell_icon.png"
 
 # The following section is specific to Flutter.
 flutter:
