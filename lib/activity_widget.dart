@@ -82,7 +82,6 @@ class _ActivityWidgetState extends State<Activity> {
               Positioned.fill(
                 child: Ink.image(
                   image: AssetImage(widget.image),
-                  width: 120.0,
                   child: InkWell(
                     onTap: () {
                       Navigator.push(
@@ -91,7 +90,7 @@ class _ActivityWidgetState extends State<Activity> {
                             builder: (ctxt) => getNextScreen()),
                       );
                     },
-                    splashColor: Colors.red[200],
+                    splashColor: Colors.red[200].withOpacity(0.3),
                   ),
                 ),
               ),
