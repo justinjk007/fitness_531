@@ -38,7 +38,17 @@ flutter:
   # The following line ensures that the Material Icons font is included with your application
   uses-material-design: true
   assets:
-    - assets/
+    - assets/2.5.png
+    - assets/5.png
+    - assets/10.png
+    - assets/25.png
+    - assets/35.png
+    - assets/45.png
+    - assets/bench.png
+    - assets/deadlift.png
+    - assets/press.png
+    - assets/squat.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
