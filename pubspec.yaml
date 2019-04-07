@@ -28,9 +28,9 @@ dev_dependencies:
   flutter_launcher_icons: "^0.7.0"
 
 flutter_icons:
-  android: "launcher_icon" 
+  android: false
   ios: true
-  image_path: "assets/barbell_icon.png"
+  image_path: "assets/ios_icon.png"
 
 # The following section is specific to Flutter.
 flutter:
