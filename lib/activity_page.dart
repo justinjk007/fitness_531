@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'save_state.dart';
 import 'activity_widget.dart';
 
 // This is the page where the four activities of the week are displayed
