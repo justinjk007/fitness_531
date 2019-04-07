@@ -46,7 +46,7 @@ class SetsAndRepsPage extends StatelessWidget {
         children: <Widget>[
           CustomCard(
             argTitle: Calc.getWarmup(SaveStateHelper.getMaxRep(activity), 1),
-            subTitle: "    Warmup set 1",
+            subTitle: "Warmup set 1",
             setWeight: Calc.getWarmupVals(
               SaveStateHelper.getMaxRep(activity),
               1,
@@ -54,7 +54,7 @@ class SetsAndRepsPage extends StatelessWidget {
           ),
           CustomCard(
             argTitle: Calc.getWarmup(SaveStateHelper.getMaxRep(activity), 2),
-            subTitle: "    Warmup set 2",
+            subTitle: "Warmup set 2",
             setWeight: Calc.getWarmupVals(
               SaveStateHelper.getMaxRep(activity),
               2,
@@ -62,7 +62,7 @@ class SetsAndRepsPage extends StatelessWidget {
           ),
           CustomCard(
             argTitle: Calc.getWarmup(SaveStateHelper.getMaxRep(activity), 3),
-            subTitle: "    Warmup set 3",
+            subTitle: "Warmup set 3",
             setWeight: Calc.getWarmupVals(
               SaveStateHelper.getMaxRep(activity),
               3,
@@ -71,7 +71,7 @@ class SetsAndRepsPage extends StatelessWidget {
           CustomCard(
             argTitle:
                 Calc.getRealSet(SaveStateHelper.getMaxRep(activity), 1, weekID),
-            subTitle: "    Real $activity set 1",
+            subTitle: "Real $activity set 1",
             setWeight: Calc.getRealSetVals(
               SaveStateHelper.getMaxRep(activity),
               1,
@@ -81,7 +81,7 @@ class SetsAndRepsPage extends StatelessWidget {
           CustomCard(
             argTitle:
                 Calc.getRealSet(SaveStateHelper.getMaxRep(activity), 2, weekID),
-            subTitle: "    Real $activity set 2",
+            subTitle: "Real $activity set 2",
             setWeight: Calc.getRealSetVals(
               SaveStateHelper.getMaxRep(activity),
               2,
@@ -91,7 +91,7 @@ class SetsAndRepsPage extends StatelessWidget {
           CustomCard(
             argTitle:
                 Calc.getRealSet(SaveStateHelper.getMaxRep(activity), 3, weekID),
-            subTitle: "    Real $activity set 3",
+            subTitle: "Real $activity set 3",
             setWeight: Calc.getRealSetVals(
               SaveStateHelper.getMaxRep(activity),
               3,
@@ -101,7 +101,7 @@ class SetsAndRepsPage extends StatelessWidget {
           CustomCard(
             argTitle: Calc.getAssistanceSet(
                 SaveStateHelper.getMaxRep(getAssistanceActivity(activity))),
-            subTitle: "    Assisting ${getAssistanceActivity(activity)} sets",
+            subTitle: "Assisting ${getAssistanceActivity(activity)} sets",
             setWeight: Calc.getAssistanceSetVals(
               SaveStateHelper.getMaxRep(getAssistanceActivity(activity)),
             ),

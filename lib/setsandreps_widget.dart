@@ -31,7 +31,7 @@ class CustomCard extends StatelessWidget {
     if (noPlatesRequired) {
       return Row(
         children: [
-          SizedBox(width: 5),
+          SizedBox(width: 2.5), // Padding on each side to look better
           Text(
             "No plates required!",
             style: TextStyle(
@@ -46,135 +46,207 @@ class CustomCard extends StatelessWidget {
     return Row(
       children: [
         Visibility(
-          visible: !checkEqual(platesMap[45], 0),
-          child: Row(
-            children: [
-              SizedBox(width: 5),
-              Text(
-                "${platesMap[45]} x ",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+          visible: !checkEqual(platesMap[45], 0), // no plates = invisible
+          child: Padding(
+            padding: EdgeInsets.only(right: 2.5, left: 2.5),
+            child: Container(
+              decoration: new BoxDecoration(
+                border: new Border.all(
+                  color: Colors.red[200],
+                  width: 2,
                 ),
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
               ),
-              Image.asset(
-                'assets/45.png',
-                width: 20,
-                height: 20,
-                fit: BoxFit.cover,
+              child: Row(
+                children: [
+                  SizedBox(width: 2.5), // Padding on each side to look better
+                  Text(
+                    "${platesMap[45]} x ",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                  Image.asset(
+                    'assets/45.png',
+                    width: 20,
+                    height: 20,
+                    fit: BoxFit.cover,
+                  ),
+                  SizedBox(width: 2.5), // Padding on each side to look better
+                ],
               ),
-              SizedBox(width: 5),
-            ],
+            ),
           ),
         ),
         Visibility(
-          visible: !checkEqual(platesMap[35], 0),
-          child: Row(
-            children: [
-              SizedBox(width: 5),
-              Text(
-                "${platesMap[35]} x ",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+          visible: !checkEqual(platesMap[35], 0), // no plates = invisible
+          child: Padding(
+            padding: EdgeInsets.only(right: 2.5, left: 2.5),
+            child: Container(
+              decoration: new BoxDecoration(
+                border: new Border.all(
+                  color: Colors.red[200],
+                  width: 2,
                 ),
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
               ),
-              Image.asset(
-                'assets/35.png',
-                width: 20,
-                height: 20,
-                fit: BoxFit.cover,
+              child: Row(
+                children: [
+                  SizedBox(width: 2.5), // Padding on each side to look better
+                  Text(
+                    "${platesMap[35]} x ",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                  Image.asset(
+                    'assets/35.png',
+                    width: 20,
+                    height: 20,
+                    fit: BoxFit.cover,
+                  ),
+                  SizedBox(width: 2.5), // Padding on each side to look better
+                ],
               ),
-              SizedBox(width: 5),
-            ],
+            ),
           ),
         ), // Visibility widget ends her
         Visibility(
-          visible: !checkEqual(platesMap[25], 0),
-          child: Row(
-            children: [
-              SizedBox(width: 5),
-              Text(
-                "${platesMap[25]} x ",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+          visible: !checkEqual(platesMap[25], 0), // no plates = invisible
+          child: Padding(
+            padding: EdgeInsets.only(right: 2.5, left: 2.5),
+            child: Container(
+              decoration: new BoxDecoration(
+                border: new Border.all(
+                  color: Colors.red[200],
+                  width: 2,
                 ),
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
               ),
-              Image.asset(
-                'assets/25.png',
-                width: 20,
-                height: 20,
-                fit: BoxFit.cover,
+              child: Row(
+                children: [
+                  SizedBox(width: 2.5), // Padding on each side to look better
+                  Text(
+                    "${platesMap[25]} x ",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                  Image.asset(
+                    'assets/25.png',
+                    width: 20,
+                    height: 20,
+                    fit: BoxFit.cover,
+                  ),
+                  SizedBox(width: 2.5), // Padding on each side to look better
+                ],
               ),
-              SizedBox(width: 5),
-            ],
+            ),
           ),
         ), // Visibility widget ends her
         Visibility(
-          visible: !checkEqual(platesMap[10], 0),
-          child: Row(
-            children: [
-              SizedBox(width: 5),
-              Text(
-                "${platesMap[10]} x ",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+          visible: !checkEqual(platesMap[10], 0), // no plates = invisible
+          child: Padding(
+            padding: EdgeInsets.only(right: 2.5, left: 2.5),
+            child: Container(
+              decoration: new BoxDecoration(
+                border: new Border.all(
+                  color: Colors.red[200],
+                  width: 2,
                 ),
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
               ),
-              Image.asset(
-                'assets/10.png',
-                width: 20,
-                height: 20,
-                fit: BoxFit.cover,
+              child: Row(
+                children: [
+                  SizedBox(width: 2.5), // Padding on each side to look better
+                  Text(
+                    "${platesMap[10]} x ",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                  Image.asset(
+                    'assets/10.png',
+                    width: 20,
+                    height: 20,
+                    fit: BoxFit.cover,
+                  ),
+                  SizedBox(width: 2.5), // Padding on each side to look better
+                ],
               ),
-              SizedBox(width: 5),
-            ],
+            ),
           ),
         ), // Visibility widget ends her
         Visibility(
-          visible: !checkEqual(platesMap[5], 0),
-          child: Row(
-            children: [
-              SizedBox(width: 5),
-              Text(
-                "${platesMap[5]} x ",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+          visible: !checkEqual(platesMap[5], 0), // no plates = invisible
+          child: Padding(
+            padding: EdgeInsets.only(right: 2.5, left: 2.5),
+            child: Container(
+              decoration: new BoxDecoration(
+                border: new Border.all(
+                  color: Colors.red[200],
+                  width: 2,
                 ),
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
               ),
-              Image.asset(
-                'assets/5.png',
-                width: 20,
-                height: 20,
-                fit: BoxFit.cover,
+              child: Row(
+                children: [
+                  SizedBox(width: 2.5), // Padding on each side to look better
+                  Text(
+                    "${platesMap[5]} x ",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                  Image.asset(
+                    'assets/5.png',
+                    width: 20,
+                    height: 20,
+                    fit: BoxFit.cover,
+                  ),
+                  SizedBox(width: 2.5), // Padding on each side to look better
+                ],
               ),
-              SizedBox(width: 5),
-            ],
+            ),
           ),
         ), // Visibility widget ends her
         Visibility(
-          visible: !checkEqual(platesMap[2.5], 0),
-          child: Row(
-            children: [
-              SizedBox(width: 5),
-              Text(
-                "${platesMap[2.5]} x ",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+          visible: !checkEqual(platesMap[2.5], 0), // no plates = invisible
+          child: Padding(
+            padding: EdgeInsets.only(right: 2.5, left: 2.5),
+            child: Container(
+              decoration: new BoxDecoration(
+                border: new Border.all(
+                  color: Colors.red[200],
+                  width: 2,
                 ),
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
               ),
-              Image.asset(
-                'assets/2.5.png',
-                width: 20,
-                height: 20,
-                fit: BoxFit.cover,
+              child: Row(
+                children: [
+                  SizedBox(width: 2.5), // Padding on each side to look better
+                  Text(
+                    "${platesMap[2.5]} x ",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                  Image.asset(
+                    'assets/2.5.png',
+                    width: 20,
+                    height: 20,
+                    fit: BoxFit.cover,
+                  ),
+                  SizedBox(width: 2.5), // Padding on each side to look better
+                ],
               ),
-              SizedBox(width: 5),
-            ],
+            ),
           ),
         ), // Visibility widget ends her
       ],
@@ -189,7 +261,7 @@ class CustomCard extends StatelessWidget {
         decoration: new BoxDecoration(
           boxShadow: [
             new BoxShadow(
-              color: Colors.red[100],
+              color: Colors.grey[300],
               blurRadius: 15.0,
             ),
           ],
@@ -205,7 +277,7 @@ class CustomCard extends StatelessWidget {
                     subTitle,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 10,
+                      fontSize: 15,
                     ),
                   ),
                   Expanded(child: SizedBox()),
@@ -213,7 +285,7 @@ class CustomCard extends StatelessWidget {
                     argTitle,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 30,
+                      fontSize: 20,
                     ),
                   ),
                 ]),
