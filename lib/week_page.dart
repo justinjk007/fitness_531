@@ -8,7 +8,7 @@ class FirstScreen extends StatelessWidget {
     return new Scaffold(
       drawer: new SideDrawer(),
       appBar: new AppBar(title: new Text("Select week in your routine")),
-      body: new Column(
+      body: new ListView(
         children: <Widget>[
           new Weeks(
             weekID: 'week1',
