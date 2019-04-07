@@ -33,7 +33,7 @@ android {
 
     defaultConfig {
         applicationId "com.kaipada.fitness_531"
-        minSdkVersion 16
+        minSdkVersion 26
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
