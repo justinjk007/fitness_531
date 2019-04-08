@@ -109,13 +109,33 @@ class SetsAndRepsPage extends StatelessWidget {
           SizedBox(height: 70),
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: saveDataandRefreshParent,
-        icon: Icon(Icons.done_all),
-        label: Text("Done"),
-        tooltip: "Mark today's activities done !",
-        backgroundColor: Colors.red[400],
-      ),
+      // Here floatingActionButton is built inside a builder because we need to
+      // give the snackBar a context which will be later used to find the
+      // Scaffold under which the SnackBar should be displayed
+      floatingActionButton: new Builder(builder: (BuildContext ctxt) {
+        return FloatingActionButton.extended(
+          onPressed: () {
+            saveDataandRefreshParent(); // save data before showing snackBar
+            final snackBar = SnackBar(
+              content: Text('Status saved!'),
+              action: SnackBarAction(
+                label: 'Undo',
+                onPressed: () {
+                  // Some code to undo the change!
+                  // save data, essentially toggling/undoing the status
+                  saveDataandRefreshParent();
+                },
+              ),
+            );
+            // Find the Scaffold in the Widget tree and use it to show a SnackBar!
+            Scaffold.of(ctxt).showSnackBar(snackBar);
+          },
+          icon: Icon(Icons.done_all),
+          label: Text("Done"),
+          tooltip: "Mark today's activities done !",
+          backgroundColor: Colors.red[400],
+        );
+      }),
     );
   }
 }
