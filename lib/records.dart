@@ -14,19 +14,21 @@ class RecordsPage extends StatelessWidget {
             children: [
               FutureBuilder<int>(
                 // This is where Future is trying to get data from
-                future: SaveStateHelper.getMaxRepFromMemory("squat"),
+                future: SaveStateHelper.getMaxRepFromMemory('squat'),
                 initialData: 0,
                 builder: (BuildContext ctxt, AsyncSnapshot<int> snapshot) {
                   if (snapshot.hasError) {
-                    return TextField(
-                      decoration:
-                          InputDecoration(hintText: 'Enter 1RM for squat'),
-                    );
+                    return TextField(); // Show empty textfield
                   } else {
                     return TextField(
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           hintText:
-                              'Enter 1RM for squat (Current: ${snapshot.data})'),
+                              'Enter 1RM for squat (Current: ${snapshot.data} lbs)'),
+                      onSubmitted: (value) {
+                        SaveStateHelper.setMaxRepToMemory(
+                            'squat', int.parse(value));
+                      },
                     );
                   }
                 }, // End of  builder
@@ -34,19 +36,21 @@ class RecordsPage extends StatelessWidget {
               SizedBox(height: 30),
               FutureBuilder<int>(
                 // This is where Future is trying to get data from
-                future: SaveStateHelper.getMaxRepFromMemory("bench"),
+                future: SaveStateHelper.getMaxRepFromMemory('bench'),
                 initialData: 0,
                 builder: (BuildContext ctxt, AsyncSnapshot<int> snapshot) {
                   if (snapshot.hasError) {
-                    return TextField(
-                      decoration:
-                          InputDecoration(hintText: 'Enter 1RM for bench'),
-                    );
+                    return TextField(); // Show empty textfield
                   } else {
                     return TextField(
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           hintText:
-                              'Enter 1RM for bench (Current: ${snapshot.data})'),
+                              'Enter 1RM for bench (Current: ${snapshot.data} lbs)'),
+                      onSubmitted: (value) {
+                        SaveStateHelper.setMaxRepToMemory(
+                            'bench', int.parse(value));
+                      },
                     );
                   }
                 }, // End of  builder
@@ -54,19 +58,21 @@ class RecordsPage extends StatelessWidget {
               SizedBox(height: 30),
               FutureBuilder<int>(
                 // This is where Future is trying to get data from
-                future: SaveStateHelper.getMaxRepFromMemory("deadlift"),
+                future: SaveStateHelper.getMaxRepFromMemory('deadlift'),
                 initialData: 0,
                 builder: (BuildContext ctxt, AsyncSnapshot<int> snapshot) {
                   if (snapshot.hasError) {
-                    return TextField(
-                      decoration:
-                          InputDecoration(hintText: 'Enter 1RM for deadlift'),
-                    );
+                    return TextField(); // Show empty textfield
                   } else {
                     return TextField(
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           hintText:
-                              'Enter 1RM for deadlift (Current: ${snapshot.data})'),
+                              'Enter 1RM for deadlift (Current: ${snapshot.data} lbs)'),
+                      onSubmitted: (value) {
+                        SaveStateHelper.setMaxRepToMemory(
+                            'deadlift', int.parse(value));
+                      },
                     );
                   }
                 }, // End of  builder
@@ -74,19 +80,21 @@ class RecordsPage extends StatelessWidget {
               SizedBox(height: 30),
               FutureBuilder<int>(
                 // This is where Future is trying to get data from
-                future: SaveStateHelper.getMaxRepFromMemory("press"),
+                future: SaveStateHelper.getMaxRepFromMemory('press'),
                 initialData: 0,
                 builder: (BuildContext ctxt, AsyncSnapshot<int> snapshot) {
                   if (snapshot.hasError) {
-                    return TextField(
-                      decoration:
-                          InputDecoration(hintText: 'Enter 1RM for press'),
-                    );
+                    return TextField(); // Show empty textfield
                   } else {
                     return TextField(
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           hintText:
-                              'Enter 1RM for press (Current: ${snapshot.data})'),
+                              'Enter 1RM for press (Current: ${snapshot.data} lbs)'),
+                      onSubmitted: (value) {
+                        SaveStateHelper.setMaxRepToMemory(
+                            'press', int.parse(value));
+                      },
                     );
                   }
                 }, // End of  builder

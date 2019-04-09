@@ -56,10 +56,10 @@ class SaveStateHelper {
   static int getMaxRep(String activity) {
     // The maximum rep of each activity stored in lbs
     Map<String, int> stuff = {
-      'bench': 125,
-      'press': 90,
-      'deadlift': 225,
       'squat': 215,
+      'bench': 125,
+      'deadlift': 225,
+      'press': 90,
     };
     return stuff[activity] ?? null;
   }
