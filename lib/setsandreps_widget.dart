@@ -268,7 +268,7 @@ class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext ctxt) {
     return Padding(
-      padding: EdgeInsets.all(10.0),
+      padding: EdgeInsets.all(5.0),
       child: Container(
         decoration: new BoxDecoration(
           boxShadow: [
