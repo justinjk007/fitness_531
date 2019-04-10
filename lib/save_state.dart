@@ -7,9 +7,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 // Number of states to remember
 //  - active or inactive status of each week (4 values)
 //  - active or inactive status of each weeks each lifts (4x4=16 values)
-// TODO
 //  - 1 RM weights of each exercise (4 values)
-//  - History of 1 RM weights used (infinity)
+
+// TODO: History of 1 RM weights used (infinity)
 
 // Some logic
 
