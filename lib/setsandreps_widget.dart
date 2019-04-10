@@ -31,12 +31,24 @@ class CustomCard extends StatelessWidget {
     if (noPlatesRequired) {
       return Row(
         children: [
-          SizedBox(width: 2.5), // Padding on each side to look better
-          Text(
-            "No plates required!",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 13,
+          Container(
+            decoration: new BoxDecoration(
+              border: new Border.all(
+                color: Colors.grey,
+                width: 2,
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            ),
+            child: Padding(
+              padding:
+                  EdgeInsets.only(right: 2.5, left: 2.5, top: 4, bottom: 4),
+              child: Text(
+                "No plates required!",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
             ),
           ),
         ],
