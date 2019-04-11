@@ -53,17 +53,6 @@ class SaveStateHelper {
     return prefs.setBool(key, !val); // Inverse activity status
   }
 
-  static int getMaxRep(String activity) {
-    // The maximum rep of each activity stored in lbs
-    Map<String, int> stuff = {
-      'squat': 215,
-      'bench': 125,
-      'deadlift': 225,
-      'press': 90,
-    };
-    return stuff[activity] ?? null;
-  }
-
   static Future<int> getMaxRepFromMemory(String activity) async {
     // activity will be strings like 'bench' , 'squat' ...
     final SharedPreferences prefs = await SharedPreferences.getInstance();

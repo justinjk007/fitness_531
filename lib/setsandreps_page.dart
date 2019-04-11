@@ -1,3 +1,6 @@
+// For reading and writing data to disk with ease
+// Comes from the shared_preferences 3rd party library
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'setsandreps_widget.dart';
 import 'save_state.dart';
@@ -9,6 +12,25 @@ import 'calc.dart';
 // 1RM maxes for each activity already and save it in a global for the page to
 // use instead of loading it from memory 10,000 times
 class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
+  int _maxRep;
+  int _assistanceMaxRep;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadMaxRep(); // Load all the Max rep values from memory async
+  }
+
+  void _loadMaxRep() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      // If no data exist return 0
+      _maxRep = (prefs.getInt(widget.activity) ?? 0);
+      _assistanceMaxRep =
+          (prefs.getInt(getAssistanceActivity(widget.activity)) ?? 0);
+    });
+  }
+
   void saveDataandRefreshParent() async {
     await SaveStateHelper.toggleActivity(widget.weekID, widget.activity);
     widget.notifyParent();
@@ -38,66 +60,61 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
       body: ListView(
         children: <Widget>[
           CustomCard(
-            argTitle: Calc.getWarmup(SaveStateHelper.getMaxRep(widget.activity), 1),
+            argTitle: Calc.getWarmup(_maxRep, 1),
             subTitle: "Warmup set 1",
             setWeight: Calc.getWarmupVals(
-              SaveStateHelper.getMaxRep(widget.activity),
+              _maxRep,
               1,
             )[0], // First index of the list is this sets weight
           ),
           CustomCard(
-            argTitle: Calc.getWarmup(SaveStateHelper.getMaxRep(widget.activity), 2),
+            argTitle: Calc.getWarmup(_maxRep, 2),
             subTitle: "Warmup set 2",
             setWeight: Calc.getWarmupVals(
-              SaveStateHelper.getMaxRep(widget.activity),
+              _maxRep,
               2,
             )[0], // First index of the list is this sets weight
           ),
           CustomCard(
-            argTitle: Calc.getWarmup(SaveStateHelper.getMaxRep(widget.activity), 3),
+            argTitle: Calc.getWarmup(_maxRep, 3),
             subTitle: "Warmup set 3",
             setWeight: Calc.getWarmupVals(
-              SaveStateHelper.getMaxRep(widget.activity),
+              _maxRep,
               3,
             )[0], // First index of the list is this sets weight
           ),
           CustomCard(
-            argTitle:
-                Calc.getRealSet(SaveStateHelper.getMaxRep(widget.activity), 1, widget.weekID),
+            argTitle: Calc.getRealSet(_maxRep, 1, widget.weekID),
             subTitle: "Real ${widget.activity} set 1",
             setWeight: Calc.getRealSetVals(
-              SaveStateHelper.getMaxRep(widget.activity),
+              _maxRep,
               1,
               widget.weekID,
             )[0], // First index of the list is this sets weight
           ),
           CustomCard(
-            argTitle:
-                Calc.getRealSet(SaveStateHelper.getMaxRep(widget.activity), 2, widget.weekID),
+            argTitle: Calc.getRealSet(_maxRep, 2, widget.weekID),
             subTitle: "Real ${widget.activity} set 2",
             setWeight: Calc.getRealSetVals(
-              SaveStateHelper.getMaxRep(widget.activity),
+              _maxRep,
               2,
               widget.weekID,
             )[0], // First index of the list is this sets weight
           ),
           CustomCard(
-            argTitle:
-                Calc.getRealSet(SaveStateHelper.getMaxRep(widget.activity), 3, widget.weekID),
+            argTitle: Calc.getRealSet(_maxRep, 3, widget.weekID),
             subTitle: "Real ${widget.activity} set 3",
             setWeight: Calc.getRealSetVals(
-              SaveStateHelper.getMaxRep(widget.activity),
+              _maxRep,
               3,
               widget.weekID,
             )[0], // First index of the list is this sets weight
           ),
           CustomCard(
-            argTitle: Calc.getAssistanceSet(
-                SaveStateHelper.getMaxRep(getAssistanceActivity(widget.activity))),
-            subTitle: "Assisting ${getAssistanceActivity(widget.activity)} sets",
-            setWeight: Calc.getAssistanceSetVals(
-              SaveStateHelper.getMaxRep(getAssistanceActivity(widget.activity)),
-            ),
+            argTitle: Calc.getAssistanceSet(_assistanceMaxRep),
+            subTitle:
+                "Assisting ${getAssistanceActivity(widget.activity)} sets",
+            setWeight: Calc.getAssistanceSetVals(_assistanceMaxRep),
           ),
           SizedBox(height: 70),
         ],

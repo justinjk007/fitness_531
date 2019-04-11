@@ -128,5 +128,4 @@ class Calc {
     }
     return platesMap;
   }
-
 }
