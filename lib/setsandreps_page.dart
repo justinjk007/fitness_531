@@ -12,8 +12,8 @@ import 'calc.dart';
 // 1RM maxes for each activity already and save it in a global for the page to
 // use instead of loading it from memory 10,000 times
 class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
-  int _maxRep;
-  int _assistanceMaxRep;
+  int _maxRep = 0;
+  int _assistanceMaxRep = 0;
 
   @override
   void initState() {
