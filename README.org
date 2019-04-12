@@ -38,3 +38,10 @@ splash screen is bigger.
 
 - https://exrx.net/WeightTraining/Powerlifting/531
 - https://medium.com/flutter-community/simple-recipes-app-made-in-flutter-firebase-and-google-sign-in-14d1535e9a59
+
+** TODO's
+
+- Add a new button to reset activity status to not-done after 4 weeks
+- Add a new button to auto increment 1RM max
+- Add a settings page to set the increment amount
+ - Default 10lb for legs, 5lb for upper body
