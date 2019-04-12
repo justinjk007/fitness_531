@@ -66,4 +66,22 @@ class SaveStateHelper {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.setInt(activity, val); // Inverse activity status
   }
+
+  static Future<void> resetAll() async {
+    // Reset all activity and completed week status so we can start from the top
+    // This is usually done at the end of the 4 weeks streak
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    List<String> _activity = ['squat', 'bench', 'deadlift', 'press'];
+    // Reset all weeks
+    for (var i = 1; i <= 4; i++) {
+      prefs.setInt("week$i", null); // Passing in null = delete
+    }
+    // Reset all activity on all weeks
+    for (var i = 1; i <= 4; i++) {
+      // Here the key is like week1bench
+      _activity.forEach((item) => prefs.setBool("week$i$item", null));
+    }
+  }
 }
