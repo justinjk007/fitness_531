@@ -1,10 +1,38 @@
 import 'package:flutter/material.dart';
 import 'about_page.dart';
 import 'records.dart';
+import 'save_state.dart';
 
 class SideDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext ctxt) {
+    // user defined function
+    void _showResetDialog() {
+      // flutter defined function
+      showDialog(
+        context: ctxt,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return AlertDialog(
+            title: Text("Start a new streak"),
+            content:
+                Text("This will reset all the activity status of all weeks,"
+                    "this means you are starting a new 4 week streak"),
+            actions: <Widget>[
+              // Usually buttons at the bottom of the dialog
+              FlatButton(
+                child: Text("Yep, Reset!"),
+                onPressed: () {
+                  SaveStateHelper.resetAll();
+                  Navigator.of(context).pop(); // Exit out of the window after reseting
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     return new Drawer(
       // Add a ListView to the drawer. This ensures the user can scroll
       // through the options in the Drawer if there isn't enough vertical
@@ -31,6 +59,14 @@ class SideDrawer extends StatelessWidget {
                 ctxt,
                 new MaterialPageRoute(builder: (ctxt) => new RecordsPage()),
               );
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.timelapse, color: Colors.red[400], size: 30),
+            title: Text('Start a new streak'),
+            onTap: () {
+              Navigator.pop(ctxt); // Close the drawer first
+              _showResetDialog(); // Show the reset dialog
             },
           ),
           ListTile(
