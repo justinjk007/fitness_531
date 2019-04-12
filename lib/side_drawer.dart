@@ -26,6 +26,7 @@ class SideDrawer extends StatelessWidget {
             leading: Icon(Icons.tune, color: Colors.red[400], size: 30),
             title: Text('Set 1RM records'),
             onTap: () {
+              Navigator.pop(ctxt); // Close the drawer first
               Navigator.push(
                 ctxt,
                 new MaterialPageRoute(builder: (ctxt) => new RecordsPage()),
@@ -36,6 +37,7 @@ class SideDrawer extends StatelessWidget {
             leading: Icon(Icons.info_outline, color: Colors.red[400], size: 30),
             title: Text('About'),
             onTap: () {
+              Navigator.pop(ctxt); // Close the drawer first
               Navigator.push(
                 ctxt,
                 new MaterialPageRoute(builder: (ctxt) => new AboutPage()),
