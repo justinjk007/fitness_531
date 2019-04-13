@@ -4,6 +4,13 @@ import 'records.dart';
 import 'save_state.dart';
 
 class SideDrawer extends StatelessWidget {
+  SideDrawer({
+    Key key,
+    this.callBackWeeksPage,
+  }) : super(key: key);
+
+  final Function callBackWeeksPage;
+
   @override
   Widget build(BuildContext ctxt) {
     // user defined function
@@ -31,7 +38,9 @@ class SideDrawer extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  SaveStateHelper.resetAll();
+                  SaveStateHelper.resetAll().then((_) {
+                    callBackWeeksPage();
+                  });
                   // Exit out of the window after reseting
                   Navigator.of(context).pop();
                 },

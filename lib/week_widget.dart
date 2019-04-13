@@ -82,6 +82,13 @@ class Weeks extends StatefulWidget {
   final Widget argTitle;
   final Widget subTitle;
   final String weekID;
+
+  final _WeekWidgetState state = new _WeekWidgetState();
+
   @override
-  _WeekWidgetState createState() => _WeekWidgetState();
+  _WeekWidgetState createState() => state;
+
+  void update() {
+    state.notifyReceiver(); // This method is in _WeekWidgetState class
+  }
 }
