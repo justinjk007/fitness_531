@@ -41,7 +41,5 @@ splash screen is bigger.
 
 ** TODO's
 
-- Add a new button to reset activity status to not-done after 4 weeks
-- Add a new button to auto increment 1RM max
 - Add a settings page to set the increment amount
  - Default 10lb for legs, 5lb for upper body
