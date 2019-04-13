@@ -15,19 +15,26 @@ class SideDrawer extends StatelessWidget {
           // return object of type Dialog
           return AlertDialog(
             title: Text("Start a new streak"),
-            content:
-                Text("This will reset all the activity status of all weeks,"
-                    "this means you are starting a new 4 week streak"),
+            shape: SuperellipseShape(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            content: Text("This will reset all the activity status of "
+                "all weeks, this means you are starting a new 4 week streak..."),
             actions: <Widget>[
               // Usually buttons at the bottom of the dialog
               FlatButton(
-                child: Text("Yep, Reset!"),
+                child: Text(
+                  "Yep, Reset!",
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
                 onPressed: () {
                   SaveStateHelper.resetAll();
-                  Navigator.of(context).pop(); // Exit out of the window after reseting
+                  Navigator.of(context)
+                      .pop(); // Exit out of the window after reseting
                 },
               ),
-            ],
+              SizedBox(width: 10), // Add a little bit of padding after
+            ], // Actions ends here
           );
         },
       );
