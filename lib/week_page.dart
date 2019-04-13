@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'side_drawer.dart';
 import 'week_widget.dart';
 
-class FirstScreen extends StatelessWidget {
+class WeekPage extends StatelessWidget {
   @override
   Widget build(BuildContext ctxt) {
     return new Scaffold(

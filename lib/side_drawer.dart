@@ -25,7 +25,10 @@ class SideDrawer extends StatelessWidget {
               FlatButton(
                 child: Text(
                   "Yep, Reset!",
-                  style: TextStyle(fontStyle: FontStyle.italic),
+                  style: TextStyle(
+                    fontStyle: FontStyle.italic, // yeyya!
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 onPressed: () {
                   SaveStateHelper.resetAll();

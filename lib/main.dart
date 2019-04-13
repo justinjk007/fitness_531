@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           900: Colors.red.shade900
         }),
       ),
-      home: new FirstScreen(),
+      home: new WeekPage(),
     );
   }
 }
