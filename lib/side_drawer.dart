@@ -32,8 +32,8 @@ class SideDrawer extends StatelessWidget {
                 ),
                 onPressed: () {
                   SaveStateHelper.resetAll();
-                  Navigator.of(context)
-                      .pop(); // Exit out of the window after reseting
+                  // Exit out of the window after reseting
+                  Navigator.of(context).pop();
                 },
               ),
               SizedBox(width: 10), // Add a little bit of padding after
