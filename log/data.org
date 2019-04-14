@@ -8,3 +8,11 @@ All weights are in lbs
 | Deadlift   | 11/04/2019 |     225 |
 | Press      | 11/04/2019 |      90 |
 | Bodyweight | 11/04/2019 |     125 |
+
+|            | Date       | Weights |
+| Squat      | 15/04/2019 |     225 |
+| Bench      | 15/04/2019 |     135 |
+| Deadlift   | 15/04/2019 |     235 |
+| Press      | 15/04/2019 |     100 |
+| Bodyweight | 15/04/2019 |     130 |
+
