@@ -56,6 +56,9 @@ class _RecordsPageState extends State<RecordsPage> {
 
   @override
   Widget build(BuildContext ctxt) {
+    // Don't show fab when keybaord is open
+    // https://stackoverflow.com/questions/48337422/hide-fab-when-onscreen-keyboard-appear
+    final bool showFab = MediaQuery.of(ctxt).viewInsets.bottom == 0.0;
     return new Scaffold(
       // drawer: new SideDrawer(),
       appBar: new AppBar(title: new Text("Set 1 rep max records")),
@@ -68,13 +71,16 @@ class _RecordsPageState extends State<RecordsPage> {
                 controller: _controller1,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                    labelText:
-                        'Enter 1RM for squat (Current: ${_squatRM} lbs)'),
+                  labelText: 'Enter 1RM for squat (Current: ${_squatRM} lbs)',
+                  prefixIcon: Icon(Icons.assignment),
+                ),
                 onSubmitted: (value) {
-                  SaveStateHelper.setMaxRepToMemory('squat', int.parse(value));
-                  _squatRM = int.parse(value);
+                  int val = int.parse(value);
+                  if (val <= 0) val = 0; // We don't take any negatives
+                  SaveStateHelper.setMaxRepToMemory('squat', val);
+                  _squatRM = val; // Update local variable
                   // This will clear the text input so new value is displayed
-                  _controller1.clear();
+                  _controller1.clear(); // Reset text field
                   setState(() {}); // Refersh
                 },
               ),
@@ -83,13 +89,16 @@ class _RecordsPageState extends State<RecordsPage> {
                 controller: _controller2,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                    labelText:
-                        'Enter 1RM for bench (Current: ${_benchRM} lbs)'),
+                  labelText: 'Enter 1RM for bench (Current: ${_benchRM} lbs)',
+                  prefixIcon: Icon(Icons.assignment),
+                ),
                 onSubmitted: (value) {
-                  SaveStateHelper.setMaxRepToMemory('bench', int.parse(value));
-                  _benchRM = int.parse(value);
+                  int val = int.parse(value);
+                  if (val <= 0) val = 0; // We don't take any negatives
+                  SaveStateHelper.setMaxRepToMemory('bench', val);
+                  _benchRM = val; // Update local variable
                   // This will clear the text input so new value is displayed
-                  _controller2.clear();
+                  _controller2.clear(); // Reset text field
                   setState(() {}); // Refersh
                 },
               ),
@@ -98,14 +107,17 @@ class _RecordsPageState extends State<RecordsPage> {
                 controller: _controller3,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                    labelText:
-                        'Enter 1RM for deadlift (Current: ${_deadliftRM} lbs)'),
+                  labelText:
+                      'Enter 1RM for deadlift (Current: ${_deadliftRM} lbs)',
+                  prefixIcon: Icon(Icons.assignment),
+                ),
                 onSubmitted: (value) {
-                  SaveStateHelper.setMaxRepToMemory(
-                      'deadlift', int.parse(value));
-                  _deadliftRM = int.parse(value);
+                  int val = int.parse(value);
+                  if (val <= 0) val = 0; // We don't take any negatives
+                  SaveStateHelper.setMaxRepToMemory('deadlift', val);
+                  _deadliftRM = val; // Update local variable
                   // This will clear the text input so new value is displayed
-                  _controller3.clear();
+                  _controller3.clear(); // Reset text field
                   setState(() {}); // Refersh
                 },
               ),
@@ -114,13 +126,16 @@ class _RecordsPageState extends State<RecordsPage> {
                 controller: _controller4,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                    labelText:
-                        'Enter 1RM for press (Current: ${_pressRM} lbs)'),
+                  labelText: 'Enter 1RM for press (Current: ${_pressRM} lbs)',
+                  prefixIcon: Icon(Icons.assignment),
+                ),
                 onSubmitted: (value) {
-                  SaveStateHelper.setMaxRepToMemory('press', int.parse(value));
-                  _pressRM = int.parse(value);
+                  int val = int.parse(value);
+                  if (val <= 0) val = 0; // We don't take any negatives
+                  SaveStateHelper.setMaxRepToMemory('press', val);
+                  _pressRM = val; // Update local variable
                   // This will clear the text input so new value is displayed
-                  _controller4.clear();
+                  _controller4.clear(); // Reset text field
                   setState(() {}); // Refersh
                 },
               ),
@@ -128,15 +143,17 @@ class _RecordsPageState extends State<RecordsPage> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          IncrementandRefreshParent();
-        },
-        icon: Icon(Icons.add),
-        label: Text("Increment"),
-        tooltip: "Auto increment all values",
-        backgroundColor: Colors.red[400],
-      ),
+      floatingActionButton: showFab
+          ? FloatingActionButton.extended(
+              onPressed: () {
+                IncrementandRefreshParent();
+              },
+              icon: Icon(Icons.add),
+              label: Text("Increment"),
+              tooltip: "Auto increment all values",
+              backgroundColor: Colors.red[400],
+            )
+          : null, // Show null if showFab is false
     );
   }
 }

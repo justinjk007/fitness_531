@@ -64,6 +64,7 @@ class SaveStateHelper {
   static Future<bool> setMaxRepToMemory(String activity, int val) async {
     // activity will be strings like 'bench' , 'squat' ...
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (val <= 0) val = 0; // We don't take any negatives
     return prefs.setInt(activity, val); // Inverse activity status
   }
 
