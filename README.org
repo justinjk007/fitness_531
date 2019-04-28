@@ -39,7 +39,8 @@ splash screen is bigger.
 - https://exrx.net/WeightTraining/Powerlifting/531
 - https://medium.com/flutter-community/simple-recipes-app-made-in-flutter-firebase-and-google-sign-in-14d1535e9a59
 
-** TODO's
+** Notes
 
-- Add a settings page to set the increment amount
- - Default 10lb for legs, 5lb for upper body
+- Right now, how contacting to database works without authentication,
+  anyone with the key file can read and write data.
+
