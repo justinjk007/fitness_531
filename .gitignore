@@ -70,5 +70,8 @@
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 
 # Don't include firebase keyfiles
+# Andriod
 google-services.json
 google-services.json.bak
+# iOS
+GoogleService-Info.plist
