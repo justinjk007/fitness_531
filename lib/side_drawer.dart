@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'new_records.dart';
 import 'about_page.dart';
 import 'records.dart';
 import 'save_state.dart';
@@ -78,6 +79,17 @@ class SideDrawer extends StatelessWidget {
               Navigator.push(
                 ctxt,
                 new MaterialPageRoute(builder: (ctxt) => new RecordsPage()),
+              );
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.assignment, color: Colors.red[400], size: 30),
+            title: Text('Records'),
+            onTap: () {
+              Navigator.pop(ctxt); // Close the drawer first
+              Navigator.push(
+                ctxt,
+                new MaterialPageRoute(builder: (ctxt) => new FirestoreCRUDPage()),
               );
             },
           ),
