@@ -14,24 +14,30 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
   final _formKey = GlobalKey<FormState>();
   String name;
 
+  // TODO: Make these cards shadow just like cards in sets and reps page
+  // TODO: Add a FAB with which we can add a new record
   Card buildItem(DocumentSnapshot doc) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        padding: const EdgeInsets.all(20),
+        child: Row(
           children: <Widget>[
-            Text(
-              "- squat: ${doc.data['squat']}",
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start, // This is so lines start from the same position
+              children: <Widget>[
+                Text("Squat: ${doc.data['squat']} lbs"),
+                SizedBox(height: 10),
+                Text("Bench: ${doc.data['bench']} lbs"),
+              ],
             ),
-            Text(
-              "- bench: ${doc.data['bench']}",
-            ),
-            Text(
-              "- deadlift: ${doc.data['deadlift']}",
-            ),
-            Text(
-              "- press: ${doc.data['press']}",
+            Expanded(child: SizedBox()),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start, // This is so lines start from the same position
+              children: <Widget>[
+                Text("Deadlift: ${doc.data['deadlift']} lbs"),
+                SizedBox(height: 10),
+                Text("Press: ${doc.data['press']} lbs"),
+              ],
             ),
           ],
         ),
@@ -60,30 +66,30 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Firestore MaxReps'),
+        title: Text('Records'),
       ),
       body: ListView(
         padding: EdgeInsets.all(8),
         children: <Widget>[
-          Form(
-            key: _formKey,
-            child: buildTextFormField(),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              RaisedButton(
-                onPressed: createData,
-                child: Text('Create', style: TextStyle(color: Colors.white)),
-                color: Colors.green,
-              ),
-              RaisedButton(
-                onPressed: id != null ? readData : null,
-                child: Text('Read', style: TextStyle(color: Colors.white)),
-                color: Colors.blue,
-              ),
-            ],
-          ),
+          // Form(
+          //   key: _formKey,
+          //   child: buildTextFormField(),
+          // ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //   children: <Widget>[
+          //     RaisedButton(
+          //       onPressed: createData,
+          //       child: Text('Create', style: TextStyle(color: Colors.white)),
+          //       color: Colors.green,
+          //     ),
+          //     RaisedButton(
+          //       onPressed: id != null ? readData : null,
+          //       child: Text('Read', style: TextStyle(color: Colors.white)),
+          //       color: Colors.blue,
+          //     ),
+          //   ],
+          // ),
           StreamBuilder<QuerySnapshot>(
             stream: db.collection('MaxReps').snapshots(),
             builder: (context, snapshot) {
@@ -114,7 +120,8 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
   }
 
   void readData() async {
-      DocumentSnapshot snapshot = await db.collection('MaxReps').document(id).get();
+    DocumentSnapshot snapshot =
+        await db.collection('MaxReps').document(id).get();
   }
 
   void updateData(DocumentSnapshot doc) async {
