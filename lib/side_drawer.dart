@@ -63,13 +63,23 @@ class SideDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Text(
-              '\n5/3/1 Fitness',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            child: Column(
+              children: <Widget>[
+                Text(
+                  '\n5/3/1 Fitness',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                SizedBox(height:20),
+                Image.asset(
+                  'assets/barbell_raw.png',
+                  height: 60,
+                  fit: BoxFit.fitWidth,
+                ),
+              ],
             ),
-            decoration: BoxDecoration(
-              color: Colors.red[200],
-            ),
+            // decoration: BoxDecoration(
+            //   color: Colors.red[200],
+            // ),
           ),
           ListTile(
             leading: Icon(Icons.tune, color: Colors.red[400], size: 30),
@@ -89,7 +99,8 @@ class SideDrawer extends StatelessWidget {
               Navigator.pop(ctxt); // Close the drawer first
               Navigator.push(
                 ctxt,
-                new MaterialPageRoute(builder: (ctxt) => new FirestoreCRUDPage()),
+                new MaterialPageRoute(
+                    builder: (ctxt) => new FirestoreCRUDPage()),
               );
             },
           ),
