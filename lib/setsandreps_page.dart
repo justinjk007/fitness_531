@@ -32,10 +32,10 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
     });
   }
 
-  void saveDataandRefreshParent() async {
-    await SaveStateHelper.toggleActivity(widget.weekID, widget.activity);
-    widget.notifyParent();
-  }
+  // void saveDataandRefreshParent() async {
+  //   await SaveStateHelper.toggleActivity(widget.weekID, widget.activity);
+  //   widget.notifyParent();
+  // }
 
   void saveDataOnebyOneandRefreshParent(BuildContext _ctxt) async {
     _activitiesDone++;
@@ -74,6 +74,7 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
       ),
       body: ListView(
         children: <Widget>[
+          SizedBox(height: 15),
           new Builder(builder: (BuildContext ctxt) {
             return Dismissible(
               // key needed if I actually want to remove this from backend
@@ -82,6 +83,14 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
                 // I don't  care about direction here
                 saveDataOnebyOneandRefreshParent(ctxt);
               },
+              background: Align(
+                alignment: Alignment(-0.8, 0), // Axix goes from 1 to -1
+                child: Icon(Icons.done_all),
+              ),
+              secondaryBackground: Align(
+                alignment: Alignment(0.8, 0), // Axix goes from 1 to -1
+                child: Icon(Icons.done_all),
+              ),
               child: CustomCard(
                 argTitle: Calc.getWarmup(_maxRep, 1),
                 subTitle: "Warmup set 1",
@@ -100,6 +109,14 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
                 // I don't  care about direction here
                 saveDataOnebyOneandRefreshParent(ctxt);
               },
+              background: Align(
+                alignment: Alignment(-0.8, 0), // Axix goes from 1 to -1
+                child: Icon(Icons.done_all),
+              ),
+              secondaryBackground: Align(
+                alignment: Alignment(0.8, 0), // Axix goes from 1 to -1
+                child: Icon(Icons.done_all),
+              ),
               child: CustomCard(
                 argTitle: Calc.getWarmup(_maxRep, 2),
                 subTitle: "Warmup set 2",
@@ -118,6 +135,14 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
                 // I don't  care about direction here
                 saveDataOnebyOneandRefreshParent(ctxt);
               },
+              background: Align(
+                alignment: Alignment(-0.8, 0), // Axix goes from 1 to -1
+                child: Icon(Icons.done_all),
+              ),
+              secondaryBackground: Align(
+                alignment: Alignment(0.8, 0), // Axix goes from 1 to -1
+                child: Icon(Icons.done_all),
+              ),
               child: CustomCard(
                 argTitle: Calc.getWarmup(_maxRep, 3),
                 subTitle: "Warmup set 3",
@@ -136,6 +161,14 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
                 // I don't  care about direction here
                 saveDataOnebyOneandRefreshParent(ctxt);
               },
+              background: Align(
+                alignment: Alignment(-0.8, 0), // Axix goes from 1 to -1
+                child: Icon(Icons.done_all),
+              ),
+              secondaryBackground: Align(
+                alignment: Alignment(0.8, 0), // Axix goes from 1 to -1
+                child: Icon(Icons.done_all),
+              ),
               child: CustomCard(
                 argTitle: Calc.getRealSet(_maxRep, 1, widget.weekID),
                 subTitle: "Real ${widget.activity} set 1",
@@ -155,6 +188,14 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
                 // I don't  care about direction here
                 saveDataOnebyOneandRefreshParent(ctxt);
               },
+              background: Align(
+                alignment: Alignment(-0.8, 0), // Axix goes from 1 to -1
+                child: Icon(Icons.done_all),
+              ),
+              secondaryBackground: Align(
+                alignment: Alignment(0.8, 0), // Axix goes from 1 to -1
+                child: Icon(Icons.done_all),
+              ),
               child: CustomCard(
                 argTitle: Calc.getRealSet(_maxRep, 2, widget.weekID),
                 subTitle: "Real ${widget.activity} set 2",
@@ -174,6 +215,14 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
                 // I don't  care about direction here
                 saveDataOnebyOneandRefreshParent(ctxt);
               },
+              background: Align(
+                alignment: Alignment(-0.8, 0), // Axix goes from 1 to -1
+                child: Icon(Icons.done_all),
+              ),
+              secondaryBackground: Align(
+                alignment: Alignment(0.8, 0), // Axix goes from 1 to -1
+                child: Icon(Icons.done_all),
+              ),
               child: CustomCard(
                 argTitle: Calc.getRealSet(_maxRep, 3, widget.weekID),
                 subTitle: "Real ${widget.activity} set 3",
@@ -193,6 +242,14 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
                 // I don't  care about direction here
                 saveDataOnebyOneandRefreshParent(ctxt);
               },
+              background: Align(
+                alignment: Alignment(-0.8, 0), // Axix goes from 1 to -1
+                child: Icon(Icons.done_all),
+              ),
+              secondaryBackground: Align(
+                alignment: Alignment(0.8, 0), // Axix goes from 1 to -1
+                child: Icon(Icons.done_all),
+              ),
               child: CustomCard(
                 argTitle: Calc.getAssistanceSet(_assistanceMaxRep),
                 subTitle:
@@ -201,36 +258,36 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
               ),
             );
           }),
-          SizedBox(height: 70),
+          SizedBox(height: 15),
         ],
       ),
-      // Here floatingActionButton is built inside a builder because we need to
-      // give the snackBar a context which will be later used to find the
-      // Scaffold under which the SnackBar should be displayed
-      floatingActionButton: new Builder(builder: (BuildContext ctxt) {
-        return FloatingActionButton.extended(
-          onPressed: () {
-            saveDataandRefreshParent(); // save data before showing snackBar
-            final snackBar = SnackBar(
-              content: Text('Status saved!'),
-              action: SnackBarAction(
-                label: 'Undo',
-                onPressed: () {
-                  // Some code to undo the change!
-                  // save data, essentially toggling/undoing the status
-                  saveDataandRefreshParent();
-                },
-              ),
-            );
-            // Find the Scaffold in the Widget tree and use it to show a SnackBar!
-            Scaffold.of(ctxt).showSnackBar(snackBar);
-          },
-          icon: Icon(Icons.done_all),
-          label: Text("Done"),
-          tooltip: "Mark today's activities done !",
-          backgroundColor: Colors.red[400],
-        );
-      }),
+      // // Here floatingActionButton is built inside a builder because we need to
+      // // give the snackBar a context which will be later used to find the
+      // // Scaffold under which the SnackBar should be displayed
+      // floatingActionButton: new Builder(builder: (BuildContext ctxt) {
+      //   return FloatingActionButton.extended(
+      //     onPressed: () {
+      //       saveDataandRefreshParent(); // save data before showing snackBar
+      //       final snackBar = SnackBar(
+      //         content: Text('Status saved!'),
+      //         action: SnackBarAction(
+      //           label: 'Undo',
+      //           onPressed: () {
+      //             // Some code to undo the change!
+      //             // save data, essentially toggling/undoing the status
+      //             saveDataandRefreshParent();
+      //           },
+      //         ),
+      //       );
+      //       // Find the Scaffold in the Widget tree and use it to show a SnackBar!
+      //       Scaffold.of(ctxt).showSnackBar(snackBar);
+      //     },
+      //     icon: Icon(Icons.done_all),
+      //     label: Text("Done"),
+      //     tooltip: "Mark today's activities done !",
+      //     backgroundColor: Colors.red[400],
+      //   );
+      // }),
     );
   }
 }
