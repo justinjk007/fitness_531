@@ -49,7 +49,7 @@ class _ActivityWidgetState extends State<Activity> {
       // Since this is expanded widget it will take up the fitting width inside
       // the Row widget which is inside a padding widget so it won't overflow.
       child: SizedBox(
-        height: MediaQuery.of(context).size.height / 3,
+        height: MediaQuery.of(context).size.height / 3.5,
         child: Material(
           color: widget.color,
           elevation: 4.0,
@@ -84,6 +84,7 @@ class _ActivityWidgetState extends State<Activity> {
               Positioned.fill(
                 child: Ink.image(
                   image: AssetImage(widget.image),
+                  fit: BoxFit.scaleDown,
                   child: InkWell(
                     onTap: () {
                       Navigator.push(

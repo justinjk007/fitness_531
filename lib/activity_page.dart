@@ -22,11 +22,11 @@ class ActivityPage extends StatelessWidget {
         title: new Text("Select today's activity"),
       ),
       body: Container(
-        padding: const EdgeInsets.only(
+        padding: EdgeInsets.only(
           left: 40,
           right: 40,
-          top: 50,
-          bottom: 50,
+          top: MediaQuery.of(ctxt).size.height / 20,
+          bottom: MediaQuery.of(ctxt).size.height / 20,
         ),
         child: new Column(
           children: <Widget>[
