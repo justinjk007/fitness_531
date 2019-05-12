@@ -12,8 +12,9 @@ import 'calc.dart';
 // 1RM maxes for each activity already and save it in a global for the page to
 // use instead of loading it from memory 10,000 times
 class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
-  int _maxRep = 0;
-  int _assistanceMaxRep = 0;
+  int _maxRep = 0; // Filled by _loadMaxRep
+  int _assistanceMaxRep = 0; // Filled by _loadMaxRep
+  int _activitiesDone = 0; // Used when dismissing cards, to count how many done
 
   @override
   void initState() {
@@ -34,6 +35,20 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
   void saveDataandRefreshParent() async {
     await SaveStateHelper.toggleActivity(widget.weekID, widget.activity);
     widget.notifyParent();
+  }
+
+  void saveDataOnebyOneandRefreshParent(BuildContext _ctxt) async {
+    _activitiesDone++;
+    // If 3 warmup + 3 real + 1 assistance sets are done today is done boiiii
+    if (_activitiesDone >= 7) {
+      await SaveStateHelper.toggleActivity(widget.weekID, widget.activity);
+      final snackBar = SnackBar(
+        content: Text('Status saved!'),
+      );
+      // Find the Scaffold in the Widget tree and use it to show a SnackBar!
+      Scaffold.of(_ctxt).showSnackBar(snackBar);
+      widget.notifyParent();
+    }
   }
 
   String getAssistanceActivity(String activity) {
@@ -59,91 +74,133 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
       ),
       body: ListView(
         children: <Widget>[
-          Dismissible(
-            // key needed if I actually want to remove this from backend
-            key: ValueKey("null"),
-            child: CustomCard(
-              argTitle: Calc.getWarmup(_maxRep, 1),
-              subTitle: "Warmup set 1",
-              setWeight: Calc.getWarmupVals(
-                _maxRep,
-                1,
-              )[0], // First index of the list is this sets weight
-            ),
-          ),
-          Dismissible(
-            // key needed if I actually want to remove this from backend
-            key: ValueKey("null"),
-            child: CustomCard(
-              argTitle: Calc.getWarmup(_maxRep, 2),
-              subTitle: "Warmup set 2",
-              setWeight: Calc.getWarmupVals(
-                _maxRep,
-                2,
-              )[0], // First index of the list is this sets weight
-            ),
-          ),
-          Dismissible(
-            // key needed if I actually want to remove this from backend
-            key: ValueKey("null"),
-            child: CustomCard(
-              argTitle: Calc.getWarmup(_maxRep, 3),
-              subTitle: "Warmup set 3",
-              setWeight: Calc.getWarmupVals(
-                _maxRep,
-                3,
-              )[0], // First index of the list is this sets weight
-            ),
-          ),
-          Dismissible(
-            // key needed if I actually want to remove this from backend
-            key: ValueKey("null"),
-            child: CustomCard(
-              argTitle: Calc.getRealSet(_maxRep, 1, widget.weekID),
-              subTitle: "Real ${widget.activity} set 1",
-              setWeight: Calc.getRealSetVals(
-                _maxRep,
-                1,
-                widget.weekID,
-              )[0], // First index of the list is this sets weight
-            ),
-          ),
-          Dismissible(
-            // key needed if I actually want to remove this from backend
-            key: ValueKey("null"),
-            child: CustomCard(
-              argTitle: Calc.getRealSet(_maxRep, 2, widget.weekID),
-              subTitle: "Real ${widget.activity} set 2",
-              setWeight: Calc.getRealSetVals(
-                _maxRep,
-                2,
-                widget.weekID,
-              )[0], // First index of the list is this sets weight
-            ),
-          ),
-          Dismissible(
-            // key needed if I actually want to remove this from backend
-            key: ValueKey("null"),
-            child: CustomCard(
-              argTitle: Calc.getRealSet(_maxRep, 3, widget.weekID),
-              subTitle: "Real ${widget.activity} set 3",
-              setWeight: Calc.getRealSetVals(
-                _maxRep,
-                3,
-                widget.weekID,
-              )[0], // First index of the list is this sets weight
-            ),
-          ),
-          Dismissible(
-            // key needed if I actually want to remove this from backend
-            key: ValueKey("null"),
-            child: CustomCard(
-              argTitle: Calc.getAssistanceSet(_assistanceMaxRep),
-              subTitle:
-                  "Assisting ${getAssistanceActivity(widget.activity)} sets",
-              setWeight: Calc.getAssistanceSetVals(_assistanceMaxRep),
-            ),
-          ),
+          new Builder(builder: (BuildContext ctxt) {
+            return Dismissible(
+              // key needed if I actually want to remove this from backend
+              key: ValueKey("null"),
+              onDismissed: (direction) {
+                // I don't  care about direction here
+                saveDataOnebyOneandRefreshParent(ctxt);
+              },
+              child: CustomCard(
+                argTitle: Calc.getWarmup(_maxRep, 1),
+                subTitle: "Warmup set 1",
+                setWeight: Calc.getWarmupVals(
+                  _maxRep,
+                  1,
+                )[0], // First index of the list is this sets weight
+              ),
+            );
+          }),
+          new Builder(builder: (BuildContext ctxt) {
+            return Dismissible(
+              // key needed if I actually want to remove this from backend
+              key: ValueKey("null"),
+              onDismissed: (direction) {
+                // I don't  care about direction here
+                saveDataOnebyOneandRefreshParent(ctxt);
+              },
+              child: CustomCard(
+                argTitle: Calc.getWarmup(_maxRep, 2),
+                subTitle: "Warmup set 2",
+                setWeight: Calc.getWarmupVals(
+                  _maxRep,
+                  2,
+                )[0], // First index of the list is this sets weight
+              ),
+            );
+          }),
+          new Builder(builder: (BuildContext ctxt) {
+            return Dismissible(
+              // key needed if I actually want to remove this from backend
+              key: ValueKey("null"),
+              onDismissed: (direction) {
+                // I don't  care about direction here
+                saveDataOnebyOneandRefreshParent(ctxt);
+              },
+              child: CustomCard(
+                argTitle: Calc.getWarmup(_maxRep, 3),
+                subTitle: "Warmup set 3",
+                setWeight: Calc.getWarmupVals(
+                  _maxRep,
+                  3,
+                )[0], // First index of the list is this sets weight
+              ),
+            );
+          }),
+          new Builder(builder: (BuildContext ctxt) {
+            return Dismissible(
+              // key needed if I actually want to remove this from backend
+              key: ValueKey("null"),
+              onDismissed: (direction) {
+                // I don't  care about direction here
+                saveDataOnebyOneandRefreshParent(ctxt);
+              },
+              child: CustomCard(
+                argTitle: Calc.getRealSet(_maxRep, 1, widget.weekID),
+                subTitle: "Real ${widget.activity} set 1",
+                setWeight: Calc.getRealSetVals(
+                  _maxRep,
+                  1,
+                  widget.weekID,
+                )[0], // First index of the list is this sets weight
+              ),
+            );
+          }),
+          new Builder(builder: (BuildContext ctxt) {
+            return Dismissible(
+              // key needed if I actually want to remove this from backend
+              key: ValueKey("null"),
+              onDismissed: (direction) {
+                // I don't  care about direction here
+                saveDataOnebyOneandRefreshParent(ctxt);
+              },
+              child: CustomCard(
+                argTitle: Calc.getRealSet(_maxRep, 2, widget.weekID),
+                subTitle: "Real ${widget.activity} set 2",
+                setWeight: Calc.getRealSetVals(
+                  _maxRep,
+                  2,
+                  widget.weekID,
+                )[0], // First index of the list is this sets weight
+              ),
+            );
+          }),
+          new Builder(builder: (BuildContext ctxt) {
+            return Dismissible(
+              // key needed if I actually want to remove this from backend
+              key: ValueKey("null"),
+              onDismissed: (direction) {
+                // I don't  care about direction here
+                saveDataOnebyOneandRefreshParent(ctxt);
+              },
+              child: CustomCard(
+                argTitle: Calc.getRealSet(_maxRep, 3, widget.weekID),
+                subTitle: "Real ${widget.activity} set 3",
+                setWeight: Calc.getRealSetVals(
+                  _maxRep,
+                  3,
+                  widget.weekID,
+                )[0], // First index of the list is this sets weight
+              ),
+            );
+          }),
+          new Builder(builder: (BuildContext ctxt) {
+            return Dismissible(
+              // key needed if I actually want to remove this from backend
+              key: ValueKey("null"),
+              onDismissed: (direction) {
+                // I don't  care about direction here
+                saveDataOnebyOneandRefreshParent(ctxt);
+              },
+              child: CustomCard(
+                argTitle: Calc.getAssistanceSet(_assistanceMaxRep),
+                subTitle:
+                    "Assisting ${getAssistanceActivity(widget.activity)} sets",
+                setWeight: Calc.getAssistanceSetVals(_assistanceMaxRep),
+              ),
+            );
+          }),
           SizedBox(height: 70),
         ],
       ),
