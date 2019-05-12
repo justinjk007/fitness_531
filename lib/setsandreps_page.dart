@@ -59,62 +59,90 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
       ),
       body: ListView(
         children: <Widget>[
-          CustomCard(
-            argTitle: Calc.getWarmup(_maxRep, 1),
-            subTitle: "Warmup set 1",
-            setWeight: Calc.getWarmupVals(
-              _maxRep,
-              1,
-            )[0], // First index of the list is this sets weight
+          Dismissible(
+            // key needed if I actually want to remove this from backend
+            key: ValueKey("null"),
+            child: CustomCard(
+              argTitle: Calc.getWarmup(_maxRep, 1),
+              subTitle: "Warmup set 1",
+              setWeight: Calc.getWarmupVals(
+                _maxRep,
+                1,
+              )[0], // First index of the list is this sets weight
+            ),
           ),
-          CustomCard(
-            argTitle: Calc.getWarmup(_maxRep, 2),
-            subTitle: "Warmup set 2",
-            setWeight: Calc.getWarmupVals(
-              _maxRep,
-              2,
-            )[0], // First index of the list is this sets weight
+          Dismissible(
+            // key needed if I actually want to remove this from backend
+            key: ValueKey("null"),
+            child: CustomCard(
+              argTitle: Calc.getWarmup(_maxRep, 2),
+              subTitle: "Warmup set 2",
+              setWeight: Calc.getWarmupVals(
+                _maxRep,
+                2,
+              )[0], // First index of the list is this sets weight
+            ),
           ),
-          CustomCard(
-            argTitle: Calc.getWarmup(_maxRep, 3),
-            subTitle: "Warmup set 3",
-            setWeight: Calc.getWarmupVals(
-              _maxRep,
-              3,
-            )[0], // First index of the list is this sets weight
+          Dismissible(
+            // key needed if I actually want to remove this from backend
+            key: ValueKey("null"),
+            child: CustomCard(
+              argTitle: Calc.getWarmup(_maxRep, 3),
+              subTitle: "Warmup set 3",
+              setWeight: Calc.getWarmupVals(
+                _maxRep,
+                3,
+              )[0], // First index of the list is this sets weight
+            ),
           ),
-          CustomCard(
-            argTitle: Calc.getRealSet(_maxRep, 1, widget.weekID),
-            subTitle: "Real ${widget.activity} set 1",
-            setWeight: Calc.getRealSetVals(
-              _maxRep,
-              1,
-              widget.weekID,
-            )[0], // First index of the list is this sets weight
+          Dismissible(
+            // key needed if I actually want to remove this from backend
+            key: ValueKey("null"),
+            child: CustomCard(
+              argTitle: Calc.getRealSet(_maxRep, 1, widget.weekID),
+              subTitle: "Real ${widget.activity} set 1",
+              setWeight: Calc.getRealSetVals(
+                _maxRep,
+                1,
+                widget.weekID,
+              )[0], // First index of the list is this sets weight
+            ),
           ),
-          CustomCard(
-            argTitle: Calc.getRealSet(_maxRep, 2, widget.weekID),
-            subTitle: "Real ${widget.activity} set 2",
-            setWeight: Calc.getRealSetVals(
-              _maxRep,
-              2,
-              widget.weekID,
-            )[0], // First index of the list is this sets weight
+          Dismissible(
+            // key needed if I actually want to remove this from backend
+            key: ValueKey("null"),
+            child: CustomCard(
+              argTitle: Calc.getRealSet(_maxRep, 2, widget.weekID),
+              subTitle: "Real ${widget.activity} set 2",
+              setWeight: Calc.getRealSetVals(
+                _maxRep,
+                2,
+                widget.weekID,
+              )[0], // First index of the list is this sets weight
+            ),
           ),
-          CustomCard(
-            argTitle: Calc.getRealSet(_maxRep, 3, widget.weekID),
-            subTitle: "Real ${widget.activity} set 3",
-            setWeight: Calc.getRealSetVals(
-              _maxRep,
-              3,
-              widget.weekID,
-            )[0], // First index of the list is this sets weight
+          Dismissible(
+            // key needed if I actually want to remove this from backend
+            key: ValueKey("null"),
+            child: CustomCard(
+              argTitle: Calc.getRealSet(_maxRep, 3, widget.weekID),
+              subTitle: "Real ${widget.activity} set 3",
+              setWeight: Calc.getRealSetVals(
+                _maxRep,
+                3,
+                widget.weekID,
+              )[0], // First index of the list is this sets weight
+            ),
           ),
-          CustomCard(
-            argTitle: Calc.getAssistanceSet(_assistanceMaxRep),
-            subTitle:
-                "Assisting ${getAssistanceActivity(widget.activity)} sets",
-            setWeight: Calc.getAssistanceSetVals(_assistanceMaxRep),
+          Dismissible(
+            // key needed if I actually want to remove this from backend
+            key: ValueKey("null"),
+            child: CustomCard(
+              argTitle: Calc.getAssistanceSet(_assistanceMaxRep),
+              subTitle:
+                  "Assisting ${getAssistanceActivity(widget.activity)} sets",
+              setWeight: Calc.getAssistanceSetVals(_assistanceMaxRep),
+            ),
           ),
           SizedBox(height: 70),
         ],

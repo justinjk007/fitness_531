@@ -23,7 +23,8 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
         child: Row(
           children: <Widget>[
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start, // This is so lines start from the same position
+              crossAxisAlignment: CrossAxisAlignment
+                  .start, // This is so lines start from the same position
               children: <Widget>[
                 Text("Squat: ${doc.data['squat']} lbs"),
                 SizedBox(height: 10),
@@ -32,7 +33,8 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
             ),
             Expanded(child: SizedBox()),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start, // This is so lines start from the same position
+              crossAxisAlignment: CrossAxisAlignment
+                  .start, // This is so lines start from the same position
               children: <Widget>[
                 Text("Deadlift: ${doc.data['deadlift']} lbs"),
                 SizedBox(height: 10),
@@ -64,6 +66,47 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    // user defined function
+    void _showResetDialog() {
+      // flutter defined function
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return AlertDialog(
+            title: Text("Start a new streak"),
+            // TODO: This shape is legacy after upgrading flutter, so find a workaround
+            // shape: SuperellipseShape(
+            //   borderRadius: BorderRadius.circular(20.0),
+            // ),
+            content: Text("This will reset all the activity status of "
+                "all weeks, this means you are starting a new 4 week streak..."),
+            actions: <Widget>[
+              // Usually buttons at the bottom of the dialog
+              FlatButton(
+                child: Text(
+                  "Yep, Reset!",
+                  style: TextStyle(
+                    fontStyle: FontStyle.italic, // yeyya!
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                onPressed: () {
+                  // SaveStateHelper.resetAll().then((_) {
+                  //   callBackWeeksPage();
+                  // });
+                  // Exit out of the window after reseting
+                  Navigator.of(context).pop();
+                },
+              ),
+              SizedBox(width: 10), // Add a little bit of padding after
+            ], // Actions ends here
+          );
+        },
+      );
+    }
+    
     return Scaffold(
       appBar: AppBar(
         title: Text('Records'),
@@ -104,6 +147,12 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
             },
           )
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _showResetDialog,
+        child: Icon(Icons.add),
+        tooltip: "Add new record",
+        backgroundColor: Colors.red[400],
       ),
     );
   }

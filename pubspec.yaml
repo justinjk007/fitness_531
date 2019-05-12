@@ -39,6 +39,7 @@ flutter:
     - assets/deadlift.png
     - assets/press.png
     - assets/squat.png
+    - assets/barbell_raw.png # For using in the side drawer
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
