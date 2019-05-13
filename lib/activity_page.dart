@@ -3,17 +3,17 @@ import 'activity_widget.dart';
 
 // This is the page where the four activities of the week are displayed
 class ActivityPage extends StatelessWidget {
-  final Function notifyParent;
+  // final Function notifyParent;
   final String weekIDForChild;
   ActivityPage({
     Key key,
-    @required this.notifyParent,
+    // @required this.notifyParent,
     @required this.weekIDForChild,
   }) : super(key: key);
 
-  void saveData() async {
-    notifyParent();
-  }
+  // void saveData() async {
+  //   notifyParent();
+  // }
 
   @override
   Widget build(BuildContext ctxt) {
