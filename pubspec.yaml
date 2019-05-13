@@ -12,6 +12,7 @@ dependencies:
   cupertino_icons: ^0.1.2 # Use with the CupertinoIcons class for iOS style icons.
   shared_preferences: ^0.5.1
   cloud_firestore: ^0.9.13
+  rect_getter: ^0.0.1 # To get the FAB position so we can add ripple effect on records page
 
 dev_dependencies:
   flutter_test:

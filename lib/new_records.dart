@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rect_getter/rect_getter.dart'; //<--Import rect getter
 import 'records.dart';
+
+class FadeRouteBuilder<T> extends PageRouteBuilder<T> {
+  final Widget page;
+  FadeRouteBuilder({@required this.page})
+      : super(
+          pageBuilder: (context, animation1, animation2) => page,
+          transitionsBuilder: (context, animation1, animation2, child) {
+            return FadeTransition(opacity: animation1, child: child);
+          },
+        );
+}
 
 class FirestoreCRUDPage extends StatefulWidget {
   @override
@@ -14,6 +26,54 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
   final db = Firestore.instance;
   final _formKey = GlobalKey<FormState>();
   String name;
+
+  // https://marcinszalek.pl/flutter/ripple-animation/
+  // For ripple from FAB
+  final Duration animationDuration = Duration(milliseconds: 700);
+  GlobalKey rectGetterKey = RectGetter.createGlobalKey(); //<--Create a key
+  Rect rect; //<--Declare field of rect
+
+  void goToAddingRecordsPage() async {
+    //<-- set rect to be size of fab
+    setState(() => rect = RectGetter.getRectFromKey(rectGetterKey));
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      //<-- on the next frame...
+      //<-- set rect to be big
+      setState(() =>
+          rect = rect.inflate(1.3 * MediaQuery.of(context).size.longestSide));
+      //<-- after delay, go to next page
+      Future.delayed(animationDuration, goToAddingRecordsPageForReal);
+    });
+  }
+
+  void goToAddingRecordsPageForReal() {
+    setState(() => rect = RectGetter.getRectFromKey(rectGetterKey));
+    Navigator.push(
+      context,
+      FadeRouteBuilder(page: RecordsPage()),
+    ).then((_) => setState(() => rect = null));
+  }
+
+  // This widget appears on top of the page during the ripple transition
+  Widget _ripple() {
+    if (rect == null) {
+      return Container();
+    }
+    return AnimatedPositioned(
+      //<--replace Positioned with AnimatedPositioned
+      duration: animationDuration, //<--specify the animation duration
+      left: rect.left,
+      right: MediaQuery.of(context).size.width - rect.right,
+      top: rect.top,
+      bottom: MediaQuery.of(context).size.height - rect.bottom,
+      child: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.red[300],
+        ),
+      ),
+    );
+  }
 
   // TODO: Make these cards shadow just like cards in sets and reps page
   // TODO: Add a FAB with which we can add a new record
@@ -67,100 +127,63 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
 
   @override
   Widget build(BuildContext context) {
-    // user defined function
-    void _showResetDialog() {
-      // flutter defined function
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          // return object of type Dialog
-          return AlertDialog(
-            title: Text("Start a new streak"),
-            // TODO: This shape is legacy after upgrading flutter, so find a workaround
-            // shape: SuperellipseShape(
-            //   borderRadius: BorderRadius.circular(20.0),
-            // ),
-            content: Text("This will reset all the activity status of "
-                "all weeks, this means you are starting a new 4 week streak..."),
-            actions: <Widget>[
-              // Usually buttons at the bottom of the dialog
-              FlatButton(
-                child: Text(
-                  "Yep, Reset!",
-                  style: TextStyle(
-                    fontStyle: FontStyle.italic, // yeyya!
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                onPressed: () {
-                  // SaveStateHelper.resetAll().then((_) {
-                  //   callBackWeeksPage();
-                  // });
-                  // Exit out of the window after reseting
-                  Navigator.of(context).pop();
+    return Stack(
+      //<-- Wrap Scaffold with a Stack
+      children: <Widget>[
+        Scaffold(
+          appBar: AppBar(
+            title: Text('Records'),
+          ),
+          body: ListView(
+            padding: EdgeInsets.all(8),
+            children: <Widget>[
+              // Form(
+              //   key: _formKey,
+              //   child: buildTextFormField(),
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //   children: <Widget>[
+              //     RaisedButton(
+              //       onPressed: createData,
+              //       child: Text('Create', style: TextStyle(color: Colors.white)),
+              //       color: Colors.green,
+              //     ),
+              //     RaisedButton(
+              //       onPressed: id != null ? readData : null,
+              //       child: Text('Read', style: TextStyle(color: Colors.white)),
+              //       color: Colors.blue,
+              //     ),
+              //   ],
+              // ),
+              StreamBuilder<QuerySnapshot>(
+                stream: db.collection('MaxReps').snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Column(
+                        children: snapshot.data.documents
+                            .map((doc) => buildItem(doc))
+                            .toList());
+                  } else {
+                    return SizedBox();
+                  }
                 },
-              ),
-              SizedBox(width: 10), // Add a little bit of padding after
-            ], // Actions ends here
-          );
-        },
-      );
-    }
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Records'),
-      ),
-      body: ListView(
-        padding: EdgeInsets.all(8),
-        children: <Widget>[
-          // Form(
-          //   key: _formKey,
-          //   child: buildTextFormField(),
-          // ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //   children: <Widget>[
-          //     RaisedButton(
-          //       onPressed: createData,
-          //       child: Text('Create', style: TextStyle(color: Colors.white)),
-          //       color: Colors.green,
-          //     ),
-          //     RaisedButton(
-          //       onPressed: id != null ? readData : null,
-          //       child: Text('Read', style: TextStyle(color: Colors.white)),
-          //       color: Colors.blue,
-          //     ),
-          //   ],
-          // ),
-          StreamBuilder<QuerySnapshot>(
-            stream: db.collection('MaxReps').snapshots(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Column(
-                    children: snapshot.data.documents
-                        .map((doc) => buildItem(doc))
-                        .toList());
-              } else {
-                return SizedBox();
-              }
-            },
-          )
-        ],
-      ),
-      floatingActionButton: new Builder(builder: (BuildContext ctxt) {
-        return FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-              ctxt,
-              new MaterialPageRoute(builder: (ctxt) => new RecordsPage()),
-            );
-          },
-          child: Icon(Icons.add),
-          tooltip: "Add new record",
-          backgroundColor: Colors.red[400],
-        );
-      }),
+              )
+            ],
+          ),
+          floatingActionButton: RectGetter(
+            //<-- Wrap Fab with RectGetter
+            key: rectGetterKey, //<-- Passing the key
+            child: FloatingActionButton(
+              onPressed: goToAddingRecordsPage,
+              child: Icon(Icons.add),
+              tooltip: "Add new record",
+              backgroundColor: Colors.red[400],
+            ),
+          ),
+        ),
+        _ripple(), //<-- Add the ripple widget
+      ],
     );
   }
 
