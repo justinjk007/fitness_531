@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:page_transition/page_transition.dart';
 import 'records.dart';
 
 class FirestoreCRUDPage extends StatefulWidget {
@@ -151,9 +153,20 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
       floatingActionButton: new Builder(builder: (BuildContext ctxt) {
         return FloatingActionButton(
           onPressed: () {
+            // Navigator.push(
+            //   ctxt,
+            //   new MaterialPageRoute(builder: (ctxt) => new RecordsPage()),
+            // );
             Navigator.push(
               ctxt,
-              new MaterialPageRoute(builder: (ctxt) => new RecordsPage()),
+              PageTransition(
+                type: PageTransitionType.scale,
+                alignment: Alignment.bottomRight,
+                curve: Curves.easeInSine,
+                // curve: Curves.linear,
+                duration: Duration(seconds: 1),
+                child: RecordsPage(),
+              ),
             );
           },
           child: Icon(Icons.add),
