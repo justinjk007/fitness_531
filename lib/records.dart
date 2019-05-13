@@ -25,20 +25,20 @@ class _RecordsPageState extends State<RecordsPage> {
     });
   }
 
-  IncrementandRefreshParent() {
-    _squatRM += 10;
-    _benchRM += 5;
-    _deadliftRM += 10;
-    _pressRM += 5;
-    SaveStateHelper.setMaxRepToMemory('squat', _squatRM);
-    SaveStateHelper.setMaxRepToMemory('bench', _benchRM);
-    SaveStateHelper.setMaxRepToMemory('deadlift', _deadliftRM);
-    SaveStateHelper.setMaxRepToMemory('press', _pressRM);
-    // Refersh widget
-    setState(() {});
-  }
+  // IncrementandRefreshParent() {
+  //   _squatRM += 10;
+  //   _benchRM += 5;
+  //   _deadliftRM += 10;
+  //   _pressRM += 5;
+  //   SaveStateHelper.setMaxRepToMemory('squat', _squatRM);
+  //   SaveStateHelper.setMaxRepToMemory('bench', _benchRM);
+  //   SaveStateHelper.setMaxRepToMemory('deadlift', _deadliftRM);
+  //   SaveStateHelper.setMaxRepToMemory('press', _pressRM);
+  //   // Refersh widget
+  //   setState(() {});
+  // }
 
-  // One controller for weach text field
+  // One controller for each text field
   final _controller1 = TextEditingController();
   final _controller2 = TextEditingController();
   final _controller3 = TextEditingController();
@@ -143,17 +143,17 @@ class _RecordsPageState extends State<RecordsPage> {
           ),
         ),
       ),
-      floatingActionButton: showFab
-          ? FloatingActionButton.extended(
-              onPressed: () {
-                IncrementandRefreshParent();
-              },
-              icon: Icon(Icons.add),
-              label: Text("Increment"),
-              tooltip: "Auto increment all values",
-              backgroundColor: Colors.red[400],
-            )
-          : null, // Show null if showFab is false
+      // floatingActionButton: showFab
+      //     ? FloatingActionButton.extended(
+      //         onPressed: () {
+      //           IncrementandRefreshParent();
+      //         },
+      //         icon: Icon(Icons.add),
+      //         label: Text("Increment"),
+      //         tooltip: "Auto increment all values",
+      //         backgroundColor: Colors.red[400],
+      //       )
+      //     : null, // Show null if showFab is false
     );
   }
 }

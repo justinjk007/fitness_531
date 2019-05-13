@@ -82,17 +82,6 @@ class SideDrawer extends StatelessWidget {
             // ),
           ),
           ListTile(
-            leading: Icon(Icons.tune, color: Colors.red[400], size: 30),
-            title: Text('Set 1RM records'),
-            onTap: () {
-              Navigator.pop(ctxt); // Close the drawer first
-              Navigator.push(
-                ctxt,
-                new MaterialPageRoute(builder: (ctxt) => new RecordsPage()),
-              );
-            },
-          ),
-          ListTile(
             leading: Icon(Icons.assignment, color: Colors.red[400], size: 30),
             title: Text('Records'),
             onTap: () {

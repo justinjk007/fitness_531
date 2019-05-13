@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'records.dart';
 
 class FirestoreCRUDPage extends StatefulWidget {
   @override
@@ -66,7 +67,6 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
 
   @override
   Widget build(BuildContext context) {
-
     // user defined function
     void _showResetDialog() {
       // flutter defined function
@@ -106,7 +106,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
         },
       );
     }
-    
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Records'),
@@ -148,12 +148,19 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _showResetDialog,
-        child: Icon(Icons.add),
-        tooltip: "Add new record",
-        backgroundColor: Colors.red[400],
-      ),
+      floatingActionButton: new Builder(builder: (BuildContext ctxt) {
+        return FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              ctxt,
+              new MaterialPageRoute(builder: (ctxt) => new RecordsPage()),
+            );
+          },
+          child: Icon(Icons.add),
+          tooltip: "Add new record",
+          backgroundColor: Colors.red[400],
+        );
+      }),
     );
   }
 
