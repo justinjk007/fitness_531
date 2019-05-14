@@ -74,8 +74,15 @@ class _ActivityWidgetState extends State<Activity> {
                             color: Colors.red[300].withOpacity(0.3), size: 0);
                       } else {
                         // Item is marked done
-                        return Icon(Icons.beenhere,
-                            color: Colors.red[300].withOpacity(0.3), size: 150);
+                        // return Icon(Icons.beenhere,
+                        //     color: Colors.red[300].withOpacity(0.3), size: 150);
+                        return FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Icon(
+                            Icons.beenhere,
+                            color: Colors.red[300].withOpacity(0.3),
+                          ),
+                        );
                       }
                     }
                   }, // End of  builder
