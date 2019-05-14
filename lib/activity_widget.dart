@@ -45,11 +45,15 @@ class _ActivityWidgetState extends State<Activity> {
 
   @override
   Widget build(BuildContext ctxt) {
+    final double sizeOfWidget = MediaQuery.of(context).size.height / 3.5;
+    // 75 % of the widget
+    final double sizeOfIcon = 0.6 * (MediaQuery.of(context).size.height / 3.5);
+
     return new Expanded(
       // Since this is expanded widget it will take up the fitting width inside
       // the Row widget which is inside a padding widget so it won't overflow.
       child: SizedBox(
-        height: MediaQuery.of(context).size.height / 3.5,
+        height: sizeOfWidget,
         child: Material(
           color: widget.color,
           elevation: 4.0,
@@ -74,15 +78,9 @@ class _ActivityWidgetState extends State<Activity> {
                             color: Colors.red[300].withOpacity(0.3), size: 0);
                       } else {
                         // Item is marked done
-                        // return Icon(Icons.beenhere,
-                        //     color: Colors.red[300].withOpacity(0.3), size: 150);
-                        return FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Icon(
-                            Icons.beenhere,
+                        return Icon(Icons.beenhere,
                             color: Colors.red[300].withOpacity(0.3),
-                          ),
-                        );
+                            size: sizeOfIcon);
                       }
                     }
                   }, // End of  builder
