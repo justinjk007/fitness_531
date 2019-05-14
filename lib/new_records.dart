@@ -77,7 +77,8 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
   }
 
   // TODO: Make these cards shadow just like cards in sets and reps page
-  // TODO: Add a FAB with which we can add a new record
+  // TODO: Make the input record page connect to the database
+  // TODO: Correct the height and width of activity widget using media queries for padding and widget size(Do some math)
   Card buildItem(DocumentSnapshot doc) {
     return Card(
       child: Padding(
