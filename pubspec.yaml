@@ -13,6 +13,7 @@ dependencies:
   shared_preferences: ^0.5.1
   cloud_firestore: ^0.9.13
   rect_getter: ^0.0.1 # To get the FAB position so we can add ripple effect on records page
+  percent_indicator: ^1.0.16
 
 dev_dependencies:
   flutter_test:
