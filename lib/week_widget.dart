@@ -1,31 +1,10 @@
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:flutter/material.dart';
 import 'save_state.dart';
 import 'activity_page.dart';
 
 class _WeekWidgetState extends State<Weeks> {
-
-  int _week1Status = 0;
-  int _week2Status = 0;
-  int _week3Status = 0;
-  int _week4Status = 0;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _loadMaxRep(); // Load all the Max rep values from memory async
-  // }
-
-  // void _loadMaxRep() async {
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     // If no data exist return 0
-  //     _maxRep = (prefs.getInt(widget.activity) ?? 0);
-  //     _assistanceMaxRep =
-  //         (prefs.getInt(getAssistanceActivity(widget.activity)) ?? 0);
-  //   });
-  // }
-
   void notifyReceiver() {
     setState(() {
       // Empty method just to refresh widget, collecting new data is handled by
@@ -43,17 +22,20 @@ class _WeekWidgetState extends State<Weeks> {
     return nextScreen;
   }
 
-  Widget _getProgressWidget(double percent) {
-    Widget progress = new CircularPercentIndicator(
-      radius: 45.0,
-      lineWidth: 7.0,
-      animation: true,
-      animationDuration: 1000,
-      percent: percent/100,
-      circularStrokeCap: CircularStrokeCap.round,
-      progressColor: Colors.red[300],
-    );
-    return progress;
+  Widget _getProgressWidget(int percent) {
+    if (percent == 100) {
+      return Icon(Icons.check_circle, color: Colors.red[300], size: 52.0);
+    } else {
+      return CircularPercentIndicator(
+        radius: 45.0,
+        lineWidth: 7.0,
+        animation: true,
+        animationDuration: 1000,
+        percent: percent / 100,
+        circularStrokeCap: CircularStrokeCap.round,
+        progressColor: Colors.red[300],
+      );
+    }
   }
 
   @override
@@ -77,26 +59,15 @@ class _WeekWidgetState extends State<Weeks> {
                 ListTile(
                   title: widget.argTitle,
                   subtitle: widget.subTitle,
-                  leading: FutureBuilder<bool>(
+                  leading: FutureBuilder<int>(
                     future: SaveStateHelper.getWeek(widget.weekID),
-                    initialData: true,
+                    initialData: 0,
                     builder:
-                        (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                        (BuildContext context, AsyncSnapshot<int> snapshot) {
                       if (snapshot.hasError) {
-                        // return Icon(Icons.check_box_outline_blank,
-                        //     color: Colors.red[300], size: 50.0);
-                        return _getProgressWidget(0.0);
+                        return _getProgressWidget(0);
                       } else {
-                        if (snapshot.data == true) {
-                          // Item is marked undone
-                          // return Icon(Icons.check_box_outline_blank,
-                          //     color: Colors.red[300], size: 50.0);
-                          return _getProgressWidget(50);
-                        } else {
-                          // Item is marked done
-                          return Icon(Icons.check_circle,
-                              color: Colors.red[300], size: 52.0);
-                        }
+                        return _getProgressWidget(snapshot.data);
                       }
                     }, // End of  builder
                   ), // End of FutureBuilder

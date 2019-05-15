@@ -15,15 +15,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SaveStateHelper {
   // Return 'week''s value or false if it doesn't exist
-  static Future<bool> getWeek(String week) async {
+  static Future<int> getWeek(String week) async {
     // week will be strings like 'week1' , 'week2' ...
+    // Data stored is percent of completness
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    int weekStatus = prefs.getInt(week) ?? 0; // If no data exist return 0
-    if (weekStatus == 4) {
-      return false; // If 4 activities of the week are done, week is done
-    } else {
-      return true;
-    }
+    return prefs.getInt(week) ?? 0; // If no data exist return 0
   }
 
   // Return each activities if complete or not status
@@ -45,10 +41,10 @@ class SaveStateHelper {
     int weekStatus = prefs.getInt(week) ?? 0; // If no data exist return 0
     if (val) {
       // If true, then it was going to be set false meaning the item is being
-      // marked done, so week activities being done should go up by one.
-      prefs.setInt(week, weekStatus + 1);
+      // marked done, so week activities being done should go up by one(25% done)
+      prefs.setInt(week, weekStatus + 25);
     } else {
-      prefs.setInt(week, weekStatus - 1);
+      prefs.setInt(week, weekStatus - 25);
     }
     return prefs.setBool(key, !val); // Inverse activity status
   }
