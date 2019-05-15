@@ -29,8 +29,8 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
 
   // https://marcinszalek.pl/flutter/ripple-animation/
   // For ripple from FAB
-  final Duration animationDuration = Duration(milliseconds: 200);
-  final Duration delay = Duration(milliseconds: 400);
+  final Duration animationDuration = Duration(milliseconds: 300);
+  final Duration delay = Duration(milliseconds: 300);
   GlobalKey rectGetterKey = RectGetter.createGlobalKey(); //<--Create a key
   Rect rect; //<--Declare field of rect
 
