@@ -81,28 +81,46 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
   // TODO: Make the input record page connect to the database
   // TODO: Correct the height and width of activity widget using media queries for padding and widget size(Do some math)
   Card buildItem(DocumentSnapshot doc) {
+    String dateDataWasAdded = doc.data['date'].substring(0, 4) +
+        "-" +
+        doc.data['date'].substring(4, 6) +
+        "-" +
+        doc.data['date'].substring(6, 8);
+
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Row(
+        padding: EdgeInsets.only(top: 10, right: 20, left: 20, bottom: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment
-                  .start, // This is so lines start from the same position
-              children: <Widget>[
-                Text("Squat: ${doc.data['squat']} lbs"),
-                SizedBox(height: 10),
-                Text("Bench: ${doc.data['bench']} lbs"),
-              ],
+            Text(
+              dateDataWasAdded,
+              style: TextStyle(color: Colors.grey),
             ),
-            Expanded(child: SizedBox()),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment
-                  .start, // This is so lines start from the same position
+            SizedBox(height: 5),
+            Row(
               children: <Widget>[
-                Text("Deadlift: ${doc.data['deadlift']} lbs"),
-                SizedBox(height: 10),
-                Text("Press: ${doc.data['press']} lbs"),
+                SizedBox(width: 7),
+                Column(
+                  // This is so lines start from the same position
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text("Squat: ${doc.data['squat']} lbs"),
+                    SizedBox(height: 10),
+                    Text("Bench: ${doc.data['bench']} lbs"),
+                  ],
+                ),
+                Expanded(child: SizedBox()),
+                Column(
+                  // This is so lines start from the same position
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text("Deadlift: ${doc.data['deadlift']} lbs"),
+                    SizedBox(height: 10),
+                    Text("Press: ${doc.data['press']} lbs"),
+                  ],
+                ),
+                SizedBox(width: 7),
               ],
             ),
           ],
