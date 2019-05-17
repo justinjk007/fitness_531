@@ -9,8 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 //  - active or inactive status of each weeks each lifts (4x4=16 values)
 //  - 1 RM weights of each exercise (4 values)
 
-// TODO: History of 1 RM weights used (infinity)
-
 // Some logic
 
 class SaveStateHelper {

@@ -77,9 +77,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
     );
   }
 
-  // TODO: Make these cards shadow just like cards in sets and reps page
   // TODO: Make the input record page connect to the database
-  // TODO: Correct the height and width of activity widget using media queries for padding and widget size(Do some math)
   Card buildItem(DocumentSnapshot doc) {
     String dateDataWasAdded = doc.data['date'].substring(0, 4) +
         "-" +

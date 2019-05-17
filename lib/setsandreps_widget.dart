@@ -267,56 +267,45 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext ctxt) {
-    return Padding( // Padding for 1 card
-      padding: EdgeInsets.only(right: 15, left: 15, top: 5, bottom: 5),
-      child: Container(
-        decoration: new BoxDecoration(
-          boxShadow: [
-            new BoxShadow(
-              color: Colors.grey[300],
-              blurRadius: 15.0,
-            ),
-          ],
-        ),
-        child: Material(
-          borderRadius: new BorderRadius.circular(4.0),
-          child: Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Column(
-              children: [
-                Row(children: [
-                  Text(
-                    subTitle,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
-                  ),
-                  Expanded(child: SizedBox()),
-                  Text(
-                    argTitle,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                ]),
-                SizedBox(
-                  // This is a custom divider
-                  height: 10.0,
-                  child: new Center(
-                    child: new Container(
-                      margin:
-                          new EdgeInsetsDirectional.only(start: 1.0, end: 1.0),
-                      height: 2.0,
-                      color: Colors.red[100],
-                    ),
+    return Padding(
+      padding: EdgeInsets.only(right: 15, left: 15, bottom: 2.5),
+      child: Card(
+        child: Padding(
+          padding: EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              Row(children: [
+                Text(
+                  subTitle,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
                   ),
                 ),
-                SizedBox(height: 20),
-                getPlatesWidget(setWeight),
-              ],
-            ),
+                Expanded(child: SizedBox()),
+                Text(
+                  argTitle,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+              ]),
+              SizedBox(
+                // This is a custom divider
+                height: 10.0,
+                child: new Center(
+                  child: new Container(
+                    margin:
+                        new EdgeInsetsDirectional.only(start: 1.0, end: 1.0),
+                    height: 2.0,
+                    color: Colors.red[100],
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              getPlatesWidget(setWeight),
+            ],
           ),
         ),
       ),
