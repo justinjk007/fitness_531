@@ -44,7 +44,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
       setState(() =>
           rect = rect.inflate(1.3 * MediaQuery.of(context).size.longestSide));
       //<-- after delay, go to next page
-      Future.delayed(animationDuration+delay, goToAddingRecordsPageForReal);
+      Future.delayed(animationDuration + delay, goToAddingRecordsPageForReal);
     });
   }
 
@@ -160,7 +160,10 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
               //   ],
               // ),
               StreamBuilder<QuerySnapshot>(
-                stream: db.collection('MaxReps').snapshots(),
+                stream: db
+                    .collection('MaxReps')
+                    .orderBy("date", descending: true) // new entries first
+                    .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return Column(
