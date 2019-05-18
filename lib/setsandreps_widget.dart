@@ -73,17 +73,11 @@ class CustomCard extends StatelessWidget {
                 children: [
                   SizedBox(width: 2.5), // Padding on each side to look better
                   Text(
-                    "${platesMap[45]} x ",
+                    "${platesMap[45]} x 45",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
-                  ),
-                  Image.asset(
-                    'assets/45.png',
-                    width: 20,
-                    height: 20,
-                    fit: BoxFit.cover,
                   ),
                   SizedBox(width: 2.5), // Padding on each side to look better
                 ],
@@ -107,17 +101,11 @@ class CustomCard extends StatelessWidget {
                 children: [
                   SizedBox(width: 2.5), // Padding on each side to look better
                   Text(
-                    "${platesMap[35]} x ",
+                    "${platesMap[35]} x 35",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
-                  ),
-                  Image.asset(
-                    'assets/35.png',
-                    width: 20,
-                    height: 20,
-                    fit: BoxFit.cover,
                   ),
                   SizedBox(width: 2.5), // Padding on each side to look better
                 ],
@@ -141,17 +129,11 @@ class CustomCard extends StatelessWidget {
                 children: [
                   SizedBox(width: 2.5), // Padding on each side to look better
                   Text(
-                    "${platesMap[25]} x ",
+                    "${platesMap[25]} x 25",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
-                  ),
-                  Image.asset(
-                    'assets/25.png',
-                    width: 20,
-                    height: 20,
-                    fit: BoxFit.cover,
                   ),
                   SizedBox(width: 2.5), // Padding on each side to look better
                 ],
@@ -175,17 +157,11 @@ class CustomCard extends StatelessWidget {
                 children: [
                   SizedBox(width: 2.5), // Padding on each side to look better
                   Text(
-                    "${platesMap[10]} x ",
+                    "${platesMap[10]} x 10",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
-                  ),
-                  Image.asset(
-                    'assets/10.png',
-                    width: 20,
-                    height: 20,
-                    fit: BoxFit.cover,
                   ),
                   SizedBox(width: 2.5), // Padding on each side to look better
                 ],
@@ -209,17 +185,11 @@ class CustomCard extends StatelessWidget {
                 children: [
                   SizedBox(width: 2.5), // Padding on each side to look better
                   Text(
-                    "${platesMap[5]} x ",
+                    "${platesMap[5]} x 5",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
-                  ),
-                  Image.asset(
-                    'assets/5.png',
-                    width: 20,
-                    height: 20,
-                    fit: BoxFit.cover,
                   ),
                   SizedBox(width: 2.5), // Padding on each side to look better
                 ],
@@ -243,17 +213,11 @@ class CustomCard extends StatelessWidget {
                 children: [
                   SizedBox(width: 2.5), // Padding on each side to look better
                   Text(
-                    "${platesMap[2.5]} x ",
+                    "${platesMap[2.5]} x 2.5",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
-                  ),
-                  Image.asset(
-                    'assets/2.5.png',
-                    width: 20,
-                    height: 20,
-                    fit: BoxFit.cover,
                   ),
                   SizedBox(width: 2.5), // Padding on each side to look better
                 ],
@@ -296,7 +260,7 @@ class CustomCard extends StatelessWidget {
                 child: new Container(
                   margin: new EdgeInsetsDirectional.only(start: 1.0, end: 1.0),
                   height: 2.0,
-                  color: Colors.red[100],
+                  color: Colors.red[300],
                 ),
               ),
             ),
