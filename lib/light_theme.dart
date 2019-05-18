@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-final ThemeData myTheme = ThemeData(
+final ThemeData lightTheme = ThemeData(
   primarySwatch: MaterialColor(4292770682, {
     50: Color(0xfffaebeb),
     100: Color(0xfff5d6d6),
@@ -52,7 +52,9 @@ final ThemeData myTheme = ThemeData(
         width: 0.0,
         style: BorderStyle.none,
       ),
-      borderRadius: BorderRadius.all(Radius.circular(2.0)),
+      borderRadius: BorderRadius.all(
+        Radius.circular(2.0),
+      ),
     ),
     alignedDropdown: false,
     buttonColor: Color(0xfff38888),
@@ -367,51 +369,21 @@ final ThemeData myTheme = ThemeData(
     filled: false,
     fillColor: Color(0x00000000),
     errorBorder: UnderlineInputBorder(
-      side: BorderSide(
-        color: Color(0xff000000),
-        width: 1.0,
-        style: BorderStyle.solid,
-      ),
       borderRadius: BorderRadius.all(Radius.circular(4.0)),
     ),
     focusedBorder: UnderlineInputBorder(
-      side: BorderSide(
-        color: Color(0xff000000),
-        width: 1.0,
-        style: BorderStyle.solid,
-      ),
       borderRadius: BorderRadius.all(Radius.circular(4.0)),
     ),
     focusedErrorBorder: UnderlineInputBorder(
-      side: BorderSide(
-        color: Color(0xff000000),
-        width: 1.0,
-        style: BorderStyle.solid,
-      ),
       borderRadius: BorderRadius.all(Radius.circular(4.0)),
     ),
     disabledBorder: UnderlineInputBorder(
-      side: BorderSide(
-        color: Color(0xff000000),
-        width: 1.0,
-        style: BorderStyle.solid,
-      ),
       borderRadius: BorderRadius.all(Radius.circular(4.0)),
     ),
     enabledBorder: UnderlineInputBorder(
-      side: BorderSide(
-        color: Color(0xff000000),
-        width: 1.0,
-        style: BorderStyle.solid,
-      ),
       borderRadius: BorderRadius.all(Radius.circular(4.0)),
     ),
     border: UnderlineInputBorder(
-      side: BorderSide(
-        color: Color(0xff000000),
-        width: 1.0,
-        style: BorderStyle.solid,
-      ),
       borderRadius: BorderRadius.all(Radius.circular(4.0)),
     ),
   ),
@@ -429,29 +401,6 @@ final ThemeData myTheme = ThemeData(
     color: Color(0xffffffff),
     opacity: 1.0,
     size: 24.0,
-  ),
-  sliderTheme: SliderThemeData(
-    activeTrackColor: Color(0xffde7b7a),
-    inactiveTrackColor: Color(0x3dde7b7a),
-    disabledActiveTrackColor: Color(0x527b1f1e),
-    disabledInactiveTrackColor: Color(0x1f7b1f1e),
-    activeTickMarkColor: Color(0x8af5d6d6),
-    inactiveTickMarkColor: Color(0x8ade7b7a),
-    disabledActiveTickMarkColor: Color(0x1ff5d6d6),
-    disabledInactiveTickMarkColor: Color(0x1f7b1f1e),
-    thumbColor: Color(0xffde7b7a),
-    disabledThumbColor: Color(0x527b1f1e),
-    thumbShape: RoundSliderThumbShape(),
-    overlayColor: Color(0x29de7b7a),
-    valueIndicatorColor: Color(0xffde7b7a),
-    valueIndicatorShape: PaddleSliderValueIndicatorShape(),
-    showValueIndicator: ShowValueIndicator.onlyForDiscrete,
-    valueIndicatorTextStyle: TextStyle(
-      color: Color(0xffffffff),
-      fontSize: 14.0,
-      fontWeight: FontWeight.w400,
-      fontStyle: FontStyle.normal,
-    ),
   ),
   tabBarTheme: TabBarTheme(
     indicatorSize: TabBarIndicatorSize.tab,
@@ -479,20 +428,16 @@ final ThemeData myTheme = ThemeData(
     ),
     secondarySelectedColor: Color(0x3dde7b7a),
     selectedColor: Color(0x3d000000),
-    shape: StadiumBorder(
-        side: BorderSide(
-      color: Color(0xff000000),
-      width: 0.0,
-      style: BorderStyle.none,
-    )),
+    shape: StadiumBorder(),
   ),
   dialogTheme: DialogTheme(
-      shape: RoundedRectangleBorder(
-    side: BorderSide(
-      color: Color(0xff000000),
-      width: 0.0,
-      style: BorderStyle.none,
+    shape: RoundedRectangleBorder(
+      side: BorderSide(
+        color: Color(0xff000000),
+        width: 0.0,
+        style: BorderStyle.none,
+      ),
+      borderRadius: BorderRadius.all(Radius.circular(4.0)),
     ),
-    borderRadius: BorderRadius.all(Radius.circular(4.0)),
-  )),
+  ),
 );

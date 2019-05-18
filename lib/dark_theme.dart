@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-final ThemeData myTheme = ThemeData(
+final ThemeData darkTheme = ThemeData(
   primarySwatch: MaterialColor(4280361249, {
     50: Color(0xfff2f2f2),
     100: Color(0xffe6e6e6),
@@ -47,12 +47,12 @@ final ThemeData myTheme = ThemeData(
     height: 36.0,
     padding: EdgeInsets.only(top: 0.0, bottom: 0.0, left: 16.0, right: 16.0),
     shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(2.0)),
       side: BorderSide(
         color: Color(0xff000000),
         width: 0.0,
         style: BorderStyle.none,
       ),
-      borderRadius: BorderRadius.all(Radius.circular(2.0)),
     ),
     alignedDropdown: false,
     buttonColor: Color(0xffcd706c),
@@ -367,51 +367,21 @@ final ThemeData myTheme = ThemeData(
     filled: false,
     fillColor: Color(0x00000000),
     errorBorder: UnderlineInputBorder(
-      side: BorderSide(
-        color: Color(0xff000000),
-        width: 1.0,
-        style: BorderStyle.solid,
-      ),
       borderRadius: BorderRadius.all(Radius.circular(4.0)),
     ),
     focusedBorder: UnderlineInputBorder(
-      side: BorderSide(
-        color: Color(0xff000000),
-        width: 1.0,
-        style: BorderStyle.solid,
-      ),
       borderRadius: BorderRadius.all(Radius.circular(4.0)),
     ),
     focusedErrorBorder: UnderlineInputBorder(
-      side: BorderSide(
-        color: Color(0xff000000),
-        width: 1.0,
-        style: BorderStyle.solid,
-      ),
       borderRadius: BorderRadius.all(Radius.circular(4.0)),
     ),
     disabledBorder: UnderlineInputBorder(
-      side: BorderSide(
-        color: Color(0xff000000),
-        width: 1.0,
-        style: BorderStyle.solid,
-      ),
       borderRadius: BorderRadius.all(Radius.circular(4.0)),
     ),
     enabledBorder: UnderlineInputBorder(
-      side: BorderSide(
-        color: Color(0xff000000),
-        width: 1.0,
-        style: BorderStyle.solid,
-      ),
       borderRadius: BorderRadius.all(Radius.circular(4.0)),
     ),
     border: UnderlineInputBorder(
-      side: BorderSide(
-        color: Color(0xff000000),
-        width: 1.0,
-        style: BorderStyle.solid,
-      ),
       borderRadius: BorderRadius.all(Radius.circular(4.0)),
     ),
   ),
@@ -429,29 +399,6 @@ final ThemeData myTheme = ThemeData(
     color: Color(0xff000000),
     opacity: 1.0,
     size: 24.0,
-  ),
-  sliderTheme: SliderThemeData(
-    activeTrackColor: Color(0xff212121),
-    inactiveTrackColor: Color(0x3d212121),
-    disabledActiveTrackColor: Color(0x52000000),
-    disabledInactiveTrackColor: Color(0x1f000000),
-    activeTickMarkColor: Color(0x8a9e9e9e),
-    inactiveTickMarkColor: Color(0x8a212121),
-    disabledActiveTickMarkColor: Color(0x1f9e9e9e),
-    disabledInactiveTickMarkColor: Color(0x1f000000),
-    thumbColor: Color(0xff212121),
-    disabledThumbColor: Color(0x52000000),
-    thumbShape: RoundSliderThumbShape(),
-    overlayColor: Color(0x29212121),
-    valueIndicatorColor: Color(0xff212121),
-    valueIndicatorShape: PaddleSliderValueIndicatorShape(),
-    showValueIndicator: ShowValueIndicator.onlyForDiscrete,
-    valueIndicatorTextStyle: TextStyle(
-      color: Color(0xdd000000),
-      fontSize: 14.0,
-      fontWeight: FontWeight.w400,
-      fontStyle: FontStyle.normal,
-    ),
   ),
   tabBarTheme: TabBarTheme(
     indicatorSize: TabBarIndicatorSize.tab,
@@ -479,20 +426,16 @@ final ThemeData myTheme = ThemeData(
     ),
     secondarySelectedColor: Color(0x3d212121),
     selectedColor: Color(0x3dffffff),
-    shape: StadiumBorder(
-        side: BorderSide(
-      color: Color(0xff000000),
-      width: 0.0,
-      style: BorderStyle.none,
-    )),
+    shape: StadiumBorder(),
   ),
   dialogTheme: DialogTheme(
-      shape: RoundedRectangleBorder(
-    side: BorderSide(
-      color: Color(0xff000000),
-      width: 0.0,
-      style: BorderStyle.none,
+    shape: RoundedRectangleBorder(
+      side: BorderSide(
+        color: Color(0xff000000),
+        width: 0.0,
+        style: BorderStyle.none,
+      ),
+      borderRadius: BorderRadius.all(Radius.circular(4.0)),
     ),
-    borderRadius: BorderRadius.all(Radius.circular(4.0)),
-  )),
+  ),
 );

@@ -17,7 +17,7 @@ class CustomCard extends StatelessWidget {
     return a == b;
   }
 
-  Widget getPlatesWidget(double weight) {
+  Widget getPlatesWidget(double weight, BuildContext ctxt) {
     Map<double, int> platesMap = Calc.getPlateCalculatorMap(weight);
 
     bool noPlatesRequired = true;
@@ -64,7 +64,7 @@ class CustomCard extends StatelessWidget {
             child: Container(
               decoration: new BoxDecoration(
                 border: new Border.all(
-                  color: Colors.red[200],
+                  color: Theme.of(ctxt).dividerColor,
                   width: 2,
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -98,7 +98,7 @@ class CustomCard extends StatelessWidget {
             child: Container(
               decoration: new BoxDecoration(
                 border: new Border.all(
-                  color: Colors.red[200],
+                  color: Theme.of(ctxt).dividerColor,
                   width: 2,
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -132,7 +132,7 @@ class CustomCard extends StatelessWidget {
             child: Container(
               decoration: new BoxDecoration(
                 border: new Border.all(
-                  color: Colors.red[200],
+                  color: Theme.of(ctxt).dividerColor,
                   width: 2,
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -166,7 +166,7 @@ class CustomCard extends StatelessWidget {
             child: Container(
               decoration: new BoxDecoration(
                 border: new Border.all(
-                  color: Colors.red[200],
+                  color: Theme.of(ctxt).dividerColor,
                   width: 2,
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -200,7 +200,7 @@ class CustomCard extends StatelessWidget {
             child: Container(
               decoration: new BoxDecoration(
                 border: new Border.all(
-                  color: Colors.red[200],
+                  color: Theme.of(ctxt).dividerColor,
                   width: 2,
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -234,7 +234,7 @@ class CustomCard extends StatelessWidget {
             child: Container(
               decoration: new BoxDecoration(
                 border: new Border.all(
-                  color: Colors.red[200],
+                  color: Theme.of(ctxt).dividerColor,
                   width: 2,
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -301,7 +301,7 @@ class CustomCard extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            getPlatesWidget(setWeight),
+            getPlatesWidget(setWeight,ctxt),
           ],
         ),
       ),
