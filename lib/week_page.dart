@@ -38,6 +38,7 @@ class WeekPage extends StatelessWidget {
       drawer: new SideDrawer(callBackWeeksPage: this.update),
       appBar: new AppBar(title: new Text("Select week in your routine")),
       body: new ListView(
+        padding: EdgeInsets.all(8),
         children: <Widget>[
           week1,
           week2,

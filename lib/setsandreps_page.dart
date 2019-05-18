@@ -73,8 +73,8 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
         title: new Text("Today's sets for ${widget.activity}"),
       ),
       body: ListView(
+        padding: EdgeInsets.all(8),
         children: <Widget>[
-          SizedBox(height: 15),
           new Builder(builder: (BuildContext ctxt) {
             return Dismissible(
               // key needed if I actually want to remove this from backend
@@ -258,7 +258,6 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
               ),
             );
           }),
-          SizedBox(height: 15),
         ],
       ),
       // // Here floatingActionButton is built inside a builder because we need to

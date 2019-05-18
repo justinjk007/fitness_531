@@ -40,44 +40,39 @@ class _WeekWidgetState extends State<Weeks> {
 
   @override
   Widget build(BuildContext ctxt) {
-    return (new Container(
-      margin: new EdgeInsets.only(left: 10.0, right: 10.0, top: 10),
-      child: Card(
-        child: new SizedBox(
-          width: double.infinity,
-          height: 130.0,
-          child: InkWell(
-            onTap: () {
-              Navigator.push(
-                ctxt,
-                new MaterialPageRoute(builder: (ctxt) => _getNextScreen()),
-              );
-            },
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                ListTile(
-                  title: widget.argTitle,
-                  subtitle: widget.subTitle,
-                  leading: FutureBuilder<int>(
-                    future: SaveStateHelper.getWeek(widget.weekID),
-                    initialData: 0,
-                    builder:
-                        (BuildContext context, AsyncSnapshot<int> snapshot) {
-                      if (snapshot.hasError) {
-                        return _getProgressWidget(0);
-                      } else {
-                        return _getProgressWidget(snapshot.data);
-                      }
-                    }, // End of  builder
-                  ), // End of FutureBuilder
-                )
-              ], // End of list
-            ),
+    return Card(
+      child: SizedBox(
+        height: 130.0,
+        child: InkWell(
+          onTap: () {
+            Navigator.push(
+              ctxt,
+              new MaterialPageRoute(builder: (ctxt) => _getNextScreen()),
+            );
+          },
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                title: widget.argTitle,
+                subtitle: widget.subTitle,
+                leading: FutureBuilder<int>(
+                  future: SaveStateHelper.getWeek(widget.weekID),
+                  initialData: 0,
+                  builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                    if (snapshot.hasError) {
+                      return _getProgressWidget(0);
+                    } else {
+                      return _getProgressWidget(snapshot.data);
+                    }
+                  }, // End of  builder
+                ), // End of FutureBuilder
+              )
+            ], // End of list
           ),
         ),
       ),
-    ));
+    );
   }
 }
 
