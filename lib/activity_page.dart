@@ -34,14 +34,12 @@ class ActivityPage extends StatelessWidget {
               children: <Widget>[
                 new Activity(
                   image: 'assets/squat.png',
-                  color: Colors.red[50],
                   activity: 'squat',
                   weekID: weekIDForChild,
                 ),
                 SizedBox(width: 10.0),
                 new Activity(
                   image: 'assets/bench.png',
-                  color: Colors.red[50],
                   activity: 'bench',
                   weekID: weekIDForChild,
                 ),
@@ -52,14 +50,12 @@ class ActivityPage extends StatelessWidget {
               children: <Widget>[
                 new Activity(
                   image: 'assets/deadlift.png',
-                  color: Colors.red[50],
                   activity: 'deadlift',
                   weekID: weekIDForChild,
                 ),
                 SizedBox(width: 10.0),
                 new Activity(
                   image: 'assets/press.png',
-                  color: Colors.red[50],
                   activity: 'press',
                   weekID: weekIDForChild,
                 ),

@@ -12,13 +12,11 @@ class Activity extends StatefulWidget {
   Activity({
     Key key,
     this.image,
-    this.color,
     this.activity,
     this.weekID,
   }) : super(key: key);
 
   final String image;
-  final Color color;
   final String activity;
   final String weekID;
   @override
@@ -54,9 +52,7 @@ class _ActivityWidgetState extends State<Activity> {
       // the Row widget which is inside a padding widget so it won't overflow.
       child: SizedBox(
         height: sizeOfWidget,
-        child: Material(
-          color: widget.color,
-          elevation: 4.0,
+        child: Card(
           child: Stack(
             children: [
               Center(
@@ -98,7 +94,6 @@ class _ActivityWidgetState extends State<Activity> {
                             builder: (ctxt) => getNextScreen()),
                       );
                     },
-                    splashColor: Colors.red[200].withOpacity(0.3),
                   ),
                 ),
               ),
