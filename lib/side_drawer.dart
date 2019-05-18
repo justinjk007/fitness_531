@@ -1,3 +1,4 @@
+import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'new_records.dart';
 import 'about_page.dart';
@@ -69,7 +70,7 @@ class SideDrawer extends StatelessWidget {
                   '\n5/3/1 Fitness',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
-                SizedBox(height:20),
+                SizedBox(height: 20),
                 Image.asset(
                   'assets/barbell_raw.png',
                   height: 60,
@@ -100,6 +101,22 @@ class SideDrawer extends StatelessWidget {
               Navigator.pop(ctxt); // Close the drawer first
               _showResetDialog(); // Show the reset dialog
             },
+          ),
+          ListTile(
+            leading: Icon(Icons.brightness_2, color: Colors.red[400], size: 30),
+            title: Text('Dark Mode'),
+            trailing: Switch(
+              // activeTrackColor: Colors.lightGreenAccent,
+              // activeColor: Colors.green,
+              value:
+                  Theme.of(ctxt).brightness == Brightness.dark ? true : false,
+              onChanged: (value) {
+                DynamicTheme.of(ctxt).setBrightness(
+                    Theme.of(ctxt).brightness == Brightness.dark
+                        ? Brightness.light
+                        : Brightness.dark);
+              },
+            ),
           ),
           ListTile(
             leading: Icon(Icons.info_outline, color: Colors.red[400], size: 30),
