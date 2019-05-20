@@ -82,19 +82,16 @@ class _ActivityWidgetState extends State<Activity> {
                   }, // End of  builder
                 ), // End of FutureBuilder
               ),
-              Positioned.fill(
-                child: Ink.image(
-                  image: AssetImage(widget.image),
-                  fit: BoxFit.scaleDown,
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        ctxt,
-                        new MaterialPageRoute(
-                            builder: (ctxt) => getNextScreen()),
-                      );
-                    },
-                  ),
+              Ink.image(
+                image: AssetImage(widget.image),
+                fit: BoxFit.scaleDown,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      ctxt,
+                      new MaterialPageRoute(builder: (ctxt) => getNextScreen()),
+                    );
+                  },
                 ),
               ),
             ],
