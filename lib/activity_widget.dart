@@ -43,15 +43,16 @@ class _ActivityWidgetState extends State<Activity> {
 
   @override
   Widget build(BuildContext ctxt) {
-    final double sizeOfWidget = MediaQuery.of(context).size.height / 3.5;
-    // 75 % of the widget
-    final double sizeOfIcon = 0.6 * (MediaQuery.of(context).size.height / 3.5);
+    // Get screens height
+    final double _sizeOfWidget = MediaQuery.of(context).size.height / 3.5;
+    final double _sizeOfIcon = 0.6 * _sizeOfWidget; // 60 % of the widget
+    final double _iconPadding = 0.15 * _sizeOfWidget;
 
     return new Expanded(
       // Since this is expanded widget it will take up the fitting width inside
       // the Row widget which is inside a padding widget so it won't overflow.
       child: SizedBox(
-        height: sizeOfWidget,
+        height: _sizeOfWidget,
         child: Card(
           child: Stack(
             children: [
@@ -66,34 +67,38 @@ class _ActivityWidgetState extends State<Activity> {
                       (BuildContext context, AsyncSnapshot<bool> snapshot) {
                     if (snapshot.hasError) {
                       return Icon(Icons.beenhere,
-                          color: Colors.red[300].withOpacity(0.3), size: 0);
+                          color: Colors.red[300].withOpacity(0.5), size: 0);
                     } else {
                       if (snapshot.data == true) {
                         // Item is marked undone
                         return Icon(Icons.beenhere,
-                            color: Colors.red[300].withOpacity(0.3), size: 0);
+                            color: Colors.red[300].withOpacity(0.5), size: 0);
                       } else {
                         // Item is marked done
                         return Icon(Icons.beenhere,
-                            color: Colors.red[300].withOpacity(0.3),
-                            size: sizeOfIcon);
+                            color: Colors.red[300].withOpacity(0.5),
+                            size: _sizeOfIcon);
                       }
                     }
                   }, // End of  builder
                 ), // End of FutureBuilder
               ),
-              Ink.image(
-                image: AssetImage(widget.image),
-                fit: BoxFit.scaleDown,
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      ctxt,
-                      new MaterialPageRoute(builder: (ctxt) => getNextScreen()),
-                    );
-                  },
+              Padding(
+                padding: EdgeInsets.all(_iconPadding),
+                child: Ink.image(
+                  image: AssetImage(widget.image),
+                  fit: BoxFit.scaleDown,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        ctxt,
+                        new MaterialPageRoute(
+                            builder: (ctxt) => getNextScreen()),
+                      );
+                    },
+                  ),
                 ),
-              ),
+              )
             ],
           ),
         ),
