@@ -44,21 +44,24 @@ class WeekPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext ctxt) {
-    return new Scaffold(
-      drawer: new SideDrawer(callBackWeeksPage: this.update),
-      appBar: new AppBar(
-        title: new Text("Select week in your routine"),
+    return Scaffold(
+      drawer: SideDrawer(callBackWeeksPage: this.update),
+      appBar: AppBar(
+        title: Text("Select week in your routine"),
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.account_circle),
-            onPressed: () async {
-              bool _isLoggedIN = await _loginUser();
-              // May be use snackBar btw
-              // _isLoggedIN
-              //     ? // That worked, take care of this
-              //     : // That didn't work, take care of that
-            },
-          ),
+          new Builder(builder: (BuildContext ctxt) {
+            return IconButton(
+              icon: Icon(Icons.account_circle),
+              onPressed: () async {
+                const _pass_msg = SnackBar(content: Text('Signed with google'));
+                const _fail_msg = SnackBar(content: Text('Signing in failed!'));
+                bool _isLoggedIN = await _loginUser();
+                _isLoggedIN
+                    ? Scaffold.of(ctxt).showSnackBar(_pass_msg)
+                    : Scaffold.of(ctxt).showSnackBar(_fail_msg);
+              },
+            );
+          }),
         ],
       ),
       body: new ListView(
