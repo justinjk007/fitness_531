@@ -186,8 +186,54 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
                         children: snapshot.data.documents
                             .map((doc) => buildItem(doc))
                             .toList());
+                  } else if (snapshot.hasError) {
+                    // Can't really center this because this is inside a list view
+                    return Padding(
+                      padding: EdgeInsets.only(top: 50),
+                      child: Column(
+                        children: <Widget>[
+                          Icon(
+                            Icons.sync_problem,
+                            size: 40,
+                            color: Theme.of(context).hintColor,
+                          ),
+                          Text(
+                            "Sync_problem!",
+                            style:
+                                TextStyle(color: Theme.of(context).hintColor),
+                          ),
+                        ],
+                      ),
+                    );
                   } else {
-                    return SizedBox();
+                    if (snapshot.connectionState != ConnectionState.done) {
+                      return Padding(
+                        padding: EdgeInsets.only(top: 50),
+                        child: Column(
+                          children: <Widget>[
+                            CircularProgressIndicator(),
+                          ],
+                        ),
+                      );
+                    } else {
+                      return Padding(
+                        padding: EdgeInsets.only(top: 50),
+                        child: Column(
+                          children: <Widget>[
+                            Icon(
+                              Icons.priority_high,
+                              size: 40,
+                              color: Theme.of(context).hintColor,
+                            ),
+                            Text(
+                              "Don't know what happened here!",
+                              style:
+                                  TextStyle(color: Theme.of(context).hintColor),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
                   }
                 },
               )
