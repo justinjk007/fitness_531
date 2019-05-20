@@ -187,7 +187,8 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
                             .map((doc) => buildItem(doc))
                             .toList());
                   } else if (snapshot.hasError) {
-                    // Can't really center this because this is inside a list view
+                    // Can't really center this because this is inside a list
+                    // view so I add padding to the top
                     return Padding(
                       padding: EdgeInsets.only(top: 50),
                       child: Column(
@@ -207,6 +208,8 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
                     );
                   } else {
                     if (snapshot.connectionState != ConnectionState.done) {
+                      // Can't really center this because this is inside a list
+                      // view so I add padding to the top
                       return Padding(
                         padding: EdgeInsets.only(top: 50),
                         child: Column(
@@ -216,6 +219,8 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
                         ),
                       );
                     } else {
+                      // Can't really center this because this is inside a list
+                      // view so I add padding to the top
                       return Padding(
                         padding: EdgeInsets.only(top: 50),
                         child: Column(
