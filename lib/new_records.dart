@@ -207,7 +207,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
                       ),
                     );
                   } else {
-                    if (snapshot.connectionState != ConnectionState.done) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
                       // Can't really center this because this is inside a list
                       // view so I add padding to the top
                       return Padding(

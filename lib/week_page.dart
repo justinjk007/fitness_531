@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
+import 'auth.dart'; // To sign in with Google
 import 'side_drawer.dart';
 import 'week_widget.dart';
 
 class WeekPage extends StatelessWidget {
+  Future<bool> _loginUser() async {
+    final api = await FBApi.signInWithGoogle();
+    if (api != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Weeks week1 = new Weeks(
     weekID: 'week1',
     argTitle: new Text("\nWeek 1"),
@@ -36,7 +46,21 @@ class WeekPage extends StatelessWidget {
   Widget build(BuildContext ctxt) {
     return new Scaffold(
       drawer: new SideDrawer(callBackWeeksPage: this.update),
-      appBar: new AppBar(title: new Text("Select week in your routine")),
+      appBar: new AppBar(
+        title: new Text("Select week in your routine"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.account_circle),
+            onPressed: () async {
+              bool _isLoggedIN = await _loginUser();
+              // May be use snackBar btw
+              // _isLoggedIN
+              //     ? // That worked, take care of this
+              //     : // That didn't work, take care of that
+            },
+          ),
+        ],
+      ),
       body: new ListView(
         padding: EdgeInsets.all(8),
         children: <Widget>[
