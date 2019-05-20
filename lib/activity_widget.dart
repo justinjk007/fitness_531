@@ -83,7 +83,7 @@ class _ActivityWidgetState extends State<Activity> {
                   }, // End of  builder
                 ), // End of FutureBuilder
               ),
-              Padding(
+              Positioned.fill(Padding(
                 padding: EdgeInsets.all(_iconPadding),
                 child: Ink.image(
                   image: AssetImage(widget.image),
@@ -98,7 +98,7 @@ class _ActivityWidgetState extends State<Activity> {
                     },
                   ),
                 ),
-              )
+              ))
             ],
           ),
         ),
