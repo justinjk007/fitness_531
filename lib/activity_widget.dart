@@ -46,7 +46,7 @@ class _ActivityWidgetState extends State<Activity> {
     // Get screens height
     final double _sizeOfWidget = MediaQuery.of(context).size.height / 3.5;
     final double _sizeOfIcon = 0.6 * _sizeOfWidget; // 60 % of the widget
-    final double _iconPadding = 0.15 * _sizeOfWidget;
+    final double _iconPaddingSize = 0.13 * _sizeOfWidget;
 
     return new Expanded(
       // Since this is expanded widget it will take up the fitting width inside
@@ -56,6 +56,17 @@ class _ActivityWidgetState extends State<Activity> {
         child: Card(
           child: Stack(
             children: [
+              // To Center the image
+              Positioned.fill(
+                child: Padding(
+                  padding: EdgeInsets.all(_iconPaddingSize),
+                  child: Image.asset(
+                    widget.image,
+                    fit: BoxFit.scaleDown,
+                  ),
+                ),
+              ),
+              // Since this is a stack, done icon should be placed above the image
               Center(
                 child: FutureBuilder<bool>(
                   future: SaveStateHelper.getActivity(
@@ -83,11 +94,9 @@ class _ActivityWidgetState extends State<Activity> {
                   }, // End of  builder
                 ), // End of FutureBuilder
               ),
-              Positioned.fill(Padding(
-                padding: EdgeInsets.all(_iconPadding),
-                child: Ink.image(
-                  image: AssetImage(widget.image),
-                  fit: BoxFit.scaleDown,
+              Positioned.fill(
+                child: Material(
+                  color: Colors.transparent,
                   child: InkWell(
                     onTap: () {
                       Navigator.push(
@@ -98,7 +107,7 @@ class _ActivityWidgetState extends State<Activity> {
                     },
                   ),
                 ),
-              ))
+              ),
             ],
           ),
         ),
