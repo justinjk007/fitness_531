@@ -21,6 +21,13 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
       });
     }
 
+    // TODO: Make the date variable actual date
+
+    // TODO: Adding a record, adds records to MaxReps collection shared by
+    // everyone, sign ip process should give each user his own collection
+
+    // TODO: Give snackbar feedback after adding data
+
     return Scaffold(
       appBar: new AppBar(title: new Text("Add new 1 RM records!")),
       body: Padding(
