@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rect_getter/rect_getter.dart'; //<--Import rect getter
 import 'package:intl/intl.dart'; // To get the date and convert it into a string
 import 'records.dart';
+import 'add_record.dart';
 
 class FadeRouteBuilder<T> extends PageRouteBuilder<T> {
   final Widget page;
@@ -53,7 +54,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
     setState(() => rect = RectGetter.getRectFromKey(rectGetterKey));
     Navigator.push(
       context,
-      FadeRouteBuilder(page: RecordsPage()),
+      FadeRouteBuilder(page: AddRecordsPage()),
     ).then((_) => setState(() => rect = null));
   }
 
