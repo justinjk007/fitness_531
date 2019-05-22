@@ -42,8 +42,7 @@ class WeekPage extends StatelessWidget {
     week4.update();
   }
 
-  // TODO: Add a circle avatar button that diplays user image when signed in and
-  // show dialog box to sign out if clicked after signing in
+  // TODO: Add a circle avatar button that diplays user image when signed in and show dialog box to sign out if clicked after signing in
   @override
   Widget build(BuildContext ctxt) {
     return Scaffold(

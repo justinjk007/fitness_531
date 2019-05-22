@@ -93,7 +93,6 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
     );
   }
 
-  // TODO: Make the input record page connect to the database
   Card buildItem(DocumentSnapshot doc) {
     String dateDataWasAdded = doc.data['date'].substring(0, 4) +
         "-" +
