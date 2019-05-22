@@ -26,6 +26,7 @@ class FirestoreCRUDPage extends StatefulWidget {
 
 class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
   String id;
+  String user_id = "null";
   final db = Firestore.instance;
   final _formKey = GlobalKey<FormState>();
   String name;
@@ -48,6 +49,19 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
       //<-- after delay, go to next page
       Future.delayed(animationDuration + delay, goToAddingRecordsPageForReal);
     });
+  }
+
+  void _getUserID() async {
+    final FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    setState(() {
+      user_id = user.uid.toString();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getUserID();
   }
 
   void goToAddingRecordsPageForReal() {
@@ -183,7 +197,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
                 //     .orderBy("date", descending: true) // new entries first
                 //     .snapshots(),
                 stream: Firestore.instance
-                    .collection('MaxReps')
+                    .collection("users/max_reps/${user_id}") // subcollection
                     .orderBy("date", descending: true) // new entries first
                     .snapshots(),
                 builder: (context, snapshot) {
@@ -237,7 +251,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
                               color: Theme.of(context).hintColor,
                             ),
                             Text(
-                              "Don't know what happened here!",
+                              "Don\'t know what happened here!",
                               style:
                                   TextStyle(color: Theme.of(context).hintColor),
                             ),

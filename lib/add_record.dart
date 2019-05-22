@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class _AddRecordsPageState extends State<AddRecordsPage> {
@@ -11,8 +12,14 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
 
   @override
   Widget build(BuildContext ctxt) {
+    Future<String> getUserID() async {
+      final FirebaseUser user = await FirebaseAuth.instance.currentUser();
+      final String uid = user.uid.toString();
+      return uid;
+    }
+
     void addData() async {
-      await Firestore.instance.collection('MaxReps').add({
+      await Firestore.instance.collection("users/max_reps/${await getUserID()}").add({
         'squat': _squatRM,
         'bench': _benchRM,
         'deadlift': _deadliftRM,
@@ -22,9 +29,6 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
     }
 
     // TODO: Make the date variable actual date
-
-    // TODO: Adding a record, adds records to MaxReps collection shared by
-    // everyone, sign ip process should give each user his own collection
 
     // TODO: Give snackbar feedback after adding data
 
