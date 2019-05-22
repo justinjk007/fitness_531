@@ -201,12 +201,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
                     .orderBy("date", descending: true) // new entries first
                     .snapshots(),
                 builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Column(
-                        children: snapshot.data.documents
-                            .map((doc) => buildItem(doc))
-                            .toList());
-                  } else if (snapshot.hasError) {
+                  if (snapshot.hasError) {
                     // Can't really center this because this is inside a list
                     // view so I add padding to the top
                     return Padding(
@@ -226,10 +221,9 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
                         ],
                       ),
                     );
-                  } else {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      // Can't really center this because this is inside a list
-                      // view so I add padding to the top
+                  }
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.waiting:
                       return Padding(
                         padding: EdgeInsets.only(top: 50),
                         child: Column(
@@ -238,27 +232,11 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
                           ],
                         ),
                       );
-                    } else {
-                      // Can't really center this because this is inside a list
-                      // view so I add padding to the top
-                      return Padding(
-                        padding: EdgeInsets.only(top: 50),
-                        child: Column(
-                          children: <Widget>[
-                            Icon(
-                              Icons.priority_high,
-                              size: 40,
-                              color: Theme.of(context).hintColor,
-                            ),
-                            Text(
-                              "Don\'t know what happened here!",
-                              style:
-                                  TextStyle(color: Theme.of(context).hintColor),
-                            ),
-                          ],
-                        ),
-                      );
-                    }
+                    default:
+                      return Column(
+                          children: snapshot.data.documents
+                              .map((doc) => buildItem(doc))
+                              .toList());
                   }
                 },
               )
