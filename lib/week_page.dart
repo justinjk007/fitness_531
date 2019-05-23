@@ -120,7 +120,6 @@ class _WeekPageWidgetState extends State<WeekPage> {
                   Navigator.of(context).pop();
                 },
               ),
-              SizedBox(width: 10), // Add a little bit of padding after
             ], // Actions ends here
           );
         },
@@ -149,10 +148,10 @@ class _WeekPageWidgetState extends State<WeekPage> {
             Widget _logoutButton = GestureDetector(
               onTap: _showLogoutDialog,
               child: Padding(
-                padding: EdgeInsets.only(right: 15),
+                padding: EdgeInsets.only(right: 10),
                 child: Center(
                   child: CircleAvatar(
-                    radius: 15,
+                    radius: 13,
                     backgroundImage: NetworkImage(userPhotoUrl),
                   ),
                 ),
