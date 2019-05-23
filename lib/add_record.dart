@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart'; // For date time
 
 class _AddRecordsPageState extends State<AddRecordsPage> {
   final _formKey = GlobalKey<FormState>();
@@ -8,7 +9,6 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
   int _benchRM = 0;
   int _deadliftRM = 0;
   int _pressRM = 0;
-  String _date = "20180908";
 
   @override
   Widget build(BuildContext ctxt) {
@@ -18,19 +18,32 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
       return uid;
     }
 
-    void addData() async {
-      await Firestore.instance.collection("users/max_reps/${await getUserID()}").add({
+    String _getTodaysDate() {
+      var now = new DateTime.now();
+      var formatter = new DateFormat('yyyyMMdd');
+      return formatter.format(now);
+    }
+
+    void addData(BuildContext ctxt) async {
+      const _pass_msg = SnackBar(content: Text('Added data to database'));
+      const _fail_msg = SnackBar(content: Text('Failed to add data!'));
+      await Firestore.instance
+          .collection("users/max_reps/${await getUserID()}")
+          .add({
         'squat': _squatRM,
         'bench': _benchRM,
         'deadlift': _deadliftRM,
         'press': _pressRM,
-        'date': _date,
+        'date': _getTodaysDate(),
+      }).then((_) {
+        Scaffold.of(ctxt).showSnackBar(_pass_msg);
+      }).catchError((_) {
+        Scaffold.of(ctxt).showSnackBar(_fail_msg);
       });
     }
 
-    // TODO: Make the date variable actual date
-
-    // TODO: Give snackbar feedback after adding data
+    // TODO: Only give access to this page if the user is signed in
+    // TODO: Use this data for calculations
 
     return Scaffold(
       appBar: new AppBar(title: new Text("Add new 1 RM records!")),
@@ -109,21 +122,24 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                 ),
                 onSaved: (input) => _pressRM = int.parse(input),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: RaisedButton(
-                  onPressed: () {
-                    // Validate will return true if the form is valid, or false if
-                    // the form is invalid.
-                    if (_formKey.currentState.validate()) {
-                      // If the form is valid, submit data to database
-                      _formKey.currentState.save();
-                      addData();
-                    }
-                  },
-                  child: Text('Submit'),
-                ),
-              ),
+              Builder(builder: (BuildContext ctxt) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: RaisedButton(
+                    onPressed: () {
+                      // Validate will return true if the form is valid, or false if
+                      // the form is invalid.
+                      if (_formKey.currentState.validate()) {
+                        // If the form is valid, submit data to database
+                        _formKey.currentState.save();
+                        addData(ctxt);
+                        _formKey.currentState.reset();
+                      }
+                    },
+                    child: Text('Submit'),
+                  ),
+                );
+              }),
             ],
           ),
         ),
