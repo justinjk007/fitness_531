@@ -16,7 +16,13 @@ class WeekPage extends StatefulWidget {
 }
 
 class _WeekPageWidgetState extends State<WeekPage> {
-  String userPhotoUrl = "null";
+  String userPhotoUrl = "http://localhost";
+
+  @override
+  void initState() {
+    super.initState();
+    _getUserPhotoUrl();
+  }
 
   Future<bool> _loginUser() async {
     final api = await FBApi.signInWithGoogle();
@@ -42,15 +48,11 @@ class _WeekPageWidgetState extends State<WeekPage> {
 
   void _getUserPhotoUrl() async {
     final FirebaseUser user = await FirebaseAuth.instance.currentUser();
-    setState(() {
-      userPhotoUrl = user.photoUrl.toString();
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _getUserPhotoUrl();
+    if (user != null) {
+      setState(() {
+        userPhotoUrl = user.photoUrl.toString();
+      });
+    }
   }
 
   Weeks week1 = new Weeks(
