@@ -171,6 +171,50 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
       ),
     );
 
+    Widget loadDataWidget = StreamBuilder<QuerySnapshot>(
+      stream: Firestore.instance
+          .collection("users/max_reps/${userId}") // subcollection
+          .orderBy("date", descending: true) // new entries first
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          // Can't really center this because this is inside a list view so I add padding to the top
+          return Padding(
+            padding: EdgeInsets.only(top: 50),
+            child: Column(
+              children: <Widget>[
+                Icon(
+                  Icons.sync_problem,
+                  size: 40,
+                  color: Theme.of(context).hintColor,
+                ),
+                Text(
+                  "Sync_problem!",
+                  style: TextStyle(color: Theme.of(context).hintColor),
+                ),
+              ],
+            ),
+          );
+        }
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            return Padding(
+              padding: EdgeInsets.only(top: 50),
+              child: Column(
+                children: <Widget>[
+                  CircularProgressIndicator(),
+                ],
+              ),
+            );
+          default:
+            return Column(
+                children: snapshot.data.documents
+                    .map((doc) => buildItem(doc))
+                    .toList());
+        }
+      },
+    );
+
     return Stack(
       //<-- Wrap Scaffold with a Stack
       children: <Widget>[
@@ -181,74 +225,22 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
           body: ListView(
             padding: EdgeInsets.all(8),
             children: <Widget>[
-              // Form(
-              //   key: _formKey,
-              //   child: buildTextFormField(),
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //   children: <Widget>[
-              //     RaisedButton(
-              //       onPressed: createData,
-              //       child: Text('Create', style: TextStyle(color: Colors.white)),
-              //       color: Colors.green,
-              //     ),
-              //     RaisedButton(
-              //       onPressed: id != null ? readData : null,
-              //       child: Text('Read', style: TextStyle(color: Colors.white)),
-              //       color: Colors.blue,
-              //     ),
-              //   ],
-              // ),
-              StreamBuilder<QuerySnapshot>(
-                // stream: db
-                //     .collection('MaxReps')
-                //     .orderBy("date", descending: true) // new entries first
-                //     .snapshots(),
-                stream: Firestore.instance
-                    .collection("users/max_reps/${userId}") // subcollection
-                    .orderBy("date", descending: true) // new entries first
-                    .snapshots(),
-                builder: (context, snapshot) {
+              FutureBuilder<bool>(
+                future: AuthHelper.checkIfUserIsLoggedIn(),
+                initialData: false,
+                builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
                   if (snapshot.hasError) {
-                    // Can't really center this because this is inside a list
-                    // view so I add padding to the top
-                    return Padding(
-                      padding: EdgeInsets.only(top: 50),
-                      child: Column(
-                        children: <Widget>[
-                          Icon(
-                            Icons.sync_problem,
-                            size: 40,
-                            color: Theme.of(context).hintColor,
-                          ),
-                          Text(
-                            "Sync_problem!",
-                            style:
-                                TextStyle(color: Theme.of(context).hintColor),
-                          ),
-                        ],
-                      ),
-                    );
+                    return Container(); // Return empty container
+                  } else {
+                    if (snapshot.data == true) {
+                      return loadDataWidget; // User is logged in, he should see records
+                    } else {
+                      // User is not logged in
+                      return Container(); // Return empty container
+                    }
                   }
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.waiting:
-                      return Padding(
-                        padding: EdgeInsets.only(top: 50),
-                        child: Column(
-                          children: <Widget>[
-                            CircularProgressIndicator(),
-                          ],
-                        ),
-                      );
-                    default:
-                      return Column(
-                          children: snapshot.data.documents
-                              .map((doc) => buildItem(doc))
-                              .toList());
-                  }
-                },
-              )
+                }, // End of  builder
+              ),
             ],
           ),
           floatingActionButton: FutureBuilder<bool>(
