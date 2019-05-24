@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rect_getter/rect_getter.dart'; //<--Import rect getter
-import 'package:intl/intl.dart'; // To get the date and convert it into a string
-import 'records.dart';
 import 'add_record.dart';
 
 class FadeRouteBuilder<T> extends PageRouteBuilder<T> {

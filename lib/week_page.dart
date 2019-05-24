@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'auth.dart'; // To sign in with Google
 import 'side_drawer.dart';
 import 'week_widget.dart';
@@ -147,14 +148,16 @@ class _WeekPageWidgetState extends State<WeekPage> {
               },
             );
 
-            Widget _logoutButton = GestureDetector(
+            Widget _logoutButton = InkWell(
               onTap: _showLogoutDialog,
+              customBorder: CircleBorder(),
               child: Padding(
-                padding: EdgeInsets.only(right: 10),
+                // There is padding left and right so ripple effect looks better
+                padding: EdgeInsets.only(right: 10,left: 10),
                 child: Center(
                   child: CircleAvatar(
                     radius: 13,
-                    backgroundImage: NetworkImage(userPhotoUrl),
+                    backgroundImage: CachedNetworkImageProvider(userPhotoUrl),
                   ),
                 ),
               ),
