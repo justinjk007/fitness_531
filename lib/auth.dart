@@ -35,3 +35,28 @@ class FBApi {
     return FBApi(user);
   }
 }
+
+class AuthHelper {
+  static Future<bool> loginUser() async {
+    final api = await FBApi.signInWithGoogle();
+    if (api != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static Future<void> logoutUser() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
+  static Future<bool> checkIfUserIsLoggedIn() async {
+    final FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    if (user != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+}

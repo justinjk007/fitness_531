@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'auth.dart'; // To sign in with Google
+import 'auth.dart'; // To sign in with Google and check sign in status
 import 'side_drawer.dart';
 import 'week_widget.dart';
 
@@ -23,28 +23,6 @@ class _WeekPageWidgetState extends State<WeekPage> {
   void initState() {
     super.initState();
     _getUserPhotoUrl();
-  }
-
-  Future<bool> _loginUser() async {
-    final api = await FBApi.signInWithGoogle();
-    if (api != null) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  Future<void> _logoutUser() async {
-    await FirebaseAuth.instance.signOut();
-  }
-
-  Future<bool> _checkIfUserIsLoggedIn() async {
-    final FirebaseUser user = await FirebaseAuth.instance.currentUser();
-    if (user != null) {
-      return true;
-    } else {
-      return false;
-    }
   }
 
   void _getUserPhotoUrl() async {
@@ -105,7 +83,7 @@ class _WeekPageWidgetState extends State<WeekPage> {
                   ),
                 ),
                 onPressed: () {
-                  _logoutUser();
+                  AuthHelper.logoutUser();
                   // Exit out of the window after reseting
                   setState(() {}); // Refresh page
                   Navigator.of(context).pop();
@@ -140,7 +118,7 @@ class _WeekPageWidgetState extends State<WeekPage> {
               onPressed: () async {
                 const _pass_msg = SnackBar(content: Text('Signed with google'));
                 const _fail_msg = SnackBar(content: Text('Signing in failed!'));
-                bool _isLoggedIN = await _loginUser();
+                bool _isLoggedIN = await AuthHelper.loginUser();
                 setState(() {}); // Refresh page
                 _isLoggedIN
                     ? Scaffold.of(ctxt).showSnackBar(_pass_msg)
@@ -153,7 +131,7 @@ class _WeekPageWidgetState extends State<WeekPage> {
               customBorder: CircleBorder(),
               child: Padding(
                 // There is padding left and right so ripple effect looks better
-                padding: EdgeInsets.only(right: 10,left: 10),
+                padding: EdgeInsets.only(right: 10, left: 10),
                 child: Center(
                   child: CircleAvatar(
                     radius: 13,
@@ -164,7 +142,7 @@ class _WeekPageWidgetState extends State<WeekPage> {
             );
 
             return FutureBuilder<bool>(
-              future: _checkIfUserIsLoggedIn(),
+              future: AuthHelper.checkIfUserIsLoggedIn(),
               initialData: false,
               builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
                 if (snapshot.hasError) {

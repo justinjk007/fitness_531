@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rect_getter/rect_getter.dart'; //<--Import rect getter
 import 'add_record.dart';
+import 'auth.dart'; // To sign in with Google and check sign in status
 
 class FadeRouteBuilder<T> extends PageRouteBuilder<T> {
   final Widget page;
@@ -24,7 +25,7 @@ class FirestoreCRUDPage extends StatefulWidget {
 
 class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
   String id;
-  String user_id = "null";
+  String userId = "null";
   final db = Firestore.instance;
   final _formKey = GlobalKey<FormState>();
   String name;
@@ -52,7 +53,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
   void _getUserID() async {
     final FirebaseUser user = await FirebaseAuth.instance.currentUser();
     setState(() {
-      user_id = user.uid.toString();
+      userId = user.uid.toString();
     });
   }
 
@@ -159,6 +160,17 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
 
   @override
   Widget build(BuildContext context) {
+    Widget fancyFAB = RectGetter(
+      //<-- Wrap Fab with RectGetter
+      key: rectGetterKey, //<-- Passing the key
+      child: FloatingActionButton(
+        onPressed: goToAddingRecordsPage,
+        child: Icon(Icons.add),
+        tooltip: "Add new record",
+        backgroundColor: Colors.red[400],
+      ),
+    );
+
     return Stack(
       //<-- Wrap Scaffold with a Stack
       children: <Widget>[
@@ -194,7 +206,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
                 //     .orderBy("date", descending: true) // new entries first
                 //     .snapshots(),
                 stream: Firestore.instance
-                    .collection("users/max_reps/${user_id}") // subcollection
+                    .collection("users/max_reps/${userId}") // subcollection
                     .orderBy("date", descending: true) // new entries first
                     .snapshots(),
                 builder: (context, snapshot) {
@@ -239,16 +251,22 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
               )
             ],
           ),
-          floatingActionButton: RectGetter(
-            //<-- Wrap Fab with RectGetter
-            key: rectGetterKey, //<-- Passing the key
-            child: FloatingActionButton(
-              onPressed: goToAddingRecordsPage,
-              child: Icon(Icons.add),
-              tooltip: "Add new record",
-              backgroundColor: Colors.red[400],
-            ),
-          ),
+          floatingActionButton: FutureBuilder<bool>(
+            future: AuthHelper.checkIfUserIsLoggedIn(),
+            initialData: false,
+            builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+              if (snapshot.hasError) {
+                return Container(); // Return empty container
+              } else {
+                if (snapshot.data == true) {
+                  return fancyFAB; // User is logged in, he can add records
+                } else {
+                  // User is not logged in
+                  return Container(); // Return empty container
+                }
+              }
+            }, // End of  builder
+          ), // End of FutureBuilder
         ),
         _ripple(), //<-- Add the ripple widget
       ],
