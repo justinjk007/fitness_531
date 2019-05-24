@@ -184,7 +184,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
             child: Column(
               children: <Widget>[
                 Icon(
-                  Icons.sync_problem,
+                  Icons.cloud_off,
                   size: 40,
                   color: Theme.of(context).hintColor,
                 ),
@@ -230,13 +230,47 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
                 initialData: false,
                 builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
                   if (snapshot.hasError) {
-                    return Container(); // Return empty container
+                    // Can't really center this because this is inside a list view so I add padding to the top
+                    return Padding(
+                      padding: EdgeInsets.only(top: 50),
+                      child: Column(
+                        children: <Widget>[
+                          Icon(
+                            Icons.cloud_off,
+                            size: 40,
+                            color: Theme.of(context).hintColor,
+                          ),
+                          Text(
+                            "Sync problem!",
+                            style:
+                                TextStyle(color: Theme.of(context).hintColor),
+                          ),
+                        ],
+                      ),
+                    );
                   } else {
                     if (snapshot.data == true) {
                       return loadDataWidget; // User is logged in, he should see records
                     } else {
                       // User is not logged in
-                      return Container(); // Return empty container
+                      // Can't really center this because this is inside a list view so I add padding to the top
+                      return Padding(
+                        padding: EdgeInsets.only(top: 50),
+                        child: Column(
+                          children: <Widget>[
+                            Icon(
+                              Icons.account_circle,
+                              size: 40,
+                              color: Theme.of(context).hintColor,
+                            ),
+                            Text(
+                              "Please login!",
+                              style:
+                                  TextStyle(color: Theme.of(context).hintColor),
+                            ),
+                          ],
+                        ),
+                      );
                     }
                   }
                 }, // End of  builder
