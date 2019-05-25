@@ -1,9 +1,11 @@
 // For reading and writing data to disk with ease
 // Comes from the shared_preferences 3rd party library
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'setsandreps_widget.dart';
 import 'save_state.dart';
+import 'auth.dart'; // To sign in with Google and check sign in status
 import 'calc.dart';
 
 // This page displays the sets and reps for daily workout and warmup
@@ -24,11 +26,21 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
 
   void _loadMaxRep() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userId = await AuthHelper.getUserID();
+    var list;
+    QuerySnapshot querySnapshots;
+    if (await AuthHelper.checkIfUserIsLoggedIn()) {
+      querySnapshots = await Firestore.instance
+          .collection("users/max_reps/${userId}") // subcollection
+          .orderBy("date", descending: true) // new entries first
+          .limit(1)
+          .getDocuments(); // Get Documents not as a stream
+      list = querySnapshots.documents; // Make snapshots into a list
+    }
     setState(() {
-      // If no data exist return 0
-      _maxRep = (prefs.getInt(widget.activity) ?? 0);
+      _maxRep = (list[0].data[widget.activity] ?? 0); // Return 0 if null
       _assistanceMaxRep =
-          (prefs.getInt(getAssistanceActivity(widget.activity)) ?? 0);
+          (list[0].data[getAssistanceActivity(widget.activity)] ?? 0);
     });
   }
 

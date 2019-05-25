@@ -59,4 +59,10 @@ class AuthHelper {
     }
   }
 
+  static Future<String> getUserID() async {
+    final FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    String _user;
+    user != null ? _user = user.uid.toString() : _user = "null";
+    return _user;
+  }
 }

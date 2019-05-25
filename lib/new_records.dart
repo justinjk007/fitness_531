@@ -52,10 +52,8 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
   }
 
   void _getUserID() async {
-    final FirebaseUser user = await FirebaseAuth.instance.currentUser();
-    setState(() {
-      userId = user.uid.toString();
-    });
+    userId = await AuthHelper.getUserID();
+    setState(() {});
   }
 
   @override
