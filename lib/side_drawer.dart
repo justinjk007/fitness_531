@@ -84,7 +84,7 @@ class SideDrawer extends StatelessWidget {
             // ),
           ),
           ListTile(
-            leading: Icon(OMIcons.assignment, color: Colors.red[400], size: 30),
+            leading: Icon(OMIcons.assignment, color: Colors.red[400]),
             title: Text('Records'),
             onTap: () {
               Navigator.pop(ctxt); // Close the drawer first
@@ -96,7 +96,7 @@ class SideDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(OMIcons.assignment, color: Colors.red[400], size: 30),
+            leading: Icon(OMIcons.assignment, color: Colors.red[400]),
             title: Text('Old records'),
             onTap: () {
               Navigator.pop(ctxt); // Close the drawer first
@@ -108,7 +108,7 @@ class SideDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(OMIcons.timelapse, color: Colors.red[400], size: 30),
+            leading: Icon(OMIcons.timelapse, color: Colors.red[400]),
             title: Text('Start a new streak'),
             onTap: () {
               Navigator.pop(ctxt); // Close the drawer first
@@ -116,7 +116,7 @@ class SideDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(OMIcons.brightness2, color: Colors.red[400], size: 30),
+            leading: Icon(OMIcons.brightness2, color: Colors.red[400]),
             title: Text('Dark Mode'),
             trailing: Switch(
               // activeTrackColor: Colors.lightGreenAccent,
@@ -132,7 +132,7 @@ class SideDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(OMIcons.info, color: Colors.red[400], size: 30),
+            leading: Icon(OMIcons.info, color: Colors.red[400]),
             title: Text('About'),
             onTap: () {
               Navigator.pop(ctxt); // Close the drawer first
