@@ -35,7 +35,7 @@ class _WeekWidgetState extends State<Weeks> {
         percent: percent / 100,
         center: Text(
           "${percent}%",
-          style: TextStyle(fontSize: 14),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
         ),
         circularStrokeCap: CircularStrokeCap.round,
         progressColor: Colors.red[300],
