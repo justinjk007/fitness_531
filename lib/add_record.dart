@@ -43,20 +43,19 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
       });
     }
 
-    // TODO: Only give access to this page if the user is signed in
-    // TODO: Use this data for calculations
+    // Don't show fab if keyboard is up
+    final bool showFab = MediaQuery.of(ctxt).viewInsets.bottom == 0.0;
 
     return Scaffold(
       appBar: new AppBar(title: new Text("Add new 1 RM records!")),
-      body: Padding(
-        padding: EdgeInsets.only(top: 20, right: 20, left: 20),
+      body: Center(
         child: Form(
           key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
+          child: ListView(
             children: <Widget>[
               TextFormField(
                 keyboardType: TextInputType.number,
+                textInputAction: TextInputAction.next,
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Please enter some text';
@@ -74,6 +73,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
               ),
               TextFormField(
                 keyboardType: TextInputType.number,
+                textInputAction: TextInputAction.next,
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Please enter some text';
@@ -91,6 +91,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
               ),
               TextFormField(
                 keyboardType: TextInputType.number,
+                textInputAction: TextInputAction.next,
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Please enter some text';
@@ -108,6 +109,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
               ),
               TextFormField(
                 keyboardType: TextInputType.number,
+                textInputAction: TextInputAction.next,
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Please enter some text';
@@ -123,28 +125,29 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                 ),
                 onSaved: (input) => _pressRM = int.parse(input),
               ),
-              Builder(builder: (BuildContext ctxt) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: RaisedButton(
-                    onPressed: () {
-                      // Validate will return true if the form is valid, or false if
-                      // the form is invalid.
-                      if (_formKey.currentState.validate()) {
-                        // If the form is valid, submit data to database
-                        _formKey.currentState.save();
-                        addData(ctxt);
-                        _formKey.currentState.reset();
-                      }
-                    },
-                    child: Text('Submit'),
-                  ),
-                );
-              }),
             ],
           ),
         ),
       ),
+      floatingActionButton: Builder(builder: (BuildContext ctxt) {
+        return showFab
+            ? FloatingActionButton(
+                onPressed: () {
+                  // Validate will return true if the form is valid, or false if
+                  // the form is invalid.
+                  if (_formKey.currentState.validate()) {
+                    // If the form is valid, submit data to database
+                    _formKey.currentState.save();
+                    addData(ctxt);
+                    _formKey.currentState.reset();
+                  }
+                },
+                child: Icon(Icons.done),
+                tooltip: "Submit values",
+                backgroundColor: Colors.red[400],
+              )
+            : new Container(); // Show null if showFab is false
+      }),
     );
   }
 }
