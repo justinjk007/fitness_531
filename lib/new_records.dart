@@ -1,3 +1,4 @@
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -184,7 +185,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
             child: Column(
               children: <Widget>[
                 Icon(
-                  Icons.cloud_off,
+                  OMIcons.cloudOff,
                   size: 40,
                   color: Theme.of(context).hintColor,
                 ),
@@ -236,7 +237,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
                       child: Column(
                         children: <Widget>[
                           Icon(
-                            Icons.cloud_off,
+                            OMIcons.cloudOff,
                             size: 40,
                             color: Theme.of(context).hintColor,
                           ),
@@ -259,7 +260,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
                         child: Column(
                           children: <Widget>[
                             Icon(
-                              Icons.account_circle,
+                              OMIcons.accountCircle,
                               size: 40,
                               color: Theme.of(context).hintColor,
                             ),

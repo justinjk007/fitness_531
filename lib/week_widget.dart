@@ -1,3 +1,4 @@
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:flutter/material.dart';
@@ -24,14 +25,18 @@ class _WeekWidgetState extends State<Weeks> {
 
   Widget _getProgressWidget(int percent) {
     if (percent == 100) {
-      return Icon(Icons.check_circle, color: Colors.red[300], size: 52.0);
+      return Icon(OMIcons.checkCircle, color: Colors.red[300], size: 52.0);
     } else {
       return CircularPercentIndicator(
         radius: 45.0,
-        lineWidth: 7.0,
+        lineWidth: 5.0,
         animation: true,
         animationDuration: 1000,
         percent: percent / 100,
+        center: Text(
+          "${percent}%",
+          style: TextStyle(fontSize: 14),
+        ),
         circularStrokeCap: CircularStrokeCap.round,
         progressColor: Colors.red[300],
       );

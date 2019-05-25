@@ -1,3 +1,4 @@
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +68,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                 },
                 decoration: InputDecoration(
                   labelText: 'Enter 1RM for squat',
-                  prefixIcon: Icon(Icons.assignment),
+                  prefixIcon: Icon(OMIcons.assignment),
                 ),
                 onSaved: (input) => _squatRM = int.parse(input),
               ),
@@ -84,7 +85,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                 },
                 decoration: InputDecoration(
                   labelText: 'Enter 1RM for bench',
-                  prefixIcon: Icon(Icons.assignment),
+                  prefixIcon: Icon(OMIcons.assignment),
                 ),
                 onSaved: (input) => _benchRM = int.parse(input),
               ),
@@ -101,7 +102,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                 },
                 decoration: InputDecoration(
                   labelText: 'Enter 1RM for deadlift',
-                  prefixIcon: Icon(Icons.assignment),
+                  prefixIcon: Icon(OMIcons.assignment),
                 ),
                 onSaved: (input) => _deadliftRM = int.parse(input),
               ),
@@ -118,7 +119,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                 },
                 decoration: InputDecoration(
                   labelText: 'Enter 1RM for press',
-                  prefixIcon: Icon(Icons.assignment),
+                  prefixIcon: Icon(OMIcons.assignment),
                 ),
                 onSaved: (input) => _pressRM = int.parse(input),
               ),

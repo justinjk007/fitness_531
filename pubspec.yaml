@@ -19,6 +19,7 @@ dependencies:
   intl: ^ 0.15.8 # For date time
   dynamic_theme: ^1.0.0
   cached_network_image: ^0.8.0 # To cache the profile picture
+  outline_material_icons: ^0.1.0
 
 dev_dependencies:
   flutter_test:

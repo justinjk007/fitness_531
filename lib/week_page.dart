@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'auth.dart'; // To sign in with Google and check sign in status
 import 'side_drawer.dart';
 import 'week_widget.dart';
@@ -114,7 +115,7 @@ class _WeekPageWidgetState extends State<WeekPage> {
         actions: <Widget>[
           new Builder(builder: (BuildContext ctxt) {
             Widget _loginButton = IconButton(
-              icon: Icon(Icons.account_circle),
+              icon: Icon(OMIcons.accountCircle),
               onPressed: () async {
                 const _pass_msg = SnackBar(content: Text('Signed with google'));
                 const _fail_msg = SnackBar(content: Text('Signing in failed!'));

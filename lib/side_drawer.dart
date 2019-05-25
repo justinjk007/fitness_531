@@ -1,4 +1,5 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:flutter/material.dart';
 import 'new_records.dart';
 import 'about_page.dart';
@@ -83,7 +84,7 @@ class SideDrawer extends StatelessWidget {
             // ),
           ),
           ListTile(
-            leading: Icon(Icons.assignment, color: Colors.red[400], size: 30),
+            leading: Icon(OMIcons.assignment, color: Colors.red[400], size: 30),
             title: Text('Records'),
             onTap: () {
               Navigator.pop(ctxt); // Close the drawer first
@@ -95,7 +96,7 @@ class SideDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.timelapse, color: Colors.red[400], size: 30),
+            leading: Icon(OMIcons.timelapse, color: Colors.red[400], size: 30),
             title: Text('Start a new streak'),
             onTap: () {
               Navigator.pop(ctxt); // Close the drawer first
@@ -103,7 +104,7 @@ class SideDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.brightness_2, color: Colors.red[400], size: 30),
+            leading: Icon(OMIcons.brightness2, color: Colors.red[400], size: 30),
             title: Text('Dark Mode'),
             trailing: Switch(
               // activeTrackColor: Colors.lightGreenAccent,
@@ -119,7 +120,7 @@ class SideDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.info_outline, color: Colors.red[400], size: 30),
+            leading: Icon(OMIcons.info, color: Colors.red[400], size: 30),
             title: Text('About'),
             onTap: () {
               Navigator.pop(ctxt); // Close the drawer first
