@@ -1,15 +1,8 @@
-* fitness_531
+* 5/3/1 Fitness
 
-A new Flutter project.
+#+html:<a href="https://codemagic.io/apps/5cdc80965c71630019441043/5cdc80965c71630019441042/latest_build"><img src="https://api.codemagic.io/apps/5cdc80965c71630019441043/5cdc80965c71630019441042/status_badge.svg" /></a>
 
-** Getting Started
-
-#+begin_src sh
-flutter doctor # To ensure flutter is installed correctly
-flutter run # On the root of the project to run it on a connected device or simulator
-#+end_src
-
-** Icons to download
+** Icons I should pay respects too
 
 - https://icons8.com/icon/38915/deadlift
 - https://icons8.com/icon/13386/bench-press
@@ -18,17 +11,21 @@ flutter run # On the root of the project to run it on a connected device or simu
   
 
 Main icon: https://www.flaticon.com/free-icon/barbell_1690609#term=barbell&page=1&position=23
-#+begin_export html
+#+begin_verse
 <div>Icons made by <a href="https://www.freepik.com/"
 title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"
 title="Flaticon">www.flaticon.com</a> is licensed by <a
 href="http://creativecommons.org/licenses/by/3.0/" title="Creative
 Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
-#+end_export
+#+end_verse
 
 ** App icons are made like this
 
+For i-OS
 https://pub.dartlang.org/packages/flutter_launcher_icons
+
+For Android
+Icons are made with Android Studio, so they look native based on android versions . [[https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive.html][Adaptive icons]]
 
 On android, every size of the splash screen image name
 =ic_launcher.png= is just the raw image(same size), just so the icon
@@ -38,9 +35,3 @@ splash screen is bigger.
 
 - https://exrx.net/WeightTraining/Powerlifting/531
 - https://medium.com/flutter-community/simple-recipes-app-made-in-flutter-firebase-and-google-sign-in-14d1535e9a59
-
-** Notes
-
-- Right now, how contacting to database works without authentication,
-  anyone with the key file can read and write data.
-
