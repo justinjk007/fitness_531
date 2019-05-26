@@ -2,34 +2,54 @@ import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'query_helper.dart';
+import 'auth.dart';
 import 'package:intl/intl.dart'; // For date time
 
 class _AddRecordsPageState extends State<AddRecordsPage> {
   final _formKey = GlobalKey<FormState>();
-  int _squatRM = 0;
-  int _benchRM = 0;
-  int _deadliftRM = 0;
-  int _pressRM = 0;
+  int _squatRM = 0; // Used when adding data to database
+  int _benchRM = 0; // Used when adding data to database
+  int _deadliftRM = 0; // Used when adding data to database
+  int _pressRM = 0; // Used when adding data to database
+  int _currentSquatRM = 0;
+  int _currentBenchRM = 0;
+  int _currentDeadliftRM = 0;
+  int _currentPressRM = 0;
+
+  void _loadMaxRep() async {
+    List<DocumentSnapshot> _maxRep =
+        await QueryHelper.getMaxRepListFromDatabase();
+    if (_maxRep != null) {
+      setState(() {
+        // _maxRep is a list with only 1 item
+        _currentSquatRM = _maxRep[0].data['squat'];
+        _currentBenchRM = _maxRep[0].data['bench'];
+        _currentDeadliftRM = _maxRep[0].data['deadlift'];
+        _currentPressRM = _maxRep[0].data['press'];
+      });
+    }
+  }
+
+  String _getTodaysDate() {
+    var now = new DateTime.now();
+    var formatter = new DateFormat('yyyyMMdd');
+    return formatter.format(now);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadMaxRep(); // Load all the Max rep values from memory async
+  }
 
   @override
   Widget build(BuildContext ctxt) {
-    Future<String> getUserID() async {
-      final FirebaseUser user = await FirebaseAuth.instance.currentUser();
-      final String uid = user.uid.toString();
-      return uid;
-    }
-
-    String _getTodaysDate() {
-      var now = new DateTime.now();
-      var formatter = new DateFormat('yyyyMMdd');
-      return formatter.format(now);
-    }
-
     void addData(BuildContext ctxt) async {
       const _pass_msg = SnackBar(content: Text('Added data to database'));
       const _fail_msg = SnackBar(content: Text('Failed to add data!'));
       await Firestore.instance
-          .collection("users/max_reps/${await getUserID()}")
+          .collection("users/max_reps/${await AuthHelper.getUserID()}")
           .add({
         'squat': _squatRM,
         'bench': _benchRM,
@@ -66,7 +86,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                   }
                 },
                 decoration: InputDecoration(
-                  labelText: 'Enter 1RM for squat',
+                  labelText: 'Enter 1RM for squat (latest: ${_currentSquatRM})',
                   prefixIcon: Icon(OMIcons.assignment),
                 ),
                 onSaved: (input) => _squatRM = int.parse(input),
@@ -84,7 +104,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                   }
                 },
                 decoration: InputDecoration(
-                  labelText: 'Enter 1RM for bench',
+                  labelText: 'Enter 1RM for bench (latest: ${_currentBenchRM})',
                   prefixIcon: Icon(OMIcons.assignment),
                 ),
                 onSaved: (input) => _benchRM = int.parse(input),
@@ -102,7 +122,8 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                   }
                 },
                 decoration: InputDecoration(
-                  labelText: 'Enter 1RM for deadlift',
+                  labelText:
+                      'Enter 1RM for deadlift (latest: ${_currentDeadliftRM})',
                   prefixIcon: Icon(OMIcons.assignment),
                 ),
                 onSaved: (input) => _deadliftRM = int.parse(input),
@@ -120,7 +141,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                   }
                 },
                 decoration: InputDecoration(
-                  labelText: 'Enter 1RM for press',
+                  labelText: 'Enter 1RM for press (latest: ${_currentPressRM})',
                   prefixIcon: Icon(OMIcons.assignment),
                 ),
                 onSaved: (input) => _pressRM = int.parse(input),

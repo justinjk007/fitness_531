@@ -25,10 +25,6 @@ class SideDrawer extends StatelessWidget {
           // return object of type Dialog
           return AlertDialog(
             title: Text("Start a new streak"),
-            // TODO: This shape is legacy after upgrading flutter, so find a workaround
-            // shape: SuperellipseShape(
-            //   borderRadius: BorderRadius.circular(20.0),
-            // ),
             content: Text("This will reset all the activity status of "
                 "all weeks, this means you are starting a new 4 week streak..."),
             actions: <Widget>[

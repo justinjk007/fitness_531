@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'setsandreps_widget.dart';
 import 'save_state.dart';
+import 'query_helper.dart';
 import 'auth.dart'; // To sign in with Google and check sign in status
 import 'calc.dart';
 
@@ -25,29 +26,11 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
   }
 
   void _loadMaxRep() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String userId = await AuthHelper.getUserID();
-    var list;
-    QuerySnapshot querySnapshots;
-    if (await AuthHelper.checkIfUserIsLoggedIn()) {
-      querySnapshots = await Firestore.instance
-          .collection("users/max_reps/${userId}") // subcollection
-          .orderBy("date", descending: true) // new entries first
-          .limit(1)
-          .getDocuments(); // Get Documents not as a stream
-      list = querySnapshots.documents; // Make snapshots into a list
-    }
-    setState(() {
-      _maxRep = (list[0].data[widget.activity] ?? 0); // Return 0 if null
-      _assistanceMaxRep =
-          (list[0].data[getAssistanceActivity(widget.activity)] ?? 0);
-    });
+    _maxRep = await QueryHelper.getMaxRepFromDatabase(widget.activity);
+    _assistanceMaxRep = await QueryHelper.getMaxRepFromDatabase(
+        getAssistanceActivity(widget.activity));
+    setState(() {});
   }
-
-  // void saveDataandRefreshParent() async {
-  //   await SaveStateHelper.toggleActivity(widget.weekID, widget.activity);
-  //   widget.notifyParent();
-  // }
 
   void saveDataOnebyOneandRefreshParent(BuildContext _ctxt) async {
     _activitiesDone++;
