@@ -26,10 +26,16 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
   }
 
   void _loadMaxRep() async {
-    _maxRep = await QueryHelper.getMaxRepFromDatabase(widget.activity);
-    _assistanceMaxRep = await QueryHelper.getMaxRepFromDatabase(
-        getAssistanceActivity(widget.activity));
-    setState(() {});
+    List<DocumentSnapshot> latestData =
+        await QueryHelper.getMaxRepListFromDatabase();
+    // latestData is list with only 1 item because the query is using limit(1) feature
+    if (latestData != null) {
+      setState(() {
+        _maxRep = latestData[0].data[widget.activity];
+        _assistanceMaxRep =
+            latestData[0].data[getAssistanceActivity(widget.activity)];
+      });
+    }
   }
 
   void saveDataOnebyOneandRefreshParent(BuildContext _ctxt) async {
