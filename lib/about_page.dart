@@ -11,15 +11,11 @@ class AboutPage extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              Text(
+              const Text(
                 "5/3/1 Fitness was written so I could learn flutter reactive framework, "
-                "stop crunching percentages and calculating plate counts at the gym. "
+                "stop crunching percentages and calculating plate counts at the gym for the 5/3/1 fitness regimen. "
                 "Now daily workout routines are already calculated and tracked, I can just"
-                " focus on my training.\n\n PS: This page is written just for test.",
-                style: TextStyle(
-                  fontStyle: FontStyle.italic,
-                  fontSize: 20,
-                ),
+                " focus on my training.",
               ),
             ],
           ),
