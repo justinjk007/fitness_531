@@ -24,6 +24,13 @@ class AboutPage extends StatelessWidget {
     }
   }
 
+  _launchDonate() async {
+    String url = "https://www.paypal.me/justinjk007?locale.x=en_US";
+    if (await canLaunch(url)) {
+      await launch(url);
+    }
+  }
+
   @override
   Widget build(BuildContext ctxt) {
     return new Scaffold(
@@ -40,20 +47,34 @@ class AboutPage extends StatelessWidget {
                     " focus on my training.",
               ),
               SizedBox(height: 30),
-              FlatButton.icon(
-                onPressed: _launchMail,
-                icon: Icon(EvaIcons.emailOutline),
-                label: Text("Email me"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  FlatButton.icon(
+                    onPressed: _launchMail,
+                    icon: Icon(EvaIcons.emailOutline),
+                    label: Text("Email me"),
+                    splashColor: Colors.grey,
+                  ),
+                  FlatButton.icon(
+                    onPressed: _launchTwitter,
+                    icon: Icon(EvaIcons.twitterOutline),
+                    label: Text("Twitter"),
+                    splashColor: Colors.blue,
+                  ),
+                  FlatButton.icon(
+                    onPressed: _launchGithub,
+                    icon: Icon(EvaIcons.githubOutline),
+                    label: Text("Github"),
+                    splashColor: Colors.grey,
+                  ),
+                ],
               ),
-              FlatButton.icon(
-                onPressed: _launchTwitter,
-                icon: Icon(EvaIcons.twitterOutline),
-                label: Text("Twitter"),
-              ),
-              FlatButton.icon(
-                onPressed: _launchGithub,
-                icon: Icon(EvaIcons.githubOutline),
-                label: Text("Github"),
+              SizedBox(height: 30),
+              FlatButton(
+                onPressed: _launchDonate,
+                child: Text("But me coffee ?"),
+                splashColor: Colors.grey,
               ),
             ],
           ),
