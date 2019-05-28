@@ -1,12 +1,8 @@
-// For reading and writing data to disk with ease
-// Comes from the shared_preferences 3rd party library
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'setsandreps_widget.dart';
 import 'save_state.dart';
 import 'query_helper.dart';
-import 'auth.dart'; // To sign in with Google and check sign in status
 import 'calc.dart';
 
 // This page displays the sets and reps for daily workout and warmup

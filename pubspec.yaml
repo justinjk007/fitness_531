@@ -21,7 +21,7 @@ dependencies:
   cached_network_image: ^0.8.0 # To cache the profile picture
   outline_material_icons: ^0.1.0
   eva_icons_flutter: ^1.0.4 # For social icons and more
-  # url_launcher: ^5.0.0
+  url_launcher: ^5.0.0
 
 dev_dependencies:
   flutter_test:
