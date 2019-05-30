@@ -9,7 +9,7 @@ class QueryHelper {
     if (await AuthHelper.checkIfUserIsLoggedIn()) {
       String userId = await AuthHelper.getUserID();
       querySnapshots = await Firestore.instance
-          .collection("users/max_reps/${userId}") // subcollection
+          .collection("users/max_reps/$userId") // subcollection
           .orderBy("date", descending: true) // new entries first
           .limit(1)
           .getDocuments(); // Get Documents not as a stream

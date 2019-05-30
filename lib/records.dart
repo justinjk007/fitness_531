@@ -58,7 +58,7 @@ class _RecordsPageState extends State<RecordsPage> {
   Widget build(BuildContext ctxt) {
     // Don't show fab when keybaord is open
     // https://stackoverflow.com/questions/48337422/hide-fab-when-onscreen-keyboard-appear
-    final bool showFab = MediaQuery.of(ctxt).viewInsets.bottom == 0.0;
+    // final bool showFab = MediaQuery.of(ctxt).viewInsets.bottom == 0.0;
     return new Scaffold(
       // drawer: new SideDrawer(),
       appBar: new AppBar(title: new Text("Set 1 rep max records")),
@@ -71,7 +71,7 @@ class _RecordsPageState extends State<RecordsPage> {
                 controller: _controller1,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  labelText: 'Enter 1RM for squat (Current: ${_squatRM} lbs)',
+                  labelText: 'Enter 1RM for squat (Current: $_squatRM lbs)',
                   prefixIcon: Icon(Icons.assignment),
                 ),
                 onSubmitted: (value) {
@@ -89,7 +89,7 @@ class _RecordsPageState extends State<RecordsPage> {
                 controller: _controller2,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  labelText: 'Enter 1RM for bench (Current: ${_benchRM} lbs)',
+                  labelText: 'Enter 1RM for bench (Current: $_benchRM lbs)',
                   prefixIcon: Icon(Icons.assignment),
                 ),
                 onSubmitted: (value) {
@@ -108,7 +108,7 @@ class _RecordsPageState extends State<RecordsPage> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelText:
-                      'Enter 1RM for deadlift (Current: ${_deadliftRM} lbs)',
+                      'Enter 1RM for deadlift (Current: $_deadliftRM lbs)',
                   prefixIcon: Icon(Icons.assignment),
                 ),
                 onSubmitted: (value) {
@@ -126,7 +126,7 @@ class _RecordsPageState extends State<RecordsPage> {
                 controller: _controller4,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  labelText: 'Enter 1RM for press (Current: ${_pressRM} lbs)',
+                  labelText: 'Enter 1RM for press (Current: $_pressRM lbs)',
                   prefixIcon: Icon(Icons.assignment),
                 ),
                 onSubmitted: (value) {

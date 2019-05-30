@@ -1,6 +1,5 @@
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'query_helper.dart';
 import 'auth.dart';
@@ -86,7 +85,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                   }
                 },
                 decoration: InputDecoration(
-                  labelText: 'Enter 1RM for squat (latest: ${_currentSquatRM})',
+                  labelText: 'Enter 1RM for squat (latest: $_currentSquatRM)',
                   prefixIcon: Icon(OMIcons.assignment),
                 ),
                 onSaved: (input) => _squatRM = int.parse(input),
@@ -104,7 +103,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                   }
                 },
                 decoration: InputDecoration(
-                  labelText: 'Enter 1RM for bench (latest: ${_currentBenchRM})',
+                  labelText: 'Enter 1RM for bench (latest: $_currentBenchRM)',
                   prefixIcon: Icon(OMIcons.assignment),
                 ),
                 onSaved: (input) => _benchRM = int.parse(input),
@@ -123,7 +122,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                 },
                 decoration: InputDecoration(
                   labelText:
-                      'Enter 1RM for deadlift (latest: ${_currentDeadliftRM})',
+                      'Enter 1RM for deadlift (latest: $_currentDeadliftRM)',
                   prefixIcon: Icon(OMIcons.assignment),
                 ),
                 onSaved: (input) => _deadliftRM = int.parse(input),
@@ -141,7 +140,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                   }
                 },
                 decoration: InputDecoration(
-                  labelText: 'Enter 1RM for press (latest: ${_currentPressRM})',
+                  labelText: 'Enter 1RM for press (latest: $_currentPressRM)',
                   prefixIcon: Icon(OMIcons.assignment),
                 ),
                 onSaved: (input) => _pressRM = int.parse(input),

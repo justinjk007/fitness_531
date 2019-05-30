@@ -1,7 +1,6 @@
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rect_getter/rect_getter.dart'; //<--Import rect getter
 import 'add_record.dart';
 import 'auth.dart'; // To sign in with Google and check sign in status
@@ -172,7 +171,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
 
     Widget loadDataWidget = StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance
-          .collection("users/max_reps/${userId}") // subcollection
+          .collection("users/max_reps/$userId") // subcollection
           .orderBy("date", descending: true) // new entries first
           .snapshots(),
       builder: (context, snapshot) {
@@ -298,51 +297,32 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
     );
   }
 
-  void createData() async {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
-      DocumentReference ref = await db
-          .collection('MaxReps')
-          .add({'name': '$name 😎', 'todo': someTodo()});
-      setState(() => id = ref.documentID);
-      print(ref.documentID);
-    }
-  }
+  // void createData() async {
+  //   if (_formKey.currentState.validate()) {
+  //     _formKey.currentState.save();
+  //     DocumentReference ref = await db
+  //         .collection('MaxReps')
+  //         .add({'name': '$name 😎', 'todo': someTodo()});
+  //     setState(() => id = ref.documentID);
+  //     print(ref.documentID);
+  //   }
+  // }
 
-  void readData() async {
-    DocumentSnapshot snapshot =
-        await db.collection('MaxReps').document(id).get();
-  }
+  // void readData() async {
+  //   DocumentSnapshot snapshot =
+  //       await db.collection('MaxReps').document(id).get();
+  // }
 
-  void updateData(DocumentSnapshot doc) async {
-    await db
-        .collection('MaxReps')
-        .document(doc.documentID)
-        .updateData({'todo': 'please 🤫'});
-  }
+  // void updateData(DocumentSnapshot doc) async {
+  //   await db
+  //       .collection('MaxReps')
+  //       .document(doc.documentID)
+  //       .updateData({'todo': 'please 🤫'});
+  // }
 
-  void deleteData(DocumentSnapshot doc) async {
-    await db.collection('MaxReps').document(doc.documentID).delete();
-    setState(() => id = null);
-  }
+  // void deleteData(DocumentSnapshot doc) async {
+  //   await db.collection('MaxReps').document(doc.documentID).delete();
+  //   setState(() => id = null);
+  // }
 
-  String someTodo() {
-    final someNumber = 4;
-    String todo;
-    switch (someNumber) {
-      case 1:
-        todo = 'Like and subscribe 💩';
-        break;
-      case 2:
-        todo = 'Twitter @robertbrunhage 🤣';
-        break;
-      case 3:
-        todo = 'Patreon in the description 🤗';
-        break;
-      default:
-        todo = 'Leave a comment 🤓';
-        break;
-    }
-    return todo;
-  }
 }

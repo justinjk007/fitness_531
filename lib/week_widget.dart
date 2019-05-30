@@ -1,5 +1,4 @@
 import 'package:outline_material_icons/outline_material_icons.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:flutter/material.dart';
 import 'save_state.dart';
@@ -34,7 +33,7 @@ class _WeekWidgetState extends State<Weeks> {
         animationDuration: 1000,
         percent: percent / 100,
         center: Text(
-          "${percent}%",
+          "$percent%",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
         ),
         circularStrokeCap: CircularStrokeCap.round,
