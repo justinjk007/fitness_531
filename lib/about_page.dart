@@ -46,7 +46,7 @@ class AboutPage extends StatelessWidget {
                     "Now daily workout routines are already calculated and tracked, I can just"
                     " focus on my training.",
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -70,7 +70,7 @@ class AboutPage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               FlatButton(
                 onPressed: _launchDonate,
                 child: Text("But me coffee ?"),
