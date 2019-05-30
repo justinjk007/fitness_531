@@ -24,11 +24,10 @@ class FirestoreCRUDPage extends StatefulWidget {
 }
 
 class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
-  String id;
   String userId = "null";
-  final db = Firestore.instance;
-  final _formKey = GlobalKey<FormState>();
-  String name;
+  // String id;
+  // final db = Firestore.instance;
+  // String name;
 
   // https://marcinszalek.pl/flutter/ripple-animation/
   // For ripple from FAB
@@ -139,22 +138,22 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
     );
   }
 
-  TextFormField buildTextFormField() {
-    return TextFormField(
-      decoration: InputDecoration(
-        border: InputBorder.none,
-        hintText: 'name',
-        fillColor: Colors.grey[300],
-        filled: true,
-      ),
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'Please enter some text';
-        }
-      },
-      onSaved: (value) => name = value,
-    );
-  }
+  // TextFormField buildTextFormField() {
+  //   return TextFormField(
+  //     decoration: InputDecoration(
+  //       border: InputBorder.none,
+  //       hintText: 'name',
+  //       fillColor: Colors.grey[300],
+  //       filled: true,
+  //     ),
+  //     validator: (value) {
+  //       if (value.isEmpty) {
+  //         return 'Please enter some text';
+  //       }
+  //     },
+  //     onSaved: (value) => name = value,
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
