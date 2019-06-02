@@ -42,9 +42,9 @@ class AboutPage extends StatelessWidget {
             children: [
               const Text(
                 "5/3/1 Fitness was written so I could learn flutter reactive framework, "
-                    "stop crunching percentages and calculating plate counts at the gym for the 5/3/1 fitness regimen. "
-                    "Now daily workout routines are already calculated and tracked, I can just"
-                    " focus on my training.",
+                "stop crunching percentages and calculating plate counts at the gym for the 5/3/1 fitness regimen. "
+                "Now daily workout routines are already calculated and tracked, I can just"
+                " focus on my training.",
               ),
               const SizedBox(height: 30),
               Row(
@@ -73,7 +73,10 @@ class AboutPage extends StatelessWidget {
               const SizedBox(height: 30),
               FlatButton(
                 onPressed: _launchDonate,
-                child: Text("But me coffee ?"),
+                child: Text(
+                  "But me coffee ?",
+                  style: TextStyle(color: Colors.green),
+                ),
                 splashColor: Colors.grey,
               ),
             ],
