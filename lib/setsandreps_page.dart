@@ -1,8 +1,8 @@
-import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'setsandreps_widget.dart';
 import 'save_state.dart';
+import 'help_info.dart';
 import 'auth.dart'; // To sign in with Google and check sign in status
 import 'calc.dart';
 
@@ -262,33 +262,11 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
       builder: (ctxt, snapshot) {
         if (snapshot.hasError) {
           // Can't really center this because this is inside a list view so I add padding to the top
-          return Padding(
-            padding: EdgeInsets.only(top: 50),
-            child: Column(
-              children: <Widget>[
-                Icon(
-                  OMIcons.cloudOff,
-                  size: 40,
-                  color: Theme.of(context).hintColor,
-                ),
-                Text(
-                  "Sync_problem!",
-                  style: TextStyle(color: Theme.of(context).hintColor),
-                ),
-              ],
-            ),
-          );
+          return HelpInfo.syncProblemWidget(ctxt);
         }
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
-            return Padding(
-              padding: EdgeInsets.only(top: 50),
-              child: Column(
-                children: <Widget>[
-                  CircularProgressIndicator(),
-                ],
-              ),
-            );
+            return HelpInfo.centerCircularProgressIndicator();
           default:
             return loadDataWidget(snapshot.data.documents);
         }
@@ -297,52 +275,21 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
 
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("Today's sets for ${widget.activity}"),
+        title: new Text("Today\'s sets for ${widget.activity}"),
       ),
       body: FutureBuilder<bool>(
         future: AuthHelper.checkIfUserIsLoggedIn(),
         initialData: false,
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
           if (snapshot.hasError) {
-            // Can't really center this because this is inside a list view so I add padding to the top
-            return Padding(
-              padding: EdgeInsets.only(top: 50),
-              child: Column(
-                children: <Widget>[
-                  Icon(
-                    OMIcons.cloudOff,
-                    size: 40,
-                    color: Theme.of(context).hintColor,
-                  ),
-                  Text(
-                    "Sync problem!",
-                    style: TextStyle(color: Theme.of(context).hintColor),
-                  ),
-                ],
-              ),
-            );
+            return HelpInfo.syncProblemWidget(ctxt);
           } else {
             if (snapshot.data == true) {
               return loadDataFromDatabase; // User is logged in, he should see records
             } else {
               // User is not logged in
               // Can't really center this because this is inside a list view so I add padding to the top
-              return Padding(
-                padding: EdgeInsets.only(top: 50),
-                child: Column(
-                  children: <Widget>[
-                    Icon(
-                      OMIcons.accountCircle,
-                      size: 40,
-                      color: Theme.of(context).hintColor,
-                    ),
-                    Text(
-                      "Please login!",
-                      style: TextStyle(color: Theme.of(context).hintColor),
-                    ),
-                  ],
-                ),
-              );
+              return HelpInfo.pleaseLoginWidget(context);
             }
           }
         }, // End of  builder

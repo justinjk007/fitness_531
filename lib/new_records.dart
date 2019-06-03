@@ -1,8 +1,8 @@
-import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rect_getter/rect_getter.dart'; //<--Import rect getter
 import 'add_record.dart';
+import 'help_info.dart';
 import 'auth.dart'; // To sign in with Google and check sign in status
 
 class FadeRouteBuilder<T> extends PageRouteBuilder<T> {
@@ -176,33 +176,11 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           // Can't really center this because this is inside a list view so I add padding to the top
-          return Padding(
-            padding: EdgeInsets.only(top: 50),
-            child: Column(
-              children: <Widget>[
-                Icon(
-                  OMIcons.cloudOff,
-                  size: 40,
-                  color: Theme.of(context).hintColor,
-                ),
-                Text(
-                  "Sync_problem!",
-                  style: TextStyle(color: Theme.of(context).hintColor),
-                ),
-              ],
-            ),
-          );
+          return HelpInfo.syncProblemWidget(context);
         }
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
-            return Padding(
-              padding: EdgeInsets.only(top: 50),
-              child: Column(
-                children: <Widget>[
-                  CircularProgressIndicator(),
-                ],
-              ),
-            );
+            return HelpInfo.centerCircularProgressIndicator();
           default:
             return Column(
                 children: snapshot.data.documents
@@ -228,46 +206,14 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
                 builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
                   if (snapshot.hasError) {
                     // Can't really center this because this is inside a list view so I add padding to the top
-                    return Padding(
-                      padding: EdgeInsets.only(top: 50),
-                      child: Column(
-                        children: <Widget>[
-                          Icon(
-                            OMIcons.cloudOff,
-                            size: 40,
-                            color: Theme.of(context).hintColor,
-                          ),
-                          Text(
-                            "Sync problem!",
-                            style:
-                                TextStyle(color: Theme.of(context).hintColor),
-                          ),
-                        ],
-                      ),
-                    );
+                    return HelpInfo.syncProblemWidget(context);
                   } else {
                     if (snapshot.data == true) {
                       return loadDataWidget; // User is logged in, he should see records
                     } else {
                       // User is not logged in
                       // Can't really center this because this is inside a list view so I add padding to the top
-                      return Padding(
-                        padding: EdgeInsets.only(top: 50),
-                        child: Column(
-                          children: <Widget>[
-                            Icon(
-                              OMIcons.accountCircle,
-                              size: 40,
-                              color: Theme.of(context).hintColor,
-                            ),
-                            Text(
-                              "Please login!",
-                              style:
-                                  TextStyle(color: Theme.of(context).hintColor),
-                            ),
-                          ],
-                        ),
-                      );
+                      return HelpInfo.pleaseLoginWidget(context);
                     }
                   }
                 }, // End of  builder
