@@ -1,37 +1,26 @@
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'setsandreps_widget.dart';
 import 'save_state.dart';
 import 'query_helper.dart';
+import 'auth.dart'; // To sign in with Google and check sign in status
 import 'calc.dart';
 
 // This page displays the sets and reps for daily workout and warmup
-
-// This page is Stateful because we need an initState method which will load the
-// 1RM maxes for each activity already and save it in a global for the page to
-// use instead of loading it from memory 10,000 times
 class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
-  int _maxRep = 0; // Filled by _loadMaxRep
-  int _assistanceMaxRep = 0; // Filled by _loadMaxRep
   int _activitiesDone = 0; // Used when dismissing cards, to count how many done
+  String userId = "null"; // Filled by _getUserID
+
+  void _getUserID() async {
+    userId = await AuthHelper.getUserID();
+    setState(() {});
+  }
 
   @override
   void initState() {
     super.initState();
-    _loadMaxRep(); // Load all the Max rep values from memory async
-  }
-
-  void _loadMaxRep() async {
-    List<DocumentSnapshot> latestData =
-        await QueryHelper.getMaxRepListFromDatabase();
-    // latestData is list with only 1 item because the query is using limit(1) feature
-    if (latestData != null) {
-      setState(() {
-        _maxRep = latestData[0].data[widget.activity];
-        _assistanceMaxRep =
-            latestData[0].data[getAssistanceActivity(widget.activity)];
-      });
-    }
+    _getUserID();
   }
 
   void saveDataOnebyOneandRefreshParent(BuildContext _ctxt) async {
@@ -65,11 +54,17 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
 
   @override
   Widget build(BuildContext ctxt) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Today's sets for ${widget.activity}"),
-      ),
-      body: ListView(
+    Widget loadDataWidget(List<DocumentSnapshot> latestData) {
+      int _maxRep = 0;
+      int _assistanceMaxRep = 0;
+      // latestData is list with only 1 item because the query is using limit(1) feature
+      if (latestData != null) {
+        _maxRep = latestData[0].data[widget.activity];
+        _assistanceMaxRep =
+            latestData[0].data[getAssistanceActivity(widget.activity)];
+      }
+
+      return ListView(
         padding: EdgeInsets.all(8),
         children: <Widget>[
           new Builder(builder: (BuildContext ctxt) {
@@ -256,34 +251,56 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
             );
           }),
         ],
+      );
+    }
+
+    Widget loadDataFromDatabase = StreamBuilder<QuerySnapshot>(
+      stream: Firestore.instance
+          .collection("users/max_reps/$userId")
+          .orderBy("date", descending: true) // new entries first
+          .limit(1)
+          .snapshots(),
+      builder: (ctxt, snapshot) {
+        if (snapshot.hasError) {
+          // Can't really center this because this is inside a list view so I add padding to the top
+          return Padding(
+            padding: EdgeInsets.only(top: 50),
+            child: Column(
+              children: <Widget>[
+                Icon(
+                  OMIcons.cloudOff,
+                  size: 40,
+                  color: Theme.of(context).hintColor,
+                ),
+                Text(
+                  "Sync_problem!",
+                  style: TextStyle(color: Theme.of(context).hintColor),
+                ),
+              ],
+            ),
+          );
+        }
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            return Padding(
+              padding: EdgeInsets.only(top: 50),
+              child: Column(
+                children: <Widget>[
+                  CircularProgressIndicator(),
+                ],
+              ),
+            );
+          default:
+            return loadDataWidget(snapshot.data.documents);
+        }
+      },
+    );
+
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text("Today's sets for ${widget.activity}"),
       ),
-      // // Here floatingActionButton is built inside a builder because we need to
-      // // give the snackBar a context which will be later used to find the
-      // // Scaffold under which the SnackBar should be displayed
-      // floatingActionButton: new Builder(builder: (BuildContext ctxt) {
-      //   return FloatingActionButton.extended(
-      //     onPressed: () {
-      //       saveDataandRefreshParent(); // save data before showing snackBar
-      //       final snackBar = SnackBar(
-      //         content: Text('Status saved!'),
-      //         action: SnackBarAction(
-      //           label: 'Undo',
-      //           onPressed: () {
-      //             // Some code to undo the change!
-      //             // save data, essentially toggling/undoing the status
-      //             saveDataandRefreshParent();
-      //           },
-      //         ),
-      //       );
-      //       // Find the Scaffold in the Widget tree and use it to show a SnackBar!
-      //       Scaffold.of(ctxt).showSnackBar(snackBar);
-      //     },
-      //     icon: Icon(Icons.done_all),
-      //     label: Text("Done"),
-      //     tooltip: "Mark today's activities done !",
-      //     backgroundColor: Colors.red[400],
-      //   );
-      // }),
+      body: loadDataFromDatabase,
     );
   }
 }
