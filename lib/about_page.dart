@@ -74,7 +74,7 @@ class AboutPage extends StatelessWidget {
               FlatButton(
                 onPressed: _launchDonate,
                 child: Text(
-                  "But me coffee ?",
+                  "Buy me coffee ?",
                   style: TextStyle(color: Colors.green),
                 ),
                 splashColor: Colors.grey,
