@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+// TODO: Remove outline icons package and try to replace all of them with  eva icons
+
 class AboutPage extends StatelessWidget {
   _launchTwitter() async {
     String url = "https://twitter.com/justinjk007";

@@ -91,18 +91,18 @@ class SideDrawer extends StatelessWidget {
               );
             },
           ),
-          ListTile(
-            leading: Icon(OMIcons.assignment, color: Colors.red[400]),
-            title: Text('Old records'),
-            onTap: () {
-              Navigator.pop(ctxt); // Close the drawer first
-              Navigator.push(
-                ctxt,
-                new MaterialPageRoute(
-                    builder: (ctxt) => new RecordsPage()),
-              );
-            },
-          ),
+          // ListTile(
+          //   leading: Icon(OMIcons.assignment, color: Colors.red[400]),
+          //   title: Text('Old records'),
+          //   onTap: () {
+          //     Navigator.pop(ctxt); // Close the drawer first
+          //     Navigator.push(
+          //       ctxt,
+          //       new MaterialPageRoute(
+          //           builder: (ctxt) => new RecordsPage()),
+          //     );
+          //   },
+          // ),
           ListTile(
             leading: Icon(OMIcons.timelapse, color: Colors.red[400]),
             title: Text('Start a new streak'),
