@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'setsandreps_widget.dart';
 import 'save_state.dart';
-import 'query_helper.dart';
 import 'auth.dart'; // To sign in with Google and check sign in status
 import 'calc.dart';
 
@@ -300,7 +299,54 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
       appBar: new AppBar(
         title: new Text("Today's sets for ${widget.activity}"),
       ),
-      body: loadDataFromDatabase,
+      body: FutureBuilder<bool>(
+        future: AuthHelper.checkIfUserIsLoggedIn(),
+        initialData: false,
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          if (snapshot.hasError) {
+            // Can't really center this because this is inside a list view so I add padding to the top
+            return Padding(
+              padding: EdgeInsets.only(top: 50),
+              child: Column(
+                children: <Widget>[
+                  Icon(
+                    OMIcons.cloudOff,
+                    size: 40,
+                    color: Theme.of(context).hintColor,
+                  ),
+                  Text(
+                    "Sync problem!",
+                    style: TextStyle(color: Theme.of(context).hintColor),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            if (snapshot.data == true) {
+              return loadDataFromDatabase; // User is logged in, he should see records
+            } else {
+              // User is not logged in
+              // Can't really center this because this is inside a list view so I add padding to the top
+              return Padding(
+                padding: EdgeInsets.only(top: 50),
+                child: Column(
+                  children: <Widget>[
+                    Icon(
+                      OMIcons.accountCircle,
+                      size: 40,
+                      color: Theme.of(context).hintColor,
+                    ),
+                    Text(
+                      "Please login!",
+                      style: TextStyle(color: Theme.of(context).hintColor),
+                    ),
+                  ],
+                ),
+              );
+            }
+          }
+        }, // End of  builder
+      ),
     );
   }
 }
