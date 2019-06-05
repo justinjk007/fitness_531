@@ -69,7 +69,8 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
     }
 
     // Don't show fab if keyboard is up
-    final bool showFab = MediaQuery.of(ctxt).viewInsets.bottom == 0.0;
+    final bool _showFab = MediaQuery.of(ctxt).viewInsets.bottom == 0.0;
+    final bool _isIOS = Theme.of(ctxt).platform == TargetPlatform.iOS;
 
     final FocusNode _squatFocus = FocusNode();
     final FocusNode _benchFocus = FocusNode();
@@ -84,7 +85,8 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
           child: ListView(
             children: <Widget>[
               TextFormField(
-                keyboardType: TextInputType.number,
+                keyboardType:
+                    _isIOS ? TextInputType.text : TextInputType.number,
                 textInputAction: TextInputAction.next,
                 validator: (value) {
                   if (value.isEmpty) {
@@ -101,12 +103,13 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                 ),
                 focusNode: _squatFocus,
                 onFieldSubmitted: (term) {
-                  _fieldFocusChange(context, _squatFocus, _benchFocus);
+                  _fieldFocusChange(ctxt, _squatFocus, _benchFocus);
                 },
                 onSaved: (input) => _squatRM = int.parse(input),
               ),
               TextFormField(
-                keyboardType: TextInputType.number,
+                keyboardType:
+                    _isIOS ? TextInputType.text : TextInputType.number,
                 textInputAction: TextInputAction.next,
                 validator: (value) {
                   if (value.isEmpty) {
@@ -123,12 +126,13 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                 ),
                 focusNode: _benchFocus,
                 onFieldSubmitted: (term) {
-                  _fieldFocusChange(context, _benchFocus, _deadliftFocus);
+                  _fieldFocusChange(ctxt, _benchFocus, _deadliftFocus);
                 },
                 onSaved: (input) => _benchRM = int.parse(input),
               ),
               TextFormField(
-                keyboardType: TextInputType.number,
+                keyboardType:
+                    _isIOS ? TextInputType.text : TextInputType.number,
                 textInputAction: TextInputAction.next,
                 validator: (value) {
                   if (value.isEmpty) {
@@ -146,12 +150,13 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                 ),
                 focusNode: _deadliftFocus,
                 onFieldSubmitted: (term) {
-                  _fieldFocusChange(context, _deadliftFocus, _pressFocus);
+                  _fieldFocusChange(ctxt, _deadliftFocus, _pressFocus);
                 },
                 onSaved: (input) => _deadliftRM = int.parse(input),
               ),
               TextFormField(
-                keyboardType: TextInputType.number,
+                keyboardType:
+                    _isIOS ? TextInputType.text : TextInputType.number,
                 textInputAction: TextInputAction.done,
                 validator: (value) {
                   if (value.isEmpty) {
@@ -174,7 +179,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
         ),
       ),
       floatingActionButton: Builder(builder: (BuildContext ctxt) {
-        return showFab
+        return _showFab
             ? FloatingActionButton(
                 onPressed: () {
                   // Validate will return true if the form is valid, or false if
