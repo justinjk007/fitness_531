@@ -3,7 +3,7 @@ import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:flutter/material.dart';
 import 'new_records.dart';
 import 'about_page.dart';
-import 'records.dart';
+// import 'records.dart';
 import 'save_state.dart';
 
 class SideDrawer extends StatelessWidget {
