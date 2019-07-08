@@ -55,10 +55,12 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
   Widget build(BuildContext ctxt) {
     Widget loadDataWidget(List<DocumentSnapshot> latestData) {
       int _maxRep = 0;
+      int _trainingMax = 0;
       int _assistanceMaxRep = 0;
       // latestData is list with only 1 item because the query is using limit(1) feature
       if (latestData != null) {
         _maxRep = latestData[0].data[widget.activity];
+        _trainingMax = (0.9*_maxRep).toInt(); // Training max will be 90% of Current PR
         _assistanceMaxRep =
             latestData[0].data[getAssistanceActivity(widget.activity)];
       }
@@ -83,10 +85,10 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
                 child: Icon(Icons.done_all),
               ),
               child: CustomCard(
-                argTitle: Calc.getWarmup(_maxRep, 1),
+                argTitle: Calc.getWarmup(_trainingMax, 1),
                 subTitle: "Warmup set 1",
                 setWeight: Calc.getWarmupVals(
-                  _maxRep,
+                  _trainingMax,
                   1,
                 )[0], // First index of the list is this sets weight
               ),
@@ -109,10 +111,10 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
                 child: Icon(Icons.done_all),
               ),
               child: CustomCard(
-                argTitle: Calc.getWarmup(_maxRep, 2),
+                argTitle: Calc.getWarmup(_trainingMax, 2),
                 subTitle: "Warmup set 2",
                 setWeight: Calc.getWarmupVals(
-                  _maxRep,
+                  _trainingMax,
                   2,
                 )[0], // First index of the list is this sets weight
               ),
@@ -135,10 +137,10 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
                 child: Icon(Icons.done_all),
               ),
               child: CustomCard(
-                argTitle: Calc.getWarmup(_maxRep, 3),
+                argTitle: Calc.getWarmup(_trainingMax, 3),
                 subTitle: "Warmup set 3",
                 setWeight: Calc.getWarmupVals(
-                  _maxRep,
+                  _trainingMax,
                   3,
                 )[0], // First index of the list is this sets weight
               ),
@@ -161,10 +163,10 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
                 child: Icon(Icons.done_all),
               ),
               child: CustomCard(
-                argTitle: Calc.getRealSet(_maxRep, 1, widget.weekID),
+                argTitle: Calc.getRealSet(_trainingMax, 1, widget.weekID),
                 subTitle: "Real ${widget.activity} set 1",
                 setWeight: Calc.getRealSetVals(
-                  _maxRep,
+                  _trainingMax,
                   1,
                   widget.weekID,
                 )[0], // First index of the list is this sets weight
@@ -188,10 +190,10 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
                 child: Icon(Icons.done_all),
               ),
               child: CustomCard(
-                argTitle: Calc.getRealSet(_maxRep, 2, widget.weekID),
+                argTitle: Calc.getRealSet(_trainingMax, 2, widget.weekID),
                 subTitle: "Real ${widget.activity} set 2",
                 setWeight: Calc.getRealSetVals(
-                  _maxRep,
+                  _trainingMax,
                   2,
                   widget.weekID,
                 )[0], // First index of the list is this sets weight
@@ -215,10 +217,10 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
                 child: Icon(Icons.done_all),
               ),
               child: CustomCard(
-                argTitle: Calc.getRealSet(_maxRep, 3, widget.weekID),
+                argTitle: Calc.getRealSet(_trainingMax, 3, widget.weekID),
                 subTitle: "Real ${widget.activity} set 3",
                 setWeight: Calc.getRealSetVals(
-                  _maxRep,
+                  _trainingMax,
                   3,
                   widget.weekID,
                 )[0], // First index of the list is this sets weight
