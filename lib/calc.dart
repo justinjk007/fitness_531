@@ -1,6 +1,7 @@
 class Calc {
   static String getWarmup(int repMax, int setNum) {
-    var val = getWarmupVals(repMax, setNum);
+    double trainingMax = 0.90 * repMax; // Training max set to 90%
+    var val = getWarmupVals(trainingMax.toInt(), setNum);
     return ("${val[0].toInt()} x ${val[1]}");
   }
 
@@ -22,7 +23,8 @@ class Calc {
   }
 
   static String getRealSet(int repMax, int setNum, String weekID) {
-    var val = getRealSetVals(repMax, setNum, weekID);
+    double trainingMax = 0.90 * repMax; // Training max set to 90%
+    var val = getRealSetVals(trainingMax.toInt(), setNum, weekID);
     return ("${val[0].toInt()} x ${val[1]}");
   }
 
@@ -84,6 +86,7 @@ class Calc {
   }
 
   static String getAssistanceSet(int repMax) {
+    // For assistance, I will leave training max as 100%
     return ("${getAssistanceSetVals(repMax).toInt()} x 5 x 10");
   }
 
