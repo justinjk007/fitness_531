@@ -1,21 +1,35 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'new_records.dart';
 import 'about_page.dart';
 // import 'records.dart';
 import 'save_state.dart';
 
-class SideDrawer extends StatelessWidget {
-  SideDrawer({
-    Key key,
-    this.callBackWeeksPage,
-  }) : super(key: key);
+class _SideDrawerState extends State<SideDrawer> {
+  int _barWeight = 45;
+  final _formKey = GlobalKey<FormState>();
 
-  final Function callBackWeeksPage;
+  void _loadData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+        // If no data exist return 45 meaning 45 lbs
+        _barWeight = (prefs.getInt("bar_weight") ?? 45);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadData(); // Load the current bar weight from memory
+  }
 
   @override
   Widget build(BuildContext ctxt) {
+
+    final bool _isIOS = Theme.of(ctxt).platform == TargetPlatform.iOS;
+
     // user defined function
     void _showResetDialog() {
       // flutter defined function
@@ -26,7 +40,7 @@ class SideDrawer extends StatelessWidget {
           return AlertDialog(
             title: Text("Start a new streak"),
             content: Text("This will reset all the activity status of "
-                "all weeks, this means you are starting a new 4 week streak..."),
+              "all weeks, this means you are starting a new 4 week streak..."),
             actions: <Widget>[
               // Usually buttons at the bottom of the dialog
               FlatButton(
@@ -39,7 +53,7 @@ class SideDrawer extends StatelessWidget {
                 ),
                 onPressed: () {
                   SaveStateHelper.resetAll().then((_) {
-                    callBackWeeksPage();
+                      widget.callBackWeeksPage();
                   });
                   // Exit out of the window after reseting
                   Navigator.of(context).pop();
@@ -50,6 +64,58 @@ class SideDrawer extends StatelessWidget {
           );
         },
       );
+    }
+
+    void addData(BuildContext ctxt) async {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setInt("bar_weight",_barWeight);
+    }
+
+    // user defined function
+    void _showBarWeightDialog() {
+      // flutter defined function
+      showDialog(
+        context: ctxt,
+        builder: (ctxt) {
+          return AlertDialog(
+            title: Text('Set bar weight'),
+            content:Form(
+              key: _formKey,
+              child: TextFormField(
+                onSaved: (input) => _barWeight = int.parse(input),
+                decoration: InputDecoration(labelText: "Enter weight in lbs",
+                ),
+                // Unless iOS show number keyboard
+                keyboardType:
+                _isIOS ? TextInputType.text : TextInputType.number,
+                textInputAction: TextInputAction.done,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  final n = num.tryParse(value);
+                  if (n == null) {
+                    return 'Please enter a number';
+                  }
+                },
+              ),
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('Submit'),
+                onPressed: () {
+                  if (_formKey.currentState.validate()) {
+                    // If the form is valid, submit data to database
+                    _formKey.currentState.save();
+                    addData(ctxt);
+                    _formKey.currentState.reset();
+                    Navigator.of(ctxt).pop();
+                  }
+                },
+              )
+            ],
+          );
+      });
     }
 
     return new Drawer(
@@ -75,9 +141,19 @@ class SideDrawer extends StatelessWidget {
                 ),
               ],
             ),
+            // To make the top portion of the side drawer a different color
             // decoration: BoxDecoration(
             //   color: Colors.red[200],
             // ),
+          ),
+          ListTile(
+            leading: Icon(OMIcons.create, color: Colors.red[400]),
+            title: Text('Set bar weight'),
+            subtitle: Text('$_barWeight lbs'),
+            onTap: () {
+              Navigator.pop(ctxt); // Close the drawer first
+              _showBarWeightDialog();
+            },
           ),
           ListTile(
             leading: Icon(OMIcons.assignment, color: Colors.red[400]),
@@ -87,7 +163,7 @@ class SideDrawer extends StatelessWidget {
               Navigator.push(
                 ctxt,
                 new MaterialPageRoute(
-                    builder: (ctxt) => new FirestoreCRUDPage()),
+                  builder: (ctxt) => new FirestoreCRUDPage()),
               );
             },
           ),
@@ -118,12 +194,12 @@ class SideDrawer extends StatelessWidget {
               // activeTrackColor: Colors.lightGreenAccent,
               // activeColor: Colors.green,
               value:
-                  Theme.of(ctxt).brightness == Brightness.dark ? true : false,
+              Theme.of(ctxt).brightness == Brightness.dark ? true : false,
               onChanged: (value) {
                 DynamicTheme.of(ctxt).setBrightness(
-                    Theme.of(ctxt).brightness == Brightness.dark
-                        ? Brightness.light
-                        : Brightness.dark);
+                  Theme.of(ctxt).brightness == Brightness.dark
+                  ? Brightness.light
+                  : Brightness.dark);
               },
             ),
           ),
@@ -142,4 +218,16 @@ class SideDrawer extends StatelessWidget {
       ),
     );
   }
+}
+
+class SideDrawer extends StatefulWidget {
+  SideDrawer({
+      Key key,
+      this.callBackWeeksPage,
+  }) : super(key: key);
+
+  final Function callBackWeeksPage;
+
+  @override
+  _SideDrawerState createState() => _SideDrawerState();
 }
