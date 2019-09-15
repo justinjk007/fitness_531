@@ -79,4 +79,9 @@ class SaveStateHelper {
       _activity.forEach((item) => prefs.setBool("week$i$item", null));
     }
   }
+
+  static Future<int> getBarWeight() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getInt("bar_weight") ?? 45 ;
+  }
 }
