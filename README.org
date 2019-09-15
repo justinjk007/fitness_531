@@ -31,6 +31,11 @@ On android, every size of the splash screen image name
 =ic_launcher.png= is just the raw image(same size), just so the icon
 splash screen is bigger.
 
+** To get firebase config
+
+For Android: https://console.firebase.google.com/u/1/project/fitness-531/settings/general/android:com.kaipada.fitness_531
+- put the =json= file under android/app/google-services.json
+
 ** References
 
 - https://exrx.net/WeightTraining/Powerlifting/531
