@@ -8,14 +8,14 @@ import 'about_page.dart';
 import 'save_state.dart';
 
 class _SideDrawerState extends State<SideDrawer> {
-  int _barWeight = 45;
+  double _barWeight = 45;
   final _formKey = GlobalKey<FormState>();
 
   void _loadData() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
         // If no data exist return 45 meaning 45 lbs
-        _barWeight = (prefs.getInt("bar_weight") ?? 45);
+        _barWeight = (prefs.getDouble("bar_weight") ?? 45);
     });
   }
 
@@ -68,7 +68,7 @@ class _SideDrawerState extends State<SideDrawer> {
 
     void addData(BuildContext ctxt) async {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setInt("bar_weight",_barWeight);
+      prefs.setDouble("bar_weight",_barWeight);
     }
 
     // user defined function
@@ -82,7 +82,7 @@ class _SideDrawerState extends State<SideDrawer> {
             content:Form(
               key: _formKey,
               child: TextFormField(
-                onSaved: (input) => _barWeight = int.parse(input),
+                onSaved: (input) => _barWeight = double.parse(input),
                 decoration: InputDecoration(labelText: "Enter weight in lbs",
                 ),
                 // Unless iOS show number keyboard

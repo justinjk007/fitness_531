@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'save_state.dart';
 import 'calc.dart';
 
 class CustomCard extends StatelessWidget {
   CustomCard({
-    Key key,
-    this.argTitle,
-    this.subTitle,
-    this.setWeight,
+      Key key,
+      this.argTitle,
+      this.subTitle,
+      this.setWeight,
   }) : super(key: key);
 
   final String argTitle;
@@ -18,7 +19,25 @@ class CustomCard extends StatelessWidget {
   }
 
   Widget getPlatesWidget(double weight, BuildContext ctxt) {
-    Map<double, int> platesMap = Calc.getPlateCalculatorMap(weight);
+    return FutureBuilder<double>(
+      // This is where Future is trying to get data from
+      future: SaveStateHelper.getBarWeight(),
+      initialData: 45, // since 45 is the most common bar weight
+      builder:
+      (BuildContext context, AsyncSnapshot<double> snapshot) {
+        if (snapshot.hasError) {
+          // Failed to load so fall back to 45 pounds as the bar weight
+          return buildPlatesWidget(weight,45,ctxt);
+        } else {
+          return buildPlatesWidget(weight,snapshot.data,ctxt);
+        }
+      }, // End of  builder
+    ); // End of FutureBuilder
+  }
+
+  Widget buildPlatesWidget(double weight, double barWeight, BuildContext ctxt) {
+
+    Map<double, int> platesMap = Calc.getPlateCalculatorMap(weight,barWeight);
 
     bool noPlatesRequired = true;
 
@@ -41,7 +60,7 @@ class CustomCard extends StatelessWidget {
             ),
             child: Padding(
               padding:
-                  EdgeInsets.only(right: 2.5, left: 2.5, top: 4, bottom: 4),
+              EdgeInsets.only(right: 2.5, left: 2.5, top: 4, bottom: 4),
               child: Text(
                 "No plates required!",
                 style: TextStyle(
@@ -237,21 +256,21 @@ class CustomCard extends StatelessWidget {
         child: Column(
           children: [
             Row(children: [
-              Text(
-                subTitle,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
+                Text(
+                  subTitle,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
                 ),
-              ),
-              Expanded(child: SizedBox()),
-              Text(
-                argTitle,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                Expanded(child: SizedBox()),
+                Text(
+                  argTitle,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
                 ),
-              ),
             ]),
             SizedBox(
               // This is a custom divider

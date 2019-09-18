@@ -80,8 +80,8 @@ class SaveStateHelper {
     }
   }
 
-  static Future<int> getBarWeight() async {
+  static Future<double> getBarWeight() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getInt("bar_weight") ?? 45 ;
+    return prefs.getDouble("bar_weight") ?? 45 ;
   }
 }

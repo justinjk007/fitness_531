@@ -96,8 +96,7 @@ class Calc {
     return weight;
   }
 
-  static Map getPlateCalculatorMap(double weight) {
-    const double BAR_WEIGHT = 45; // lbs
+  static Map getPlateCalculatorMap(double weight, double BAR_WEIGHT) {
     var plates = [45.0, 35.0, 25.0, 10.0, 5.0, 2.5]; // This should have floats
     Map<double, int> platesMap = {
       // key => value
