@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'new_records.dart';
 import 'about_page.dart';
-// import 'records.dart';
 import 'save_state.dart';
 
 class _SideDrawerState extends State<SideDrawer> {
@@ -83,7 +82,9 @@ class _SideDrawerState extends State<SideDrawer> {
               key: _formKey,
               child: TextFormField(
                 onSaved: (input) => _barWeight = double.parse(input),
-                decoration: InputDecoration(labelText: "Enter weight in lbs",
+                decoration: InputDecoration(
+                  labelText: "Enter weight in lbs",
+                  errorStyle: TextStyle(color: Theme.of(ctxt).errorColor,fontWeight: FontWeight.bold),
                 ),
                 // Unless iOS show number keyboard
                 keyboardType:
@@ -91,11 +92,11 @@ class _SideDrawerState extends State<SideDrawer> {
                 textInputAction: TextInputAction.done,
                 validator: (value) {
                   if (value.isEmpty) {
-                    return 'Please enter some text';
+                    return 'Please enter some text'; // The errorStyle property above styles this line
                   }
                   final n = num.tryParse(value);
                   if (n == null) {
-                    return 'Please enter a number';
+                    return 'Please enter a number'; // The errorStyle property above styles this line
                   }
                 },
               ),

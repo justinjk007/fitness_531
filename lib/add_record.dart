@@ -100,6 +100,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                 decoration: InputDecoration(
                   labelText: 'Enter 1RM for squat (latest: $_currentSquatRM)',
                   prefixIcon: Icon(OMIcons.assignment),
+                  errorStyle: TextStyle(color: Theme.of(ctxt).errorColor,fontWeight: FontWeight.bold),
                 ),
                 focusNode: _squatFocus,
                 onFieldSubmitted: (term) {
@@ -123,6 +124,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                 decoration: InputDecoration(
                   labelText: 'Enter 1RM for bench (latest: $_currentBenchRM)',
                   prefixIcon: Icon(OMIcons.assignment),
+                  errorStyle: TextStyle(color: Theme.of(ctxt).errorColor,fontWeight: FontWeight.bold),
                 ),
                 focusNode: _benchFocus,
                 onFieldSubmitted: (term) {
@@ -147,6 +149,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                   labelText:
                       'Enter 1RM for deadlift (latest: $_currentDeadliftRM)',
                   prefixIcon: Icon(OMIcons.assignment),
+                  errorStyle: TextStyle(color: Theme.of(ctxt).errorColor,fontWeight: FontWeight.bold),
                 ),
                 focusNode: _deadliftFocus,
                 onFieldSubmitted: (term) {
@@ -170,6 +173,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                 decoration: InputDecoration(
                   labelText: 'Enter 1RM for press (latest: $_currentPressRM)',
                   prefixIcon: Icon(OMIcons.assignment),
+                  errorStyle: TextStyle(color: Theme.of(ctxt).errorColor,fontWeight: FontWeight.bold),
                 ),
                 focusNode: _pressFocus,
                 onSaved: (input) => _pressRM = int.parse(input),
