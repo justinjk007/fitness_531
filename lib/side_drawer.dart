@@ -1,4 +1,5 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:day_night_switch/day_night_switch.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -168,18 +169,6 @@ class _SideDrawerState extends State<SideDrawer> {
               );
             },
           ),
-          // ListTile(
-          //   leading: Icon(OMIcons.assignment, color: Colors.red[400]),
-          //   title: Text('Old records'),
-          //   onTap: () {
-          //     Navigator.pop(ctxt); // Close the drawer first
-          //     Navigator.push(
-          //       ctxt,
-          //       new MaterialPageRoute(
-          //           builder: (ctxt) => new RecordsPage()),
-          //     );
-          //   },
-          // ),
           ListTile(
             leading: Icon(OMIcons.timelapse, color: Colors.red[400]),
             title: Text('Start a new streak'),
@@ -188,21 +177,38 @@ class _SideDrawerState extends State<SideDrawer> {
               _showResetDialog(); // Show the reset dialog
             },
           ),
+          // ListTile(
+          //   leading: Icon(OMIcons.brightness2, color: Colors.red[400]),
+          //   title: Text('Dark Mode'),
+          //   trailing: Switch(
+          //     // activeTrackColor: Colors.lightGreenAccent,
+          //     // activeColor: Colors.green,
+          //     value:
+          //     Theme.of(ctxt).brightness == Brightness.dark ? true : false,
+          //     onChanged: (value) {
+          //       DynamicTheme.of(ctxt).setBrightness(
+          //         Theme.of(ctxt).brightness == Brightness.dark
+          //         ? Brightness.light
+          //         : Brightness.dark);
+          //     },
+          //   ),
+          // ),
           ListTile(
             leading: Icon(OMIcons.brightness2, color: Colors.red[400]),
             title: Text('Dark Mode'),
-            trailing: Switch(
-              // activeTrackColor: Colors.lightGreenAccent,
-              // activeColor: Colors.green,
-              value:
-              Theme.of(ctxt).brightness == Brightness.dark ? true : false,
+            trailing: DayNightSwitch(
+              value:Theme.of(ctxt).brightness == Brightness.dark ? true : false,
+              sunColor: Colors.red,
+              moonColor: Colors.yellow,
+              dayColor: Colors.white,
+              nightColor: Colors.black,
               onChanged: (value) {
                 DynamicTheme.of(ctxt).setBrightness(
                   Theme.of(ctxt).brightness == Brightness.dark
                   ? Brightness.light
                   : Brightness.dark);
               },
-            ),
+            )
           ),
           ListTile(
             leading: Icon(OMIcons.info, color: Colors.red[400]),
