@@ -196,19 +196,23 @@ class _SideDrawerState extends State<SideDrawer> {
           ListTile(
             leading: Icon(OMIcons.brightness2, color: Colors.red[400]),
             title: Text('Dark Mode'),
-            trailing: DayNightSwitch(
-              value:Theme.of(ctxt).brightness == Brightness.dark ? true : false,
-              sunColor: Colors.red,
-              moonColor: Colors.yellow,
-              dayColor: Colors.white,
-              nightColor: Colors.black,
-              onChanged: (value) {
-                DynamicTheme.of(ctxt).setBrightness(
-                  Theme.of(ctxt).brightness == Brightness.dark
-                  ? Brightness.light
-                  : Brightness.dark);
-              },
-            )
+            trailing: Transform.scale(
+              scale: 0.3,           // Scale it down
+              origin: Offset(35,0), // Offset the widget to the right
+              child: DayNightSwitch(
+                value:Theme.of(ctxt).brightness == Brightness.dark ? true : false,
+                sunColor: Colors.amber[800],
+                moonColor: Colors.amber[100],
+                dayColor: Colors.cyan[200],
+                nightColor: Colors.blueGrey[800],
+                onChanged: (value) {
+                  DynamicTheme.of(ctxt).setBrightness(
+                    Theme.of(ctxt).brightness == Brightness.dark
+                    ? Brightness.light
+                    : Brightness.dark);
+                },
+              ),
+            ),
           ),
           ListTile(
             leading: Icon(OMIcons.info, color: Colors.red[400]),
