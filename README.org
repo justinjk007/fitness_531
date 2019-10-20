@@ -43,3 +43,15 @@ For Android: https://console.firebase.google.com/u/1/project/fitness-531/setting
 
 - https://exrx.net/WeightTraining/Powerlifting/531
 - https://medium.com/flutter-community/simple-recipes-app-made-in-flutter-firebase-and-google-sign-in-14d1535e9a59
+** TODOs
+
+- [ ] Update database schema
+#+begin_src txt
+# Current database schema
+/{table}/{collection}/{user_id}/{document_id_auto_generated}
+/users/max_reps/RW2sgf38DwWxcQI3UfVgPA1h96G3/-LfbG5FoshW1l0V6hfjv
+
+# New better schema
+/{table}/{user_id}/{collection}/{document_id_auto_generated}
+/user/RW2sgf38DwWxcQI3UfVgPA1h96G3/records/KMbSCgDsNutZLejnEniR
+#+end_src
