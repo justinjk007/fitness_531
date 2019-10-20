@@ -1,10 +1,10 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:day_night_switch/day_night_switch.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'new_records.dart';
 import 'about_page.dart';
-// import 'records.dart';
 import 'save_state.dart';
 
 class _SideDrawerState extends State<SideDrawer> {
@@ -83,7 +83,9 @@ class _SideDrawerState extends State<SideDrawer> {
               key: _formKey,
               child: TextFormField(
                 onSaved: (input) => _barWeight = double.parse(input),
-                decoration: InputDecoration(labelText: "Enter weight in lbs",
+                decoration: InputDecoration(
+                  labelText: "Enter weight in lbs",
+                  errorStyle: TextStyle(color: Theme.of(ctxt).errorColor,fontWeight: FontWeight.bold),
                 ),
                 // Unless iOS show number keyboard
                 keyboardType:
@@ -91,11 +93,11 @@ class _SideDrawerState extends State<SideDrawer> {
                 textInputAction: TextInputAction.done,
                 validator: (value) {
                   if (value.isEmpty) {
-                    return 'Please enter some text';
+                    return 'Please enter some text'; // The errorStyle property above styles this line
                   }
                   final n = num.tryParse(value);
                   if (n == null) {
-                    return 'Please enter a number';
+                    return 'Please enter a number'; // The errorStyle property above styles this line
                   }
                 },
               ),
@@ -167,18 +169,6 @@ class _SideDrawerState extends State<SideDrawer> {
               );
             },
           ),
-          // ListTile(
-          //   leading: Icon(OMIcons.assignment, color: Colors.red[400]),
-          //   title: Text('Old records'),
-          //   onTap: () {
-          //     Navigator.pop(ctxt); // Close the drawer first
-          //     Navigator.push(
-          //       ctxt,
-          //       new MaterialPageRoute(
-          //           builder: (ctxt) => new RecordsPage()),
-          //     );
-          //   },
-          // ),
           ListTile(
             leading: Icon(OMIcons.timelapse, color: Colors.red[400]),
             title: Text('Start a new streak'),
@@ -187,20 +177,41 @@ class _SideDrawerState extends State<SideDrawer> {
               _showResetDialog(); // Show the reset dialog
             },
           ),
+          // ListTile(
+          //   leading: Icon(OMIcons.brightness2, color: Colors.red[400]),
+          //   title: Text('Dark Mode'),
+          //   trailing: Switch(
+          //     // activeTrackColor: Colors.lightGreenAccent,
+          //     // activeColor: Colors.green,
+          //     value:
+          //     Theme.of(ctxt).brightness == Brightness.dark ? true : false,
+          //     onChanged: (value) {
+          //       DynamicTheme.of(ctxt).setBrightness(
+          //         Theme.of(ctxt).brightness == Brightness.dark
+          //         ? Brightness.light
+          //         : Brightness.dark);
+          //     },
+          //   ),
+          // ),
           ListTile(
             leading: Icon(OMIcons.brightness2, color: Colors.red[400]),
             title: Text('Dark Mode'),
-            trailing: Switch(
-              // activeTrackColor: Colors.lightGreenAccent,
-              // activeColor: Colors.green,
-              value:
-              Theme.of(ctxt).brightness == Brightness.dark ? true : false,
-              onChanged: (value) {
-                DynamicTheme.of(ctxt).setBrightness(
-                  Theme.of(ctxt).brightness == Brightness.dark
-                  ? Brightness.light
-                  : Brightness.dark);
-              },
+            trailing: Transform.scale(
+              scale: 0.3,           // Scale it down
+              origin: Offset(35,0), // Offset the widget to the right
+              child: DayNightSwitch(
+                value:Theme.of(ctxt).brightness == Brightness.dark ? true : false,
+                sunColor: Colors.amber[800],
+                moonColor: Colors.amber[100],
+                dayColor: Colors.cyan[200],
+                nightColor: Colors.blueGrey[800],
+                onChanged: (value) {
+                  DynamicTheme.of(ctxt).setBrightness(
+                    Theme.of(ctxt).brightness == Brightness.dark
+                    ? Brightness.light
+                    : Brightness.dark);
+                },
+              ),
             ),
           ),
           ListTile(
