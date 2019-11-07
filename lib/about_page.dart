@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-// TODO: Remove outline icons package and try to replace all of them with  eva icons
-
 class AboutPage extends StatelessWidget {
   _launchTwitter() async {
     String url = "https://twitter.com/justinjk007";
@@ -21,13 +19,6 @@ class AboutPage extends StatelessWidget {
 
   _launchGithub() async {
     String url = "https://github.com/justinjk007";
-    if (await canLaunch(url)) {
-      await launch(url);
-    }
-  }
-
-  _launchDonate() async {
-    String url = "https://www.paypal.me/justinjk007?locale.x=en_US";
     if (await canLaunch(url)) {
       await launch(url);
     }
@@ -71,15 +62,6 @@ class AboutPage extends StatelessWidget {
                     splashColor: Colors.grey,
                   ),
                 ],
-              ),
-              const SizedBox(height: 30),
-              FlatButton(
-                onPressed: _launchDonate,
-                child: Text(
-                  "Buy me coffee ?",
-                  style: TextStyle(color: Colors.green),
-                ),
-                splashColor: Colors.grey,
               ),
             ],
           ),
