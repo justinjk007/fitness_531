@@ -95,8 +95,9 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
   }
 
   // user defined function
-  void _showDeleteDialog() {
+  void _showDeleteDialog(String doc_id, BuildContext ctxt) {
     // flutter defined function
+    const _fail_msg = SnackBar(content: Text('Failed to delete data!'));
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -113,10 +114,19 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              onPressed: () {
-                print("Attempting to delete");
+              onPressed: () async {
+                await Firestore.instance
+                    .collection(
+                        "users/max_reps/${await AuthHelper.getUserID()}")
+                    .document(doc_id)
+                    .delete()
+                    .then((_) {
+                  // Don't really need to do anything
+                }).catchError((_) {
+                  Scaffold.of(ctxt).showSnackBar(_fail_msg);
+                });
                 // Exit out of the window after reseting
-                Navigator.of(context).pop();
+                Navigator.of(ctxt).pop();
               },
             ),
             SizedBox(width: 10), // Add a little bit of padding after
@@ -126,12 +136,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
     );
   }
 
-  // void deleteData(DocumentSnapshot doc) async {
-  //   await db.collection('MaxReps').document(doc.documentID).delete();
-  //   setState(() {}); // Simply refresh page
-  // }
-
-  Card buildItem(DocumentSnapshot doc) {
+  Card buildItem(DocumentSnapshot doc, BuildContext ctxt) {
     String dateDataWasAdded = doc.data['date'].substring(0, 4) +
         "-" +
         doc.data['date'].substring(4, 6) +
@@ -188,7 +193,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
               color: Colors.transparent,
               child: InkWell(
                 onLongPress: () {
-                  _showDeleteDialog();
+                  _showDeleteDialog(doc.documentID, ctxt);
                 },
               ),
             ),
@@ -244,7 +249,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
           default:
             return Column(
                 children: snapshot.data.documents
-                    .map((doc) => buildItem(doc))
+                    .map((doc) => buildItem(doc, context))
                     .toList());
         }
       },
