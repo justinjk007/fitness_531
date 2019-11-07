@@ -108,6 +108,7 @@ class _WeekPageWidgetState extends State<WeekPage> {
       );
     }
 
+    const double avatar_size = 17;
     return Scaffold(
       drawer: SideDrawer(callBackWeeksPage: this.update),
       appBar: AppBar(
@@ -116,6 +117,8 @@ class _WeekPageWidgetState extends State<WeekPage> {
           new Builder(builder: (BuildContext ctxt) {
             Widget _loginButton = IconButton(
               icon: Icon(OMIcons.accountCircle),
+              iconSize: avatar_size + 12,
+              tooltip: 'Login with Google',
               onPressed: () async {
                 const _pass_msg = SnackBar(content: Text('Signed with google'));
                 const _fail_msg = SnackBar(content: Text('Signing in failed!'));
@@ -135,7 +138,7 @@ class _WeekPageWidgetState extends State<WeekPage> {
                 padding: EdgeInsets.only(right: 10, left: 10),
                 child: Center(
                   child: CircleAvatar(
-                    radius: 13,
+                    radius: avatar_size,
                     backgroundImage: CachedNetworkImageProvider(userPhotoUrl),
                   ),
                 ),
