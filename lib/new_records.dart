@@ -5,6 +5,11 @@ import 'add_record.dart';
 import 'help_info.dart';
 import 'auth.dart'; // To sign in with Google and check sign in status
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// This page's' widget tree is called new_records becuase this app used to have an old page were //
+// offline records can be saved to file                                                          //
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 class FadeRouteBuilder<T> extends PageRouteBuilder<T> {
   final Widget page;
   FadeRouteBuilder({@required this.page})
@@ -89,6 +94,43 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
     );
   }
 
+  // user defined function
+  void _showDeleteDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: Text("Remove record ?"),
+          content: Text("This will remove the record forever"),
+          actions: <Widget>[
+            // Usually buttons at the bottom of the dialog
+            FlatButton(
+              child: Text(
+                "Delete!",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onPressed: () {
+                print("Attempting to delete");
+                // Exit out of the window after reseting
+                Navigator.of(context).pop();
+              },
+            ),
+            SizedBox(width: 10), // Add a little bit of padding after
+          ], // Actions ends here
+        );
+      },
+    );
+  }
+
+  // void deleteData(DocumentSnapshot doc) async {
+  //   await db.collection('MaxReps').document(doc.documentID).delete();
+  //   setState(() {}); // Simply refresh page
+  // }
+
   Card buildItem(DocumentSnapshot doc) {
     String dateDataWasAdded = doc.data['date'].substring(0, 4) +
         "-" +
@@ -97,43 +139,61 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
         doc.data['date'].substring(6, 8);
 
     return Card(
-      child: Padding(
-        padding: EdgeInsets.only(top: 10, right: 20, left: 20, bottom: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              dateDataWasAdded,
-              style: TextStyle(color: Colors.grey),
+      child: Stack(
+        children: [
+          Container(
+            child: Padding(
+              padding:
+                  EdgeInsets.only(top: 10, right: 20, left: 20, bottom: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    dateDataWasAdded,
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  SizedBox(height: 5),
+                  Row(
+                    children: <Widget>[
+                      SizedBox(width: 7),
+                      Column(
+                        // This is so lines start from the same position
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text("Squat: ${doc.data['squat']} lbs"),
+                          SizedBox(height: 10),
+                          Text("Bench: ${doc.data['bench']} lbs"),
+                        ],
+                      ),
+                      Expanded(child: SizedBox()),
+                      Column(
+                        // This is so lines start from the same position
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text("Deadlift: ${doc.data['deadlift']} lbs"),
+                          SizedBox(height: 10),
+                          Text("Press: ${doc.data['press']} lbs"),
+                        ],
+                      ),
+                      SizedBox(width: 7),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            SizedBox(height: 5),
-            Row(
-              children: <Widget>[
-                SizedBox(width: 7),
-                Column(
-                  // This is so lines start from the same position
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text("Squat: ${doc.data['squat']} lbs"),
-                    SizedBox(height: 10),
-                    Text("Bench: ${doc.data['bench']} lbs"),
-                  ],
-                ),
-                Expanded(child: SizedBox()),
-                Column(
-                  // This is so lines start from the same position
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text("Deadlift: ${doc.data['deadlift']} lbs"),
-                    SizedBox(height: 10),
-                    Text("Press: ${doc.data['press']} lbs"),
-                  ],
-                ),
-                SizedBox(width: 7),
-              ],
+          ),
+          // Inkwell should be placed on the botton to ripple all over
+          Positioned.fill(
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onLongPress: () {
+                  _showDeleteDialog();
+                },
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -242,32 +302,11 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
     );
   }
 
-  // void createData() async {
-  //   if (_formKey.currentState.validate()) {
-  //     _formKey.currentState.save();
-  //     DocumentReference ref = await db
-  //         .collection('MaxReps')
-  //         .add({'name': '$name 😎', 'todo': someTodo()});
-  //     setState(() => id = ref.documentID);
-  //     print(ref.documentID);
-  //   }
-  // }
-
-  // void readData() async {
-  //   DocumentSnapshot snapshot =
-  //       await db.collection('MaxReps').document(id).get();
-  // }
-
   // void updateData(DocumentSnapshot doc) async {
   //   await db
   //       .collection('MaxReps')
   //       .document(doc.documentID)
   //       .updateData({'todo': 'please 🤫'});
-  // }
-
-  // void deleteData(DocumentSnapshot doc) async {
-  //   await db.collection('MaxReps').document(doc.documentID).delete();
-  //   setState(() => id = null);
   // }
 
 }
