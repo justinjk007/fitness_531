@@ -3,12 +3,10 @@
 #+html:<a href="https://codemagic.io/apps/5cdc80965c71630019441043/5cdc80965c71630019441042/latest_build"><img src="https://api.codemagic.io/apps/5cdc80965c71630019441043/5cdc80965c71630019441042/status_badge.svg" /></a>
 
 ** Icons I should pay respects too
-
 - https://icons8.com/icon/38915/deadlift
 - https://icons8.com/icon/13386/bench-press
 - https://icons8.com/icon/16962/squats
 - https://icons8.com/icon/16971/weightlifting
-  
 
 Main icon: https://www.flaticon.com/free-icon/barbell_1690609#term=barbell&page=1&position=23
 #+begin_verse
@@ -20,7 +18,6 @@ Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 #+end_verse
 
 ** App icons are made like this
-
 For i-OS
 https://pub.dartlang.org/packages/flutter_launcher_icons
 
@@ -32,7 +29,6 @@ On android, every size of the splash screen image name
 splash screen is bigger.
 
 ** To get firebase config
-
 First add the fingerprint for the new system to firebase and download the new google-services.json file
 
 Add the projects fingerprint on the new system using this method https://developers.google.com/android/guides/client-auth
@@ -40,11 +36,9 @@ Add the projects fingerprint on the new system using this method https://develop
 For Android: https://console.firebase.google.com/u/1/project/fitness-531/settings/general/android:com.kaipada.fitness_531
 - put the =json= file under android/app/google-services.json
 ** References
-
 - https://exrx.net/WeightTraining/Powerlifting/531
 - https://medium.com/flutter-community/simple-recipes-app-made-in-flutter-firebase-and-google-sign-in-14d1535e9a59
 ** TODOs
-
 - [ ] Update database schema
 #+begin_src txt
 # Current database schema
