@@ -108,7 +108,7 @@ class _WeekPageWidgetState extends State<WeekPage> {
       );
     }
 
-    const double avatar_size = 17;
+    const double avatar_size = 15;
     return Scaffold(
       drawer: SideDrawer(callBackWeeksPage: this.update),
       appBar: AppBar(
