@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       themedWidgetBuilder: (context, theme) {
         return new MaterialApp(
           theme: theme,
-          darkTheme: darkTheme, // Used in Android > 9, if user turns on system wide dark mode
+          // darkTheme: darkTheme, // Used in Android > 9, if user turns on system wide dark mode
           color: Theme.of(context).primaryColor,
           home: new WeekPage(),
         );
