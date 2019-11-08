@@ -8,7 +8,7 @@ import 'auth.dart'; // To sign in with Google and check sign in status
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // This page's' widget tree is called new_records becuase this app used to have an old page were //
-// offline records can be saved to file                                                          //
+// offline records can be saved to file called records.                                          //
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 class FadeRouteBuilder<T> extends PageRouteBuilder<T> {
@@ -100,7 +100,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
   }
 
   // user defined function
-  void _showDeleteDialog(String doc_id, BuildContext ctxt) {
+  void _showEditorDeleteDialog(String doc_id, BuildContext ctxt) {
     // flutter defined function
     const _fail_msg = SnackBar(content: Text('Failed to delete data!'));
     showDialog(
@@ -223,7 +223,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
               color: Colors.transparent,
               child: InkWell(
                 onLongPress: () {
-                  _showDeleteDialog(doc.documentID, ctxt);
+                  _showEditorDeleteDialog(doc.documentID, ctxt);
                 },
               ),
             ),
@@ -232,23 +232,6 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
       ),
     );
   }
-
-  // TextFormField buildTextFormField() {
-  //   return TextFormField(
-  //     decoration: InputDecoration(
-  //       border: InputBorder.none,
-  //       hintText: 'name',
-  //       fillColor: Colors.grey[300],
-  //       filled: true,
-  //     ),
-  //     validator: (value) {
-  //       if (value.isEmpty) {
-  //         return 'Please enter some text';
-  //       }
-  //     },
-  //     onSaved: (value) => name = value,
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
