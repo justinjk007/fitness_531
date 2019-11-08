@@ -146,6 +146,16 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
               onPressed: () async {
                 // Exit out of the window after reseting
                 Navigator.of(ctxt).pop();
+                Navigator.push(
+                  ctxt,
+                  new MaterialPageRoute(
+                    builder: (ctxt) => AddRecordsPage(
+                      title: "Edit the record!",
+                      keyword: "current",
+                      document_id: doc_id,
+                    ),
+                  ),
+                );
               },
             ),
             SizedBox(
@@ -326,12 +336,4 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
       ],
     );
   }
-
-  // void updateData(DocumentSnapshot doc) async {
-  //   await db
-  //       .collection('MaxReps')
-  //       .document(doc.documentID)
-  //       .updateData({'todo': 'please 🤫'});
-  // }
-
 }

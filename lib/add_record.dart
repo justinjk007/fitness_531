@@ -17,16 +17,35 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
   int _currentPressRM = 0;
 
   void _loadMaxRep() async {
-    List<DocumentSnapshot> _maxRep =
-        await QueryHelper.getMaxRepListFromDatabase();
-    if (_maxRep != null) {
-      setState(() {
-        // _maxRep is a list with only 1 item
-        _currentSquatRM = _maxRep[0].data['squat'];
-        _currentBenchRM = _maxRep[0].data['bench'];
-        _currentDeadliftRM = _maxRep[0].data['deadlift'];
-        _currentPressRM = _maxRep[0].data['press'];
+    if (widget.keyword == "current") {
+      // One of the current record is being updated
+      await Firestore.instance
+          .collection("users/max_reps/${await AuthHelper.getUserID()}")
+          .document(widget.document_id)
+          .get()
+          .then((DocumentSnapshot _maxRep) {
+        // Gives you the specific document that the user is trying to edit, so display it
+        setState(() {
+          _currentSquatRM = _maxRep.data['squat'];
+          _currentBenchRM = _maxRep.data['bench'];
+          _currentDeadliftRM = _maxRep.data['deadlift'];
+          _currentPressRM = _maxRep.data['press'];
+        });
       });
+    } else {
+      // Most likely means keyword is latest meaning new record is added
+      List<DocumentSnapshot> _maxRep =
+          await QueryHelper.getMaxRepListFromDatabase();
+      if (_maxRep != null) {
+        setState(() {
+          // _maxRep is a list with only 1 item, which is the sorted by date and
+          // only gives you the latest record
+          _currentSquatRM = _maxRep[0].data['squat'];
+          _currentBenchRM = _maxRep[0].data['bench'];
+          _currentDeadliftRM = _maxRep[0].data['deadlift'];
+          _currentPressRM = _maxRep[0].data['press'];
+        });
+      }
     }
   }
 
@@ -50,6 +69,25 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
       await Firestore.instance
           .collection("users/max_reps/${await AuthHelper.getUserID()}")
           .add({
+        'squat': _squatRM,
+        'bench': _benchRM,
+        'deadlift': _deadliftRM,
+        'press': _pressRM,
+        'date': _getTodaysDate(),
+      }).then((_) {
+        Scaffold.of(ctxt).showSnackBar(_pass_msg);
+      }).catchError((_) {
+        Scaffold.of(ctxt).showSnackBar(_fail_msg);
+      });
+    }
+
+    void updateData(BuildContext ctxt) async {
+      const _pass_msg = SnackBar(content: Text('Updated data'));
+      const _fail_msg = SnackBar(content: Text('Failed to update data!'));
+      await Firestore.instance
+          .collection("users/max_reps/${await AuthHelper.getUserID()}")
+          .document(widget.document_id)
+          .updateData({
         'squat': _squatRM,
         'bench': _benchRM,
         'deadlift': _deadliftRM,
@@ -202,7 +240,13 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                   if (_formKey.currentState.validate()) {
                     // If the form is valid, submit data to database
                     _formKey.currentState.save();
-                    addData(ctxt);
+                    if (widget.keyword == "current") {
+                      // One of the current record is being updated
+                      updateData(ctxt);
+                    } else {
+                      // Most likely means keyword is latest meaning new record is added
+                      addData(ctxt);
+                    }
                     _formKey.currentState.reset();
                   }
                 },
@@ -221,6 +265,7 @@ class AddRecordsPage extends StatefulWidget {
     Key key,
     this.title,
     this.keyword,
+    this.document_id,
   }) : super(key: key);
 
   final String title;
@@ -229,6 +274,7 @@ class AddRecordsPage extends StatefulWidget {
   // updating an existing record we can show the "current" values after showing
   // the "current" data
   final String keyword;
+  final String document_id; // If editing a record, document_id of the record
 
   @override
   _AddRecordsPageState createState() => _AddRecordsPageState();
