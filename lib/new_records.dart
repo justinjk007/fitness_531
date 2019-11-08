@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:rect_getter/rect_getter.dart'; //<--Import rect getter
 import 'add_record.dart';
 import 'help_info.dart';
@@ -69,7 +70,11 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
     setState(() => rect = RectGetter.getRectFromKey(rectGetterKey));
     Navigator.push(
       context,
-      FadeRouteBuilder(page: AddRecordsPage()),
+      FadeRouteBuilder(
+          page: AddRecordsPage(
+        title: "Add new 1 RM records!",
+        keyword: "latest",
+      )),
     ).then((_) => setState(() => rect = null));
   }
 
@@ -103,16 +108,17 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: Text("Remove record ?"),
-          content: Text("This will remove the record forever"),
+          title: Text("Edit record"),
+          // content: Text("This will remove the record forever"),
           actions: <Widget>[
             // Usually buttons at the bottom of the dialog
             FlatButton(
-              child: Text(
-                "Delete!",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+              child: Row(
+                children: <Widget>[
+                  Icon(OMIcons.deleteForever),
+                  SizedBox(width: 2.5), // Padding on each side to look better
+                  Text("Delete"),
+                ],
               ),
               onPressed: () async {
                 await Firestore.instance
@@ -129,7 +135,21 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
                 Navigator.of(ctxt).pop();
               },
             ),
-            SizedBox(width: 10), // Add a little bit of padding after
+            FlatButton(
+              child: Row(
+                children: <Widget>[
+                  Icon(OMIcons.edit),
+                  SizedBox(width: 2.5), // Padding on each side to look better
+                  Text("Edit"),
+                ],
+              ),
+              onPressed: () async {
+                // Exit out of the window after reseting
+                Navigator.of(ctxt).pop();
+              },
+            ),
+            SizedBox(
+                width: 10), // Add a little bit of padding after the last button
           ], // Actions ends here
         );
       },

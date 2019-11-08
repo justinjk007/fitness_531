@@ -78,7 +78,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
     final FocusNode _pressFocus = FocusNode();
 
     return Scaffold(
-      appBar: new AppBar(title: new Text("Add new 1 RM records!")),
+      appBar: new AppBar(title: new Text(widget.title)),
       body: Center(
         child: Form(
           key: _formKey,
@@ -98,9 +98,12 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                   }
                 },
                 decoration: InputDecoration(
-                  labelText: 'Enter 1RM for squat (latest: $_currentSquatRM)',
+                  labelText:
+                      'Enter 1RM for squat (${widget.keyword}: $_currentSquatRM)',
                   prefixIcon: Icon(OMIcons.assignment),
-                  errorStyle: TextStyle(color: Theme.of(ctxt).errorColor,fontWeight: FontWeight.bold),
+                  errorStyle: TextStyle(
+                      color: Theme.of(ctxt).errorColor,
+                      fontWeight: FontWeight.bold),
                 ),
                 focusNode: _squatFocus,
                 onFieldSubmitted: (term) {
@@ -122,9 +125,12 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                   }
                 },
                 decoration: InputDecoration(
-                  labelText: 'Enter 1RM for bench (latest: $_currentBenchRM)',
+                  labelText:
+                      'Enter 1RM for bench (${widget.keyword}: $_currentBenchRM)',
                   prefixIcon: Icon(OMIcons.assignment),
-                  errorStyle: TextStyle(color: Theme.of(ctxt).errorColor,fontWeight: FontWeight.bold),
+                  errorStyle: TextStyle(
+                      color: Theme.of(ctxt).errorColor,
+                      fontWeight: FontWeight.bold),
                 ),
                 focusNode: _benchFocus,
                 onFieldSubmitted: (term) {
@@ -147,9 +153,11 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                 },
                 decoration: InputDecoration(
                   labelText:
-                      'Enter 1RM for deadlift (latest: $_currentDeadliftRM)',
+                      'Enter 1RM for deadlift (${widget.keyword}: $_currentDeadliftRM)',
                   prefixIcon: Icon(OMIcons.assignment),
-                  errorStyle: TextStyle(color: Theme.of(ctxt).errorColor,fontWeight: FontWeight.bold),
+                  errorStyle: TextStyle(
+                      color: Theme.of(ctxt).errorColor,
+                      fontWeight: FontWeight.bold),
                 ),
                 focusNode: _deadliftFocus,
                 onFieldSubmitted: (term) {
@@ -171,9 +179,12 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                   }
                 },
                 decoration: InputDecoration(
-                  labelText: 'Enter 1RM for press (latest: $_currentPressRM)',
+                  labelText:
+                      'Enter 1RM for press (${widget.keyword}: $_currentPressRM)',
                   prefixIcon: Icon(OMIcons.assignment),
-                  errorStyle: TextStyle(color: Theme.of(ctxt).errorColor,fontWeight: FontWeight.bold),
+                  errorStyle: TextStyle(
+                      color: Theme.of(ctxt).errorColor,
+                      fontWeight: FontWeight.bold),
                 ),
                 focusNode: _pressFocus,
                 onSaved: (input) => _pressRM = int.parse(input),
@@ -208,7 +219,16 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
 class AddRecordsPage extends StatefulWidget {
   AddRecordsPage({
     Key key,
+    this.title,
+    this.keyword,
   }) : super(key: key);
+
+  final String title;
+  // Keyword can be words like "latest" or "current" , if the user is adding a
+  // new record, we can show the "latest" data as a hint, if the user is
+  // updating an existing record we can show the "current" values after showing
+  // the "current" data
+  final String keyword;
 
   @override
   _AddRecordsPageState createState() => _AddRecordsPageState();
