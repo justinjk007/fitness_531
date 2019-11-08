@@ -100,7 +100,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
   }
 
   // user defined function
-  void _showEditorDeleteDialog(String doc_id, BuildContext ctxt) {
+  void _showEditorDeleteDialog(String docId, BuildContext ctxt) {
     // flutter defined function
     const _fail_msg = SnackBar(content: Text('Failed to delete data!'));
     showDialog(
@@ -124,7 +124,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
                 await Firestore.instance
                     .collection(
                         "users/max_reps/${await AuthHelper.getUserID()}")
-                    .document(doc_id)
+                    .document(docId)
                     .delete()
                     .then((_) {
                   // Don't really need to do anything
@@ -152,7 +152,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
                     builder: (ctxt) => AddRecordsPage(
                       title: "Edit the record!",
                       keyword: "current",
-                      document_id: doc_id,
+                      document_id: docId,
                     ),
                   ),
                 );
