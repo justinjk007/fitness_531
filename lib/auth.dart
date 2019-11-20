@@ -46,7 +46,10 @@ class AuthHelper {
   }
 
   static Future<void> logoutUser() async {
-    await FirebaseAuth.instance.signOut();
+    await FirebaseAuth.instance.signOut(); // Sign out from firebase
+    // Also disconnect from google, this is done so user gets to select which
+    // account to sign in with EVERY TIME
+    await FBApi._googleSignIn.disconnect();
   }
 
   static Future<bool> checkIfUserIsLoggedIn() async {
