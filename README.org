@@ -39,13 +39,15 @@ For Android: https://console.firebase.google.com/u/1/project/fitness-531/setting
 - https://exrx.net/WeightTraining/Powerlifting/531
 - https://medium.com/flutter-community/simple-recipes-app-made-in-flutter-firebase-and-google-sign-in-14d1535e9a59
 ** TODOs
+- [ ] Update the records page so, when deleting a record it animates it
+- [ ] Update the records page so, user can undo deletion ?
 - [ ] Update database schema
-#+begin_src txt
-# Current database schema
-/{table}/{collection}/{user_id}/{document_id_auto_generated}
-/users/max_reps/xfdlisjdlskjdloshdwlkb/-LfbG5FoshW1l0V6hfjv
+ #+begin_src txt
+ # Current database schema
+ /{table}/{collection}/{user_id}/{document_id_auto_generated}
+ /users/max_reps/xfdlisjdlskjdloshdwlkb/-LfbG5FoshW1l0V6hfjv
 
-# New better schema
-/{table}/{user_id}/{collection}/{document_id_auto_generated}
-/user/sdlksjdlsfhqefbqedfjbnq/records/KMbSCgDsNutZLejnEniR
-#+end_src
+ # New better schema
+ /{table}/{user_id}/{collection}/{document_id_auto_generated}
+ /user/sdlksjdlsfhqefbqedfjbnq/records/KMbSCgDsNutZLejnEniR
+ #+end_src
