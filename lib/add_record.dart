@@ -15,6 +15,11 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
   int _currentBenchRM = 0;
   int _currentDeadliftRM = 0;
   int _currentPressRM = 0;
+  final FocusNode _squatFocus =
+      FocusNode(); // These are used when changing the keyboard focus
+  final FocusNode _benchFocus = FocusNode();
+  final FocusNode _deadliftFocus = FocusNode();
+  final FocusNode _pressFocus = FocusNode();
 
   void _loadMaxRep() async {
     if (widget.keyword == "current") {
@@ -55,6 +60,18 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
     return formatter.format(now);
   }
 
+  void _fieldFocusChange(
+      BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
+    // currentFocus.unfocus();
+    FocusScope.of(context).unfocus();
+    FocusScope.of(context).requestFocus(nextFocus);
+  }
+
+  void _unFocusNode(BuildContext context) {
+    // FocusScope.of(context).requestFocus(FocusNode());
+    FocusScope.of(context).unfocus();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -63,6 +80,10 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
 
   @override
   Widget build(BuildContext ctxt) {
+    // Don't show fab if keyboard is up
+    final bool _showFab = MediaQuery.of(ctxt).viewInsets.bottom == 0.0;
+    final bool _isIOS = Theme.of(ctxt).platform == TargetPlatform.iOS;
+
     void addData(BuildContext ctxt) async {
       const _pass_msg = SnackBar(content: Text('Added data to database'));
       const _fail_msg = SnackBar(content: Text('Failed to add data!'));
@@ -99,21 +120,6 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
         Scaffold.of(ctxt).showSnackBar(_fail_msg);
       });
     }
-
-    void _fieldFocusChange(
-        BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
-      currentFocus.unfocus();
-      FocusScope.of(context).requestFocus(nextFocus);
-    }
-
-    // Don't show fab if keyboard is up
-    final bool _showFab = MediaQuery.of(ctxt).viewInsets.bottom == 0.0;
-    final bool _isIOS = Theme.of(ctxt).platform == TargetPlatform.iOS;
-
-    final FocusNode _squatFocus = FocusNode();
-    final FocusNode _benchFocus = FocusNode();
-    final FocusNode _deadliftFocus = FocusNode();
-    final FocusNode _pressFocus = FocusNode();
 
     return Scaffold(
       appBar: new AppBar(title: new Text(widget.title)),
@@ -226,6 +232,9 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                       fontWeight: FontWeight.bold),
                 ),
                 focusNode: _pressFocus,
+                onFieldSubmitted: (term) {
+                  _unFocusNode(ctxt); // close the keyboard
+                },
                 onSaved: (input) => _pressRM = int.parse(input),
               ),
             ],
