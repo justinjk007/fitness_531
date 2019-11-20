@@ -15,8 +15,8 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
   int _currentBenchRM = 0;
   int _currentDeadliftRM = 0;
   int _currentPressRM = 0;
-  final FocusNode _squatFocus =
-      FocusNode(); // These are used when changing the keyboard focus
+  // These are used when changing the keyboard focus
+  final FocusNode _squatFocus = FocusNode();
   final FocusNode _benchFocus = FocusNode();
   final FocusNode _deadliftFocus = FocusNode();
   final FocusNode _pressFocus = FocusNode();
@@ -70,6 +70,16 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
   void _unFocusNode(BuildContext context) {
     // FocusScope.of(context).requestFocus(FocusNode());
     FocusScope.of(context).unfocus();
+  }
+
+  String validateIfNumber(String value) {
+    if (value.isEmpty) {
+      return '\t\t\t\t\t\tPlease enter some text';
+    }
+    final n = num.tryParse(value);
+    if (n == null) {
+      return '\t\t\t\t\t\tPlease enter a number';
+    }
   }
 
   @override
@@ -133,15 +143,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                 keyboardType:
                     _isIOS ? TextInputType.text : TextInputType.number,
                 textInputAction: TextInputAction.next,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  final n = num.tryParse(value);
-                  if (n == null) {
-                    return 'Please enter a number';
-                  }
-                },
+                validator: validateIfNumber,
                 decoration: InputDecoration(
                   labelText:
                       'Enter 1RM for squat (${widget.keyword}: $_currentSquatRM)',
@@ -160,15 +162,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                 keyboardType:
                     _isIOS ? TextInputType.text : TextInputType.number,
                 textInputAction: TextInputAction.next,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  final n = num.tryParse(value);
-                  if (n == null) {
-                    return 'Please enter a number';
-                  }
-                },
+                validator: validateIfNumber,
                 decoration: InputDecoration(
                   labelText:
                       'Enter 1RM for bench (${widget.keyword}: $_currentBenchRM)',
@@ -187,15 +181,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                 keyboardType:
                     _isIOS ? TextInputType.text : TextInputType.number,
                 textInputAction: TextInputAction.next,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  final n = num.tryParse(value);
-                  if (n == null) {
-                    return 'Please enter a number';
-                  }
-                },
+                validator: validateIfNumber,
                 decoration: InputDecoration(
                   labelText:
                       'Enter 1RM for deadlift (${widget.keyword}: $_currentDeadliftRM)',
@@ -214,15 +200,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                 keyboardType:
                     _isIOS ? TextInputType.text : TextInputType.number,
                 textInputAction: TextInputAction.done,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  final n = num.tryParse(value);
-                  if (n == null) {
-                    return 'Please enter a number';
-                  }
-                },
+                validator: validateIfNumber,
                 decoration: InputDecoration(
                   labelText:
                       'Enter 1RM for press (${widget.keyword}: $_currentPressRM)',
