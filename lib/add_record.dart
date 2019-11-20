@@ -1,9 +1,10 @@
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart'; // For date time
 import 'query_helper.dart';
 import 'auth.dart';
-import 'package:intl/intl.dart'; // For date time
+import 'helper.dart';
 
 class _AddRecordsPageState extends State<AddRecordsPage> {
   final _formKey = GlobalKey<FormState>();
@@ -26,7 +27,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
       // One of the current record is being updated
       await Firestore.instance
           .collection("users/max_reps/${await AuthHelper.getUserID()}")
-          .document(widget.document_id)
+          .document(widget.documentID)
           .get()
           .then((DocumentSnapshot _maxRep) {
         // Gives you the specific document that the user is trying to edit, so display it
@@ -72,16 +73,6 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
     FocusScope.of(context).unfocus();
   }
 
-  String validateIfNumber(String value) {
-    if (value.isEmpty) {
-      return '\t\t\t\t\t\tPlease enter some text';
-    }
-    final n = num.tryParse(value);
-    if (n == null) {
-      return '\t\t\t\t\t\tPlease enter a number';
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -117,7 +108,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
       const _fail_msg = SnackBar(content: Text('Failed to update data!'));
       await Firestore.instance
           .collection("users/max_reps/${await AuthHelper.getUserID()}")
-          .document(widget.document_id)
+          .document(widget.documentID)
           .updateData({
         'squat': _squatRM,
         'bench': _benchRM,
@@ -143,7 +134,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                 keyboardType:
                     _isIOS ? TextInputType.text : TextInputType.number,
                 textInputAction: TextInputAction.next,
-                validator: validateIfNumber,
+                validator: Helper.validateIfNumber,
                 decoration: InputDecoration(
                   labelText:
                       'Enter 1RM for squat (${widget.keyword}: $_currentSquatRM)',
@@ -162,7 +153,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                 keyboardType:
                     _isIOS ? TextInputType.text : TextInputType.number,
                 textInputAction: TextInputAction.next,
-                validator: validateIfNumber,
+                validator: Helper.validateIfNumber,
                 decoration: InputDecoration(
                   labelText:
                       'Enter 1RM for bench (${widget.keyword}: $_currentBenchRM)',
@@ -181,7 +172,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                 keyboardType:
                     _isIOS ? TextInputType.text : TextInputType.number,
                 textInputAction: TextInputAction.next,
-                validator: validateIfNumber,
+                validator: Helper.validateIfNumber,
                 decoration: InputDecoration(
                   labelText:
                       'Enter 1RM for deadlift (${widget.keyword}: $_currentDeadliftRM)',
@@ -200,7 +191,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                 keyboardType:
                     _isIOS ? TextInputType.text : TextInputType.number,
                 textInputAction: TextInputAction.done,
-                validator: validateIfNumber,
+                validator: Helper.validateIfNumber,
                 decoration: InputDecoration(
                   labelText:
                       'Enter 1RM for press (${widget.keyword}: $_currentPressRM)',
@@ -253,7 +244,7 @@ class AddRecordsPage extends StatefulWidget {
     Key key,
     this.title,
     this.keyword,
-    this.document_id,
+    this.documentID,
   }) : super(key: key);
 
   final String title;
@@ -262,7 +253,7 @@ class AddRecordsPage extends StatefulWidget {
   // updating an existing record we can show the "current" values after showing
   // the "current" data
   final String keyword;
-  final String document_id; // If editing a record, document_id of the record
+  final String documentID; // If editing a record, document_id of the record
 
   @override
   _AddRecordsPageState createState() => _AddRecordsPageState();

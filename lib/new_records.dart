@@ -152,7 +152,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
                     builder: (ctxt) => AddRecordsPage(
                       title: "Edit the record!",
                       keyword: "current",
-                      document_id: docId,
+                      documentID: docId,
                     ),
                   ),
                 );

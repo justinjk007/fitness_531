@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'new_records.dart';
 import 'about_page.dart';
 import 'save_state.dart';
+import 'helper.dart';
 
 class _SideDrawerState extends State<SideDrawer> {
   double _barWeight = 45;
@@ -13,8 +14,8 @@ class _SideDrawerState extends State<SideDrawer> {
   void _loadData() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-        // If no data exist return 45 meaning 45 lbs
-        _barWeight = (prefs.getDouble("bar_weight") ?? 45);
+      // If no data exist return 45 meaning 45 lbs
+      _barWeight = (prefs.getDouble("bar_weight") ?? 45);
     });
   }
 
@@ -26,7 +27,6 @@ class _SideDrawerState extends State<SideDrawer> {
 
   @override
   Widget build(BuildContext ctxt) {
-
     final bool _isIOS = Theme.of(ctxt).platform == TargetPlatform.iOS;
 
     // user defined function
@@ -39,7 +39,7 @@ class _SideDrawerState extends State<SideDrawer> {
           return AlertDialog(
             title: Text("Start a new streak"),
             content: Text("This will reset all the activity status of "
-              "all weeks, this means you are starting a new 4 week streak..."),
+                "all weeks, this means you are starting a new 4 week streak..."),
             actions: <Widget>[
               // Usually buttons at the bottom of the dialog
               FlatButton(
@@ -52,7 +52,7 @@ class _SideDrawerState extends State<SideDrawer> {
                 ),
                 onPressed: () {
                   SaveStateHelper.resetAll().then((_) {
-                      widget.callBackWeeksPage();
+                    widget.callBackWeeksPage();
                   });
                   // Exit out of the window after reseting
                   Navigator.of(context).pop();
@@ -67,56 +67,50 @@ class _SideDrawerState extends State<SideDrawer> {
 
     void addData(BuildContext ctxt) async {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setDouble("bar_weight",_barWeight);
+      prefs.setDouble("bar_weight", _barWeight);
     }
 
     // user defined function
     void _showBarWeightDialog() {
       // flutter defined function
       showDialog(
-        context: ctxt,
-        builder: (ctxt) {
-          return AlertDialog(
-            title: Text('Set bar weight'),
-            content:Form(
-              key: _formKey,
-              child: TextFormField(
-                onSaved: (input) => _barWeight = double.parse(input),
-                decoration: InputDecoration(
-                  labelText: "Enter weight in lbs",
-                  errorStyle: TextStyle(color: Theme.of(ctxt).errorColor,fontWeight: FontWeight.bold),
+          context: ctxt,
+          builder: (ctxt) {
+            return AlertDialog(
+              title: Text('Set bar weight'),
+              content: Form(
+                key: _formKey,
+                child: TextFormField(
+                  onSaved: (input) => _barWeight = double.parse(input),
+                  decoration: InputDecoration(
+                    labelText: "Enter weight in lbs",
+                    errorStyle: TextStyle(
+                        color: Theme.of(ctxt).errorColor,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  // Unless iOS show number keyboard
+                  keyboardType:
+                      _isIOS ? TextInputType.text : TextInputType.number,
+                  textInputAction: TextInputAction.done,
+                  validator: Helper.validateIfNumber,
                 ),
-                // Unless iOS show number keyboard
-                keyboardType:
-                _isIOS ? TextInputType.text : TextInputType.number,
-                textInputAction: TextInputAction.done,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Please enter some text'; // The errorStyle property above styles this line
-                  }
-                  final n = num.tryParse(value);
-                  if (n == null) {
-                    return 'Please enter a number'; // The errorStyle property above styles this line
-                  }
-                },
               ),
-            ),
-            actions: <Widget>[
-              new FlatButton(
-                child: new Text('Submit'),
-                onPressed: () {
-                  if (_formKey.currentState.validate()) {
-                    // If the form is valid, submit data to database
-                    _formKey.currentState.save();
-                    addData(ctxt);
-                    _formKey.currentState.reset();
-                    Navigator.of(ctxt).pop();
-                  }
-                },
-              )
-            ],
-          );
-      });
+              actions: <Widget>[
+                new FlatButton(
+                  child: new Text('Submit'),
+                  onPressed: () {
+                    if (_formKey.currentState.validate()) {
+                      // If the form is valid, submit data to database
+                      _formKey.currentState.save();
+                      addData(ctxt);
+                      _formKey.currentState.reset();
+                      Navigator.of(ctxt).pop();
+                    }
+                  },
+                )
+              ],
+            );
+          });
     }
 
     return new Drawer(
@@ -164,7 +158,7 @@ class _SideDrawerState extends State<SideDrawer> {
               Navigator.push(
                 ctxt,
                 new MaterialPageRoute(
-                  builder: (ctxt) => new FirestoreCRUDPage()),
+                    builder: (ctxt) => new FirestoreCRUDPage()),
               );
             },
           ),
@@ -181,12 +175,12 @@ class _SideDrawerState extends State<SideDrawer> {
             title: Text('Dark Mode'),
             trailing: Switch(
               value:
-              Theme.of(ctxt).brightness == Brightness.dark ? true : false,
+                  Theme.of(ctxt).brightness == Brightness.dark ? true : false,
               onChanged: (value) {
                 DynamicTheme.of(ctxt).setBrightness(
-                  Theme.of(ctxt).brightness == Brightness.dark
-                  ? Brightness.light
-                  : Brightness.dark);
+                    Theme.of(ctxt).brightness == Brightness.dark
+                        ? Brightness.light
+                        : Brightness.dark);
               },
             ),
           ),
@@ -209,8 +203,8 @@ class _SideDrawerState extends State<SideDrawer> {
 
 class SideDrawer extends StatefulWidget {
   SideDrawer({
-      Key key,
-      this.callBackWeeksPage,
+    Key key,
+    this.callBackWeeksPage,
   }) : super(key: key);
 
   final Function callBackWeeksPage;
