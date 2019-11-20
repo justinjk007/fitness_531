@@ -121,6 +121,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
         child: Form(
           key: _formKey,
           child: ListView(
+            padding: EdgeInsets.all(10),
             children: <Widget>[
               TextFormField(
                 keyboardType:
