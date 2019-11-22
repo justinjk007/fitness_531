@@ -55,6 +55,43 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
     }
   }
 
+  void addData(BuildContext ctxt) async {
+    const _pass_msg = SnackBar(content: Text('Added data to database'));
+    const _fail_msg = SnackBar(content: Text('Failed to add data!'));
+    await Firestore.instance
+        .collection("users/max_reps/${await AuthHelper.getUserID()}")
+        .add({
+      'squat': _squatRM,
+      'bench': _benchRM,
+      'deadlift': _deadliftRM,
+      'press': _pressRM,
+      'date': _getTodaysDate(),
+    }).then((_) {
+      Scaffold.of(ctxt).showSnackBar(_pass_msg);
+    }).catchError((_) {
+      Scaffold.of(ctxt).showSnackBar(_fail_msg);
+    });
+  }
+
+  void updateData(BuildContext ctxt) async {
+    const _pass_msg = SnackBar(content: Text('Updated data'));
+    const _fail_msg = SnackBar(content: Text('Failed to update data!'));
+    await Firestore.instance
+        .collection("users/max_reps/${await AuthHelper.getUserID()}")
+        .document(widget.documentID)
+        .updateData({
+      'squat': _squatRM,
+      'bench': _benchRM,
+      'deadlift': _deadliftRM,
+      'press': _pressRM,
+      'date': _getTodaysDate(),
+    }).then((_) {
+      Scaffold.of(ctxt).showSnackBar(_pass_msg);
+    }).catchError((_) {
+      Scaffold.of(ctxt).showSnackBar(_fail_msg);
+    });
+  }
+
   String _getTodaysDate() {
     var now = new DateTime.now();
     var formatter = new DateFormat('yyyyMMdd');
@@ -84,43 +121,6 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
     // Don't show fab if keyboard is up
     final bool _showFab = MediaQuery.of(ctxt).viewInsets.bottom == 0.0;
     final bool _isIOS = Theme.of(ctxt).platform == TargetPlatform.iOS;
-
-    void addData(BuildContext ctxt) async {
-      const _pass_msg = SnackBar(content: Text('Added data to database'));
-      const _fail_msg = SnackBar(content: Text('Failed to add data!'));
-      await Firestore.instance
-          .collection("users/max_reps/${await AuthHelper.getUserID()}")
-          .add({
-        'squat': _squatRM,
-        'bench': _benchRM,
-        'deadlift': _deadliftRM,
-        'press': _pressRM,
-        'date': _getTodaysDate(),
-      }).then((_) {
-        Scaffold.of(ctxt).showSnackBar(_pass_msg);
-      }).catchError((_) {
-        Scaffold.of(ctxt).showSnackBar(_fail_msg);
-      });
-    }
-
-    void updateData(BuildContext ctxt) async {
-      const _pass_msg = SnackBar(content: Text('Updated data'));
-      const _fail_msg = SnackBar(content: Text('Failed to update data!'));
-      await Firestore.instance
-          .collection("users/max_reps/${await AuthHelper.getUserID()}")
-          .document(widget.documentID)
-          .updateData({
-        'squat': _squatRM,
-        'bench': _benchRM,
-        'deadlift': _deadliftRM,
-        'press': _pressRM,
-        'date': _getTodaysDate(),
-      }).then((_) {
-        Scaffold.of(ctxt).showSnackBar(_pass_msg);
-      }).catchError((_) {
-        Scaffold.of(ctxt).showSnackBar(_fail_msg);
-      });
-    }
 
     return Scaffold(
       appBar: new AppBar(title: new Text(widget.title)),

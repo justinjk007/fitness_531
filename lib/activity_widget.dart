@@ -44,7 +44,7 @@ class _ActivityWidgetState extends State<Activity> {
   @override
   Widget build(BuildContext ctxt) {
     // Get screens height
-    final double _sizeOfWidget = MediaQuery.of(context).size.height / 3.5;
+    final double _sizeOfWidget = MediaQuery.of(ctxt).size.height / 3.5;
     final double _sizeOfIcon = 0.6 * _sizeOfWidget; // 60 % of the widget
     final double _iconPaddingSize = 0.13 * _sizeOfWidget;
 

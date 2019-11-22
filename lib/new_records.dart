@@ -31,9 +31,6 @@ class FirestoreCRUDPage extends StatefulWidget {
 
 class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
   String userId = "null";
-  // String id;
-  // final db = Firestore.instance;
-  // String name;
 
   // https://marcinszalek.pl/flutter/ripple-animation/
   // For ripple from FAB
@@ -41,6 +38,12 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
   final Duration delay = Duration(milliseconds: 300);
   GlobalKey rectGetterKey = RectGetter.createGlobalKey(); //<--Create a key
   Rect rect; //<--Declare field of rect
+
+  @override
+  void initState() {
+    super.initState();
+    _getUserID();
+  }
 
   void goToAddingRecordsPage() async {
     //<-- set rect to be size of fab
@@ -58,12 +61,6 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
   void _getUserID() async {
     userId = await AuthHelper.getUserID();
     setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _getUserID();
   }
 
   void goToAddingRecordsPageForReal() {
@@ -235,9 +232,12 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
 
   @override
   Widget build(BuildContext context) {
+    // This widget is based on the screen context so needs to be rebuild
+    // everytime the screen is rebuild so no point of separating this outside
+    // and supplying the context
     Widget fancyFAB = RectGetter(
-      //<-- Wrap Fab with RectGetter
-      key: rectGetterKey, //<-- Passing the key
+      // Wrap Fab with RectGetter
+      key: this.rectGetterKey, //<-- Passing the key
       child: FloatingActionButton(
         onPressed: goToAddingRecordsPage,
         child: Icon(Icons.add),
@@ -246,6 +246,9 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
       ),
     );
 
+    // This widget is based on the screen context so needs to be rebuild
+    // everytime the screen is rebuild so no point of separating this outside
+    // and supplying the context
     Widget loadDataWidget = StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance
           .collection("users/max_reps/$userId") // subcollection
@@ -315,7 +318,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
             }, // End of  builder
           ), // End of FutureBuilder
         ),
-        _ripple(), //<-- Add the ripple widget
+        _ripple(), //<-- Add the ripple widget to the Stack which has the Scaffold
       ],
     );
   }

@@ -8,10 +8,16 @@ import 'save_state.dart';
 import 'helper.dart';
 
 class _SideDrawerState extends State<SideDrawer> {
-  double _barWeight = 45;
+  double _barWeight;
   final _formKey = GlobalKey<FormState>();
 
-  void _loadData() async {
+  @override
+  void initState() {
+    super.initState();
+    _loadDataAsync(); // Load the current bar weight from memory
+  }
+
+  void _loadDataAsync() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       // If no data exist return 45 meaning 45 lbs
@@ -19,101 +25,97 @@ class _SideDrawerState extends State<SideDrawer> {
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _loadData(); // Load the current bar weight from memory
+  // user defined function
+  void _showResetDialog(BuildContext ctxt) {
+    // flutter defined function
+    showDialog(
+      context: ctxt,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: Text("Start a new streak"),
+          content: Text("This will reset all the activity status of "
+              "all weeks, this means you are starting a new 4 week streak..."),
+          actions: <Widget>[
+            // Usually buttons at the bottom of the dialog
+            FlatButton(
+              child: Text(
+                "Yep, Reset!",
+                style: TextStyle(
+                  fontStyle: FontStyle.italic, // yeyya!
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onPressed: () {
+                SaveStateHelper.resetAll().then((_) {
+                  widget.callBackWeeksPage();
+                });
+                // Exit out of the window after reseting
+                Navigator.of(context).pop();
+              },
+            ),
+            SizedBox(width: 10), // Add a little bit of padding after
+          ], // Actions ends here
+        );
+      },
+    );
+  }
+
+  void addData(BuildContext ctxt) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setDouble("bar_weight", _barWeight);
   }
 
   @override
   Widget build(BuildContext ctxt) {
     final bool _isIOS = Theme.of(ctxt).platform == TargetPlatform.iOS;
 
-    // user defined function
-    void _showResetDialog() {
+    // user defined function, since this function requires to know if the
+    // devices context it needs to be rebuild along with the page
+    void _showBarWeightDialog(BuildContext ctxt) {
       // flutter defined function
       showDialog(
         context: ctxt,
-        builder: (BuildContext context) {
-          // return object of type Dialog
+        builder: (ctxt) {
           return AlertDialog(
-            title: Text("Start a new streak"),
-            content: Text("This will reset all the activity status of "
-                "all weeks, this means you are starting a new 4 week streak..."),
-            actions: <Widget>[
-              // Usually buttons at the bottom of the dialog
-              FlatButton(
-                child: Text(
-                  "Yep, Reset!",
-                  style: TextStyle(
-                    fontStyle: FontStyle.italic, // yeyya!
-                    fontWeight: FontWeight.bold,
-                  ),
+            title: Text('Set bar weight'),
+            content: Form(
+              key: _formKey,
+              child: TextFormField(
+                onSaved: (input) => _barWeight = double.parse(input),
+                decoration: InputDecoration(
+                  labelText: "Enter weight in lbs",
+                  errorStyle: TextStyle(
+                      color: Theme.of(ctxt).errorColor,
+                      fontWeight: FontWeight.bold),
                 ),
-                onPressed: () {
-                  SaveStateHelper.resetAll().then((_) {
-                    widget.callBackWeeksPage();
-                  });
-                  // Exit out of the window after reseting
-                  Navigator.of(context).pop();
-                },
+                // Unless iOS show number keyboard
+                keyboardType:
+                    _isIOS ? TextInputType.text : TextInputType.number,
+                textInputAction: TextInputAction.done,
+                validator: Helper.validateIfNumber,
               ),
-              SizedBox(width: 10), // Add a little bit of padding after
-            ], // Actions ends here
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('Submit'),
+                onPressed: () {
+                  if (_formKey.currentState.validate()) {
+                    // If the form is valid, submit data to database
+                    _formKey.currentState.save();
+                    addData(ctxt);
+                    _formKey.currentState.reset();
+                    Navigator.of(ctxt).pop();
+                  }
+                },
+              )
+            ],
           );
         },
       );
     }
 
-    void addData(BuildContext ctxt) async {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setDouble("bar_weight", _barWeight);
-    }
-
-    // user defined function
-    void _showBarWeightDialog() {
-      // flutter defined function
-      showDialog(
-          context: ctxt,
-          builder: (ctxt) {
-            return AlertDialog(
-              title: Text('Set bar weight'),
-              content: Form(
-                key: _formKey,
-                child: TextFormField(
-                  onSaved: (input) => _barWeight = double.parse(input),
-                  decoration: InputDecoration(
-                    labelText: "Enter weight in lbs",
-                    errorStyle: TextStyle(
-                        color: Theme.of(ctxt).errorColor,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  // Unless iOS show number keyboard
-                  keyboardType:
-                      _isIOS ? TextInputType.text : TextInputType.number,
-                  textInputAction: TextInputAction.done,
-                  validator: Helper.validateIfNumber,
-                ),
-              ),
-              actions: <Widget>[
-                new FlatButton(
-                  child: new Text('Submit'),
-                  onPressed: () {
-                    if (_formKey.currentState.validate()) {
-                      // If the form is valid, submit data to database
-                      _formKey.currentState.save();
-                      addData(ctxt);
-                      _formKey.currentState.reset();
-                      Navigator.of(ctxt).pop();
-                    }
-                  },
-                )
-              ],
-            );
-          });
-    }
-
-    return new Drawer(
+    return Drawer(
       // Add a ListView to the drawer. This ensures the user can scroll
       // through the options in the Drawer if there isn't enough vertical
       // space to fit everything.
@@ -147,7 +149,7 @@ class _SideDrawerState extends State<SideDrawer> {
             subtitle: Text('$_barWeight lbs'),
             onTap: () {
               Navigator.pop(ctxt); // Close the drawer first
-              _showBarWeightDialog();
+              _showBarWeightDialog(ctxt);
             },
           ),
           ListTile(
@@ -167,7 +169,7 @@ class _SideDrawerState extends State<SideDrawer> {
             title: Text('Start a new streak'),
             onTap: () {
               Navigator.pop(ctxt); // Close the drawer first
-              _showResetDialog(); // Show the reset dialog
+              _showResetDialog(ctxt); // Show the reset dialog
             },
           ),
           ListTile(

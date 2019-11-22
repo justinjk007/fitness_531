@@ -51,210 +51,214 @@ class _SetsAndRepsPageState extends State<SetsAndRepsPage> {
     return 'This is impossible';
   }
 
-  @override
-  Widget build(BuildContext ctxt) {
-    Widget loadDataWidget(List<DocumentSnapshot> latestData) {
-      int _maxRep = 0;
-      int _trainingMax = 0;
-      int _assistanceMaxRep = 0;
-      // latestData is list with only 1 item because the query is using limit(1) feature
-      if (latestData != null) {
-        _maxRep = latestData[0].data[widget.activity];
-        _trainingMax = (0.9*_maxRep).toInt(); // Training max will be 90% of Current PR
-        _assistanceMaxRep =
-            latestData[0].data[getAssistanceActivity(widget.activity)];
-      }
-
-      return ListView(
-        padding: EdgeInsets.all(8),
-        children: <Widget>[
-          new Builder(builder: (BuildContext ctxt) {
-            return Dismissible(
-              // key needed if I actually want to remove this from backend
-              key: ValueKey("null"),
-              onDismissed: (direction) {
-                // I don't  care about direction here
-                saveDataOnebyOneandRefreshParent(ctxt);
-              },
-              background: Align(
-                alignment: Alignment(-0.8, 0), // Axix goes from 1 to -1
-                child: Icon(Icons.done_all),
-              ),
-              secondaryBackground: Align(
-                alignment: Alignment(0.8, 0), // Axix goes from 1 to -1
-                child: Icon(Icons.done_all),
-              ),
-              child: CustomCard(
-                argTitle: Calc.getWarmup(_trainingMax, 1),
-                subTitle: "Warmup set 1",
-                setWeight: Calc.getWarmupVals(
-                  _trainingMax,
-                  1,
-                )[0], // First index of the list is this sets weight
-              ),
-            );
-          }),
-          new Builder(builder: (BuildContext ctxt) {
-            return Dismissible(
-              // key needed if I actually want to remove this from backend
-              key: ValueKey("null"),
-              onDismissed: (direction) {
-                // I don't  care about direction here
-                saveDataOnebyOneandRefreshParent(ctxt);
-              },
-              background: Align(
-                alignment: Alignment(-0.8, 0), // Axix goes from 1 to -1
-                child: Icon(Icons.done_all),
-              ),
-              secondaryBackground: Align(
-                alignment: Alignment(0.8, 0), // Axix goes from 1 to -1
-                child: Icon(Icons.done_all),
-              ),
-              child: CustomCard(
-                argTitle: Calc.getWarmup(_trainingMax, 2),
-                subTitle: "Warmup set 2",
-                setWeight: Calc.getWarmupVals(
-                  _trainingMax,
-                  2,
-                )[0], // First index of the list is this sets weight
-              ),
-            );
-          }),
-          new Builder(builder: (BuildContext ctxt) {
-            return Dismissible(
-              // key needed if I actually want to remove this from backend
-              key: ValueKey("null"),
-              onDismissed: (direction) {
-                // I don't  care about direction here
-                saveDataOnebyOneandRefreshParent(ctxt);
-              },
-              background: Align(
-                alignment: Alignment(-0.8, 0), // Axix goes from 1 to -1
-                child: Icon(Icons.done_all),
-              ),
-              secondaryBackground: Align(
-                alignment: Alignment(0.8, 0), // Axix goes from 1 to -1
-                child: Icon(Icons.done_all),
-              ),
-              child: CustomCard(
-                argTitle: Calc.getWarmup(_trainingMax, 3),
-                subTitle: "Warmup set 3",
-                setWeight: Calc.getWarmupVals(
-                  _trainingMax,
-                  3,
-                )[0], // First index of the list is this sets weight
-              ),
-            );
-          }),
-          new Builder(builder: (BuildContext ctxt) {
-            return Dismissible(
-              // key needed if I actually want to remove this from backend
-              key: ValueKey("null"),
-              onDismissed: (direction) {
-                // I don't  care about direction here
-                saveDataOnebyOneandRefreshParent(ctxt);
-              },
-              background: Align(
-                alignment: Alignment(-0.8, 0), // Axix goes from 1 to -1
-                child: Icon(Icons.done_all),
-              ),
-              secondaryBackground: Align(
-                alignment: Alignment(0.8, 0), // Axix goes from 1 to -1
-                child: Icon(Icons.done_all),
-              ),
-              child: CustomCard(
-                argTitle: Calc.getRealSet(_trainingMax, 1, widget.weekID),
-                subTitle: "Real ${widget.activity} set 1",
-                setWeight: Calc.getRealSetVals(
-                  _trainingMax,
-                  1,
-                  widget.weekID,
-                )[0], // First index of the list is this sets weight
-              ),
-            );
-          }),
-          new Builder(builder: (BuildContext ctxt) {
-            return Dismissible(
-              // key needed if I actually want to remove this from backend
-              key: ValueKey("null"),
-              onDismissed: (direction) {
-                // I don't  care about direction here
-                saveDataOnebyOneandRefreshParent(ctxt);
-              },
-              background: Align(
-                alignment: Alignment(-0.8, 0), // Axix goes from 1 to -1
-                child: Icon(Icons.done_all),
-              ),
-              secondaryBackground: Align(
-                alignment: Alignment(0.8, 0), // Axix goes from 1 to -1
-                child: Icon(Icons.done_all),
-              ),
-              child: CustomCard(
-                argTitle: Calc.getRealSet(_trainingMax, 2, widget.weekID),
-                subTitle: "Real ${widget.activity} set 2",
-                setWeight: Calc.getRealSetVals(
-                  _trainingMax,
-                  2,
-                  widget.weekID,
-                )[0], // First index of the list is this sets weight
-              ),
-            );
-          }),
-          new Builder(builder: (BuildContext ctxt) {
-            return Dismissible(
-              // key needed if I actually want to remove this from backend
-              key: ValueKey("null"),
-              onDismissed: (direction) {
-                // I don't  care about direction here
-                saveDataOnebyOneandRefreshParent(ctxt);
-              },
-              background: Align(
-                alignment: Alignment(-0.8, 0), // Axix goes from 1 to -1
-                child: Icon(Icons.done_all),
-              ),
-              secondaryBackground: Align(
-                alignment: Alignment(0.8, 0), // Axix goes from 1 to -1
-                child: Icon(Icons.done_all),
-              ),
-              child: CustomCard(
-                argTitle: Calc.getRealSet(_trainingMax, 3, widget.weekID),
-                subTitle: "Real ${widget.activity} set 3",
-                setWeight: Calc.getRealSetVals(
-                  _trainingMax,
-                  3,
-                  widget.weekID,
-                )[0], // First index of the list is this sets weight
-              ),
-            );
-          }),
-          new Builder(builder: (BuildContext ctxt) {
-            return Dismissible(
-              // key needed if I actually want to remove this from backend
-              key: ValueKey("null"),
-              onDismissed: (direction) {
-                // I don't  care about direction here
-                saveDataOnebyOneandRefreshParent(ctxt);
-              },
-              background: Align(
-                alignment: Alignment(-0.8, 0), // Axix goes from 1 to -1
-                child: Icon(Icons.done_all),
-              ),
-              secondaryBackground: Align(
-                alignment: Alignment(0.8, 0), // Axix goes from 1 to -1
-                child: Icon(Icons.done_all),
-              ),
-              child: CustomCard(
-                argTitle: Calc.getAssistanceSet(_assistanceMaxRep),
-                subTitle:
-                    "Assisting ${getAssistanceActivity(widget.activity)} sets",
-                setWeight: Calc.getAssistanceSetVals(_assistanceMaxRep),
-              ),
-            );
-          }),
-        ],
-      );
+  Widget loadDataWidget(List<DocumentSnapshot> latestData) {
+    int _maxRep = 0;
+    int _trainingMax = 0;
+    int _assistanceMaxRep = 0;
+    // latestData is list with only 1 item because the query is using limit(1) feature
+    if (latestData != null) {
+      _maxRep = latestData[0].data[widget.activity];
+      _trainingMax =
+          (0.9 * _maxRep).toInt(); // Training max will be 90% of Current PR
+      _assistanceMaxRep =
+          latestData[0].data[getAssistanceActivity(widget.activity)];
     }
 
+    return ListView(
+      padding: EdgeInsets.all(8),
+      children: <Widget>[
+        new Builder(builder: (BuildContext ctxt) {
+          return Dismissible(
+            // key needed if I actually want to remove this from backend
+            key: ValueKey("null"),
+            onDismissed: (direction) {
+              // I don't  care about direction here
+              saveDataOnebyOneandRefreshParent(ctxt);
+            },
+            background: Align(
+              alignment: Alignment(-0.8, 0), // Axix goes from 1 to -1
+              child: Icon(Icons.done_all),
+            ),
+            secondaryBackground: Align(
+              alignment: Alignment(0.8, 0), // Axix goes from 1 to -1
+              child: Icon(Icons.done_all),
+            ),
+            child: CustomCard(
+              argTitle: Calc.getWarmup(_trainingMax, 1),
+              subTitle: "Warmup set 1",
+              setWeight: Calc.getWarmupVals(
+                _trainingMax,
+                1,
+              )[0], // First index of the list is this sets weight
+            ),
+          );
+        }),
+        new Builder(builder: (BuildContext ctxt) {
+          return Dismissible(
+            // key needed if I actually want to remove this from backend
+            key: ValueKey("null"),
+            onDismissed: (direction) {
+              // I don't  care about direction here
+              saveDataOnebyOneandRefreshParent(ctxt);
+            },
+            background: Align(
+              alignment: Alignment(-0.8, 0), // Axix goes from 1 to -1
+              child: Icon(Icons.done_all),
+            ),
+            secondaryBackground: Align(
+              alignment: Alignment(0.8, 0), // Axix goes from 1 to -1
+              child: Icon(Icons.done_all),
+            ),
+            child: CustomCard(
+              argTitle: Calc.getWarmup(_trainingMax, 2),
+              subTitle: "Warmup set 2",
+              setWeight: Calc.getWarmupVals(
+                _trainingMax,
+                2,
+              )[0], // First index of the list is this sets weight
+            ),
+          );
+        }),
+        new Builder(builder: (BuildContext ctxt) {
+          return Dismissible(
+            // key needed if I actually want to remove this from backend
+            key: ValueKey("null"),
+            onDismissed: (direction) {
+              // I don't  care about direction here
+              saveDataOnebyOneandRefreshParent(ctxt);
+            },
+            background: Align(
+              alignment: Alignment(-0.8, 0), // Axix goes from 1 to -1
+              child: Icon(Icons.done_all),
+            ),
+            secondaryBackground: Align(
+              alignment: Alignment(0.8, 0), // Axix goes from 1 to -1
+              child: Icon(Icons.done_all),
+            ),
+            child: CustomCard(
+              argTitle: Calc.getWarmup(_trainingMax, 3),
+              subTitle: "Warmup set 3",
+              setWeight: Calc.getWarmupVals(
+                _trainingMax,
+                3,
+              )[0], // First index of the list is this sets weight
+            ),
+          );
+        }),
+        new Builder(builder: (BuildContext ctxt) {
+          return Dismissible(
+            // key needed if I actually want to remove this from backend
+            key: ValueKey("null"),
+            onDismissed: (direction) {
+              // I don't  care about direction here
+              saveDataOnebyOneandRefreshParent(ctxt);
+            },
+            background: Align(
+              alignment: Alignment(-0.8, 0), // Axix goes from 1 to -1
+              child: Icon(Icons.done_all),
+            ),
+            secondaryBackground: Align(
+              alignment: Alignment(0.8, 0), // Axix goes from 1 to -1
+              child: Icon(Icons.done_all),
+            ),
+            child: CustomCard(
+              argTitle: Calc.getRealSet(_trainingMax, 1, widget.weekID),
+              subTitle: "Real ${widget.activity} set 1",
+              setWeight: Calc.getRealSetVals(
+                _trainingMax,
+                1,
+                widget.weekID,
+              )[0], // First index of the list is this sets weight
+            ),
+          );
+        }),
+        new Builder(builder: (BuildContext ctxt) {
+          return Dismissible(
+            // key needed if I actually want to remove this from backend
+            key: ValueKey("null"),
+            onDismissed: (direction) {
+              // I don't  care about direction here
+              saveDataOnebyOneandRefreshParent(ctxt);
+            },
+            background: Align(
+              alignment: Alignment(-0.8, 0), // Axix goes from 1 to -1
+              child: Icon(Icons.done_all),
+            ),
+            secondaryBackground: Align(
+              alignment: Alignment(0.8, 0), // Axix goes from 1 to -1
+              child: Icon(Icons.done_all),
+            ),
+            child: CustomCard(
+              argTitle: Calc.getRealSet(_trainingMax, 2, widget.weekID),
+              subTitle: "Real ${widget.activity} set 2",
+              setWeight: Calc.getRealSetVals(
+                _trainingMax,
+                2,
+                widget.weekID,
+              )[0], // First index of the list is this sets weight
+            ),
+          );
+        }),
+        new Builder(builder: (BuildContext ctxt) {
+          return Dismissible(
+            // key needed if I actually want to remove this from backend
+            key: ValueKey("null"),
+            onDismissed: (direction) {
+              // I don't  care about direction here
+              saveDataOnebyOneandRefreshParent(ctxt);
+            },
+            background: Align(
+              alignment: Alignment(-0.8, 0), // Axix goes from 1 to -1
+              child: Icon(Icons.done_all),
+            ),
+            secondaryBackground: Align(
+              alignment: Alignment(0.8, 0), // Axix goes from 1 to -1
+              child: Icon(Icons.done_all),
+            ),
+            child: CustomCard(
+              argTitle: Calc.getRealSet(_trainingMax, 3, widget.weekID),
+              subTitle: "Real ${widget.activity} set 3",
+              setWeight: Calc.getRealSetVals(
+                _trainingMax,
+                3,
+                widget.weekID,
+              )[0], // First index of the list is this sets weight
+            ),
+          );
+        }),
+        new Builder(builder: (BuildContext ctxt) {
+          return Dismissible(
+            // key needed if I actually want to remove this from backend
+            key: ValueKey("null"),
+            onDismissed: (direction) {
+              // I don't  care about direction here
+              saveDataOnebyOneandRefreshParent(ctxt);
+            },
+            background: Align(
+              alignment: Alignment(-0.8, 0), // Axix goes from 1 to -1
+              child: Icon(Icons.done_all),
+            ),
+            secondaryBackground: Align(
+              alignment: Alignment(0.8, 0), // Axix goes from 1 to -1
+              child: Icon(Icons.done_all),
+            ),
+            child: CustomCard(
+              argTitle: Calc.getAssistanceSet(_assistanceMaxRep),
+              subTitle:
+                  "Assisting ${getAssistanceActivity(widget.activity)} sets",
+              setWeight: Calc.getAssistanceSetVals(_assistanceMaxRep),
+            ),
+          );
+        }),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext ctxt) {
+    // This widget is based on the screen context so needs to be rebuild
+    // everytime the screen is rebuild so no point of separating this outside
+    // and supplying the context
     Widget loadDataFromDatabase = StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance
           .collection("users/max_reps/$userId")
