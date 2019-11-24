@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new DynamicTheme(
-      defaultBrightness: Brightness.light,
+      defaultBrightness: Brightness.dark,
       data: (brightness) => _buildTheme(brightness),
       themedWidgetBuilder: (context, theme) {
         return new MaterialApp(
