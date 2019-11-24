@@ -84,6 +84,7 @@ class _SideDrawerState extends State<SideDrawer> {
               child: TextFormField(
                 onSaved: (input) => _barWeight = double.parse(input),
                 decoration: InputDecoration(
+                  prefixIcon: Icon(OMIcons.assignment),
                   labelText: "Enter weight in lbs",
                   errorStyle: TextStyle(
                       color: Theme.of(ctxt).errorColor,
