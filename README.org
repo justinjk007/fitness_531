@@ -41,6 +41,8 @@ For Android: https://console.firebase.google.com/u/1/project/fitness-531/setting
 ** TODOs
 - [ ] Update the records page so, when deleting a record it animates it
 - [ ] Update the records page so, user can undo deletion ?
+- [ ] Add a settings page and move the less used stuff there
+- [ ] Add a chips section to add and remove plates available in the Gym
 - [ ] Update database schema
  #+begin_src txt
  # Current database schema
