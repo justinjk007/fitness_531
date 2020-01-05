@@ -43,7 +43,8 @@ For Android: https://console.firebase.google.com/u/1/project/fitness-531/setting
 - [ ] Update the records page so, user can undo deletion ?
 - [ ] Add a settings page and move the less used stuff there
 - [ ] Add a chips section to add and remove plates available in the Gym
-- [ ] Update database schema
+- [ ] Add time series graphs to show records progress
+- [X] +Update database schema+ Idea is good but don't wanna copy the data now, will keep this in mind for the future
  #+begin_src txt
  # Current database schema
  /{table}/{collection}/{user_id}/{document_id_auto_generated}
@@ -53,3 +54,11 @@ For Android: https://console.firebase.google.com/u/1/project/fitness-531/setting
  /{table}/{user_id}/{collection}/{document_id_auto_generated}
  /user/sdlksjdlsfhqefbqedfjbnq/records/KMbSCgDsNutZLejnEniR
  #+end_src
+** Notes
+
+#+begin_src sh
+# launch emulator on linux
+sudo chown justin /dev/kvm
+emulator -avd Pixel_2_API_26
+emulator -avd Pixel_2_API_29
+#+end_src
