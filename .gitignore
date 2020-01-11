@@ -77,3 +77,4 @@ google-services.json
 google-services.json.bak
 # iOS
 GoogleService-Info.plist
+/.flutter-plugins-dependencies

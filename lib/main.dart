@@ -6,6 +6,7 @@ import 'dark_theme.dart';
 import 'light_theme.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized(); // Need to do this after flutter upgrade
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     runApp(new MyApp());
