@@ -2,6 +2,13 @@
 
 #+html:<a href="https://codemagic.io/apps/5cdc80965c71630019441043/5cdc80965c71630019441042/latest_build"><img src="https://api.codemagic.io/apps/5cdc80965c71630019441043/5cdc80965c71630019441042/status_badge.svg" /></a>
 
+I wrote the app to learn flutter mostly, also the app allows me to
+track my 5/3/1 Boring But Big Strength Training Regimen. I don't think
+I have followed all the security practices while storing your training
+numbers in the cloud, hence I am not selling the app. If you want to
+build this for yourself get your own firebase account, which is free
+upto 1 GB of data.
+
 ** Icons I should pay respects too
 - https://icons8.com/icon/38915/deadlift
 - https://icons8.com/icon/13386/bench-press
@@ -9,13 +16,6 @@
 - https://icons8.com/icon/16971/weightlifting
 
 Main icon: https://www.flaticon.com/free-icon/barbell_1690609#term=barbell&page=1&position=23
-#+begin_verse
-<div>Icons made by <a href="https://www.freepik.com/"
-title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"
-title="Flaticon">www.flaticon.com</a> is licensed by <a
-href="http://creativecommons.org/licenses/by/3.0/" title="Creative
-Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
-#+end_verse
 
 ** App icons are made like this
 For i-OS
@@ -35,6 +35,7 @@ Add the projects fingerprint on the new system using this method https://develop
 
 For Android: https://console.firebase.google.com/u/1/project/fitness-531/settings/general/android:com.kaipada.fitness_531
 - put the =json= file under android/app/google-services.json
+  
 ** References
 - https://exrx.net/WeightTraining/Powerlifting/531
 - https://medium.com/flutter-community/simple-recipes-app-made-in-flutter-firebase-and-google-sign-in-14d1535e9a59
