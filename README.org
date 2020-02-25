@@ -1,6 +1,6 @@
 * 5/3/1 Fitness
 
-#+html:<a href="https://codemagic.io/apps/5cdc80965c71630019441043/5cdc80965c71630019441042/latest_build"><img src="https://api.codemagic.io/apps/5cdc80965c71630019441043/5cdc80965c71630019441042/status_badge.svg" /></a>
+#+html:<a href="https://codemagic.io/apps/5e5556c356d57900193af386/5e5556c356d57900193af385/latest_build"><img src="https://api.codemagic.io/apps/5e5556c356d57900193af386/5e5556c356d57900193af385/status_badge.svg" /></a>
 
 I wrote the app to learn flutter mostly, also the app allows me to
 track my 5/3/1 Boring But Big Strength Training Regimen. I don't think
@@ -29,9 +29,10 @@ On android, every size of the splash screen image name
 splash screen is bigger.
 
 ** To get firebase config
-First add the fingerprint for the new system to firebase and download the new google-services.json file
-
-Add the projects fingerprint on the new system using this method https://developers.google.com/android/guides/client-auth
+First add the fingerprint for the new system to firebase and download
+the new google-services.json file Add the projects fingerprint on the
+new system using this
+https://developers.google.com/android/guides/client-auth
 
 For Android: https://console.firebase.google.com/u/1/project/fitness-531/settings/general/android:com.kaipada.fitness_531
 - put the =json= file under android/app/google-services.json
