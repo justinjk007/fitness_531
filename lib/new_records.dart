@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:rect_getter/rect_getter.dart'; //<--Import rect getter
-import 'one_rep_max_page.dart';
+import 'setsandreps_widget.dart';
 import 'add_record.dart';
 import 'help_info.dart';
 import 'auth.dart'; // To sign in with Google and check sign in status
@@ -164,6 +164,46 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
     );
   }
 
+  void _showRecordDetails(
+    int squatMax,
+    int benchMax,
+    int deadliftMax,
+    int pressMax,
+    BuildContext ctxt,
+  ) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return SimpleDialog(
+          children: <Widget>[
+            CustomCard(
+              argTitle: "$squatMax",
+              subTitle: "Squat",
+              setWeight: squatMax.toDouble(),
+            ),
+            CustomCard(
+              argTitle: "$benchMax",
+              subTitle: "Bench",
+              setWeight: benchMax.toDouble(),
+            ),
+            CustomCard(
+              argTitle: "$deadliftMax",
+              subTitle: "Deadlift",
+              setWeight: deadliftMax.toDouble(),
+            ),
+            CustomCard(
+              argTitle: "$pressMax",
+              subTitle: "Press",
+              setWeight: pressMax.toDouble(),
+            )
+          ],
+        );
+      },
+    );
+  }
+
   Card buildItem(DocumentSnapshot doc, BuildContext ctxt) {
     String dateDataWasAdded = doc.data['date'].substring(0, 4) +
         "-" +
@@ -224,16 +264,12 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
                   _showEditorDeleteDialog(doc.documentID, ctxt);
                 },
                 onTap: () {
-                  Navigator.push(
+                  _showRecordDetails(
+                    doc.data['squat'],
+                    doc.data['bench'],
+                    doc.data['deadlift'],
+                    doc.data['press'],
                     ctxt,
-                    new MaterialPageRoute(
-                      builder: (ctxt) => OneRepMaxPage(
-                        squat_max: doc.data['squat'],
-                        bench_max: doc.data['bench'],
-                        deadlift_max: doc.data['deadlift'],
-                        press_max: doc.data['press'],
-                      ),
-                    ),
                   );
                 },
               ),
