@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:rect_getter/rect_getter.dart'; //<--Import rect getter
+import 'one_rep_max_page.dart';
 import 'add_record.dart';
 import 'help_info.dart';
 import 'auth.dart'; // To sign in with Google and check sign in status
@@ -221,6 +222,19 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
               child: InkWell(
                 onLongPress: () {
                   _showEditorDeleteDialog(doc.documentID, ctxt);
+                },
+                onTap: () {
+                  Navigator.push(
+                    ctxt,
+                    new MaterialPageRoute(
+                      builder: (ctxt) => OneRepMaxPage(
+                        squat_max: doc.data['squat'],
+                        bench_max: doc.data['bench'],
+                        deadlift_max: doc.data['deadlift'],
+                        press_max: doc.data['press'],
+                      ),
+                    ),
+                  );
                 },
               ),
             ),
