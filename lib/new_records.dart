@@ -5,6 +5,7 @@ import 'package:rect_getter/rect_getter.dart'; //<--Import rect getter
 import 'setsandreps_widget.dart';
 import 'add_record.dart';
 import 'help_info.dart';
+import 'charts.dart';
 import 'auth.dart'; // To sign in with Google and check sign in status
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -314,9 +315,20 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
             return HelpInfo.centerCircularProgressIndicator();
           default:
             return Column(
-                children: snapshot.data.documents
-                    .map((doc) => buildItem(doc, context))
-                    .toList());
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height / 2.5,
+                  child: Card(
+                    child: new SimpleTimeSeriesChart.withSampleData(),
+                  ),
+                ),
+                Column(
+                  children: snapshot.data.documents
+                      .map((doc) => buildItem(doc, context))
+                      .toList(),
+                ),
+              ],
+            );
         }
       },
     );
