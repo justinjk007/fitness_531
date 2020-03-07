@@ -72,26 +72,36 @@ class SimpleTimeSeriesChart extends StatelessWidget {
 
   /// Create one series with sample hard coded data.
   static List<charts.Series<TimeSeriesRecords, DateTime>> _createSampleData() {
-    final data = [
+    final data1 = [
       new TimeSeriesRecords(new DateTime(2017, 9, 19), 5),
       new TimeSeriesRecords(new DateTime(2017, 9, 26), 25),
       new TimeSeriesRecords(new DateTime(2017, 10, 3), 100),
       new TimeSeriesRecords(new DateTime(2017, 10, 11), 75),
       new TimeSeriesRecords(new DateTime(2017, 11, 26), 25),
-      new TimeSeriesRecords(new DateTime(2017, 11, 30), 100),
-      new TimeSeriesRecords(new DateTime(2017, 12, 10), 75),
-      new TimeSeriesRecords(new DateTime(2018, 1, 26), 25),
-      new TimeSeriesRecords(new DateTime(2018, 2, 19), 5),
-      new TimeSeriesRecords(new DateTime(2018, 3, 26), 25),
+    ];
+
+    final data2 = [
+      new TimeSeriesRecords(new DateTime(2017, 9, 19), 1),
+      new TimeSeriesRecords(new DateTime(2017, 9, 26), 10),
+      new TimeSeriesRecords(new DateTime(2017, 10, 3), 10),
+      new TimeSeriesRecords(new DateTime(2017, 10, 11), 30),
+      new TimeSeriesRecords(new DateTime(2017, 11, 26), 75),
     ];
 
     return [
       new charts.Series<TimeSeriesRecords, DateTime>(
-        id: 'Records',
+        id: 'Squat',
         colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
         domainFn: (TimeSeriesRecords sales, _) => sales.time,
         measureFn: (TimeSeriesRecords sales, _) => sales.record,
-        data: data,
+        data: data1,
+      ),
+      new charts.Series<TimeSeriesRecords, DateTime>(
+        id: 'Bench',
+        colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
+        domainFn: (TimeSeriesRecords sales, _) => sales.time,
+        measureFn: (TimeSeriesRecords sales, _) => sales.record,
+        data: data2,
       )
     ];
   }
