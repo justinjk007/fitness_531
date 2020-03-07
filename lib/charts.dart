@@ -4,16 +4,8 @@ import 'package:flutter/material.dart';
 import 'record_time_series.dart';
 
 class SimpleTimeSeriesChart extends StatelessWidget {
-  final List<charts.Series> seriesList;
-
-  SimpleTimeSeriesChart(this.seriesList);
-
-  /// Creates a [TimeSeriesChart] with sample data and no transition.
-  factory SimpleTimeSeriesChart.withSampleData() {
-    return new SimpleTimeSeriesChart(
-      _createSampleData(),
-    );
-  }
+  final List<DataBaseRecords> _records;
+  SimpleTimeSeriesChart(this._records); // Constructor
 
   var yAxisDarkTheme = charts.NumericAxisSpec(
     renderSpec: charts.GridlineRendererSpec(
@@ -55,8 +47,65 @@ class SimpleTimeSeriesChart extends StatelessWidget {
     ),
   );
 
+  List<List<TimeSeriesRecords>> parse_records(records) {
+    // Convert DataBaseRecords into TimeSeriesRecords by making each record into
+    // 4 records by seperating the different lifts
+    List<TimeSeriesRecords> squatRecords = [];
+    List<TimeSeriesRecords> benchRecords = [];
+    List<TimeSeriesRecords> deadliftRecords = [];
+    List<TimeSeriesRecords> pressRecords = [];
+
+    for (var i = 0; i < records.length; i++) {
+      DateTime date = records[i].date;
+      TimeSeriesRecords squat = TimeSeriesRecords(date, records[i].squatMax);
+      TimeSeriesRecords bench = TimeSeriesRecords(date, records[i].benchMax);
+      TimeSeriesRecords deadlift =
+          TimeSeriesRecords(date, records[i].deadliftMax);
+      TimeSeriesRecords press = TimeSeriesRecords(date, records[i].pressMax);
+      squatRecords.add(squat);
+      benchRecords.add(bench);
+      deadliftRecords.add(deadlift);
+      pressRecords.add(press);
+    }
+    return [squatRecords, benchRecords, deadliftRecords, pressRecords];
+  }
+
   @override
   Widget build(BuildContext context) {
+    final parsedData = parse_records(_records);
+
+    final seriesList = [
+      /// Create one series with sample hard coded data.
+      new charts.Series<TimeSeriesRecords, DateTime>(
+        id: 'Squat', // This doesn't seeem to appear anywhere
+        colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
+        domainFn: (TimeSeriesRecords records, _) => records.time,
+        measureFn: (TimeSeriesRecords records, _) => records.record,
+        data: parsedData[0],
+      ),
+      new charts.Series<TimeSeriesRecords, DateTime>(
+        id: 'Bench', // This doesn't seeem to appear anywhere
+        colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
+        domainFn: (TimeSeriesRecords records, _) => records.time,
+        measureFn: (TimeSeriesRecords records, _) => records.record,
+        data: parsedData[1],
+      ),
+      new charts.Series<TimeSeriesRecords, DateTime>(
+        id: 'Deadlift', // This doesn't seeem to appear anywhere
+        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+        domainFn: (TimeSeriesRecords records, _) => records.time,
+        measureFn: (TimeSeriesRecords records, _) => records.record,
+        data: parsedData[2],
+      ),
+      new charts.Series<TimeSeriesRecords, DateTime>(
+        id: 'Press', // This doesn't seeem to appear anywhere
+        colorFn: (_, __) => charts.MaterialPalette.pink.shadeDefault,
+        domainFn: (TimeSeriesRecords records, _) => records.time,
+        measureFn: (TimeSeriesRecords records, _) => records.record,
+        data: parsedData[3],
+      ),
+    ];
+
     return new charts.TimeSeriesChart(
       seriesList,
       animate: true,
@@ -68,41 +117,5 @@ class SimpleTimeSeriesChart extends StatelessWidget {
           ? yAxisDarkTheme
           : yAxisLightTheme,
     );
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<TimeSeriesRecords, DateTime>> _createSampleData() {
-    final data1 = [
-      new TimeSeriesRecords(new DateTime(2017, 9, 19), 5),
-      new TimeSeriesRecords(new DateTime(2017, 9, 26), 25),
-      new TimeSeriesRecords(new DateTime(2017, 10, 3), 100),
-      new TimeSeriesRecords(new DateTime(2017, 10, 11), 75),
-      new TimeSeriesRecords(new DateTime(2017, 11, 26), 25),
-    ];
-
-    final data2 = [
-      new TimeSeriesRecords(new DateTime(2017, 9, 19), 1),
-      new TimeSeriesRecords(new DateTime(2017, 9, 26), 10),
-      new TimeSeriesRecords(new DateTime(2017, 10, 3), 10),
-      new TimeSeriesRecords(new DateTime(2017, 10, 11), 30),
-      new TimeSeriesRecords(new DateTime(2017, 11, 26), 75),
-    ];
-
-    return [
-      new charts.Series<TimeSeriesRecords, DateTime>(
-        id: 'Squat',
-        colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
-        domainFn: (TimeSeriesRecords sales, _) => sales.time,
-        measureFn: (TimeSeriesRecords sales, _) => sales.record,
-        data: data1,
-      ),
-      new charts.Series<TimeSeriesRecords, DateTime>(
-        id: 'Bench',
-        colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
-        domainFn: (TimeSeriesRecords sales, _) => sales.time,
-        measureFn: (TimeSeriesRecords sales, _) => sales.record,
-        data: data2,
-      )
-    ];
   }
 }

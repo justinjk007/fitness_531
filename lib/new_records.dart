@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:rect_getter/rect_getter.dart'; //<--Import rect getter
 import 'setsandreps_widget.dart';
+import 'record_time_series.dart';
 import 'add_record.dart';
 import 'help_info.dart';
 import 'charts.dart';
@@ -307,29 +308,37 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          // Can't really center this because this is inside a list view so I add padding to the top
+          // Can't really center this because this is inside a list view so add
+          // padding to the top
           return HelpInfo.syncProblemWidget(context);
         }
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
             return HelpInfo.centerCircularProgressIndicator();
           default:
-            return Column(
-              children: [
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    height: 300,
-                    child: new SimpleTimeSeriesChart.withSampleData(),
+            {
+              List<DataBaseRecords> _records = snapshot.data.documents
+                  .map((doc) => DataBaseRecords.fromMap(doc.data))
+                  .toList();
+              return Column(
+                children: [
+                  // This section builds the graph
+                  Card(
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      height: 300,
+                      child: SimpleTimeSeriesChart(_records),
+                    ),
                   ),
-                ),
-                Column(
-                  children: snapshot.data.documents
-                      .map((doc) => buildItem(doc, context))
-                      .toList(),
-                ),
-              ],
-            );
+                  // This section builds the list of records
+                  Column(
+                    children: snapshot.data.documents
+                        .map((doc) => buildItem(doc, context))
+                        .toList(),
+                  ),
+                ],
+              );
+            }
         }
       },
     );
@@ -356,7 +365,8 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
                       return loadDataWidget; // User is logged in, he should see records
                     } else {
                       // User is not logged in
-                      // Can't really center this because this is inside a list view so I add padding to the top
+                      // Can't really center this because this is inside a list
+                      // view so I add padding to the top
                       return HelpInfo.pleaseLoginWidget(context);
                     }
                   }
