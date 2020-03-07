@@ -316,9 +316,10 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
           default:
             return Column(
               children: [
-                Container(
-                  height: MediaQuery.of(context).size.height / 2.5,
-                  child: Card(
+                Card(
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    height: 300,
                     child: new SimpleTimeSeriesChart.withSampleData(),
                   ),
                 ),
