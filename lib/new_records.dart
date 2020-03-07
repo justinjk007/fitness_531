@@ -323,13 +323,7 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
               return Column(
                 children: [
                   // This section builds the graph
-                  Card(
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      height: 300,
-                      child: SimpleTimeSeriesChart(_records),
-                    ),
-                  ),
+                  SimpleTimeSeriesChart(_records),
                   // This section builds the list of records
                   Column(
                     children: snapshot.data.documents

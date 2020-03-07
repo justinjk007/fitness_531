@@ -2,6 +2,7 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'record_time_series.dart';
+import 'line_widget.dart';
 
 class SimpleTimeSeriesChart extends StatelessWidget {
   final List<DataBaseRecords> _records;
@@ -77,13 +78,6 @@ class SimpleTimeSeriesChart extends StatelessWidget {
     final seriesList = [
       /// Create one series with sample hard coded data.
       new charts.Series<TimeSeriesRecords, DateTime>(
-        id: 'Squat', // This doesn't seeem to appear anywhere
-        colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
-        domainFn: (TimeSeriesRecords records, _) => records.time,
-        measureFn: (TimeSeriesRecords records, _) => records.record,
-        data: parsedData[0],
-      ),
-      new charts.Series<TimeSeriesRecords, DateTime>(
         id: 'Bench', // This doesn't seeem to appear anywhere
         colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
         domainFn: (TimeSeriesRecords records, _) => records.time,
@@ -98,24 +92,66 @@ class SimpleTimeSeriesChart extends StatelessWidget {
         data: parsedData[2],
       ),
       new charts.Series<TimeSeriesRecords, DateTime>(
+        id: 'Squat', // This doesn't seeem to appear anywhere
+        colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
+        domainFn: (TimeSeriesRecords records, _) => records.time,
+        measureFn: (TimeSeriesRecords records, _) => records.record,
+        data: parsedData[0],
+      ),
+      new charts.Series<TimeSeriesRecords, DateTime>(
         id: 'Press', // This doesn't seeem to appear anywhere
-        colorFn: (_, __) => charts.MaterialPalette.pink.shadeDefault,
+        colorFn: (_, __) => charts.MaterialPalette.yellow.shadeDefault,
         domainFn: (TimeSeriesRecords records, _) => records.time,
         measureFn: (TimeSeriesRecords records, _) => records.record,
         data: parsedData[3],
       ),
     ];
 
-    return new charts.TimeSeriesChart(
-      seriesList,
-      animate: true,
-      dateTimeFactory: const charts.LocalDateTimeFactory(),
-      domainAxis: Theme.of(context).brightness == Brightness.dark
-          ? xAxisDarkTheme
-          : xAxisLightTheme,
-      primaryMeasureAxis: Theme.of(context).brightness == Brightness.dark
-          ? yAxisDarkTheme
-          : yAxisLightTheme,
+    return Card(
+      child: Container(
+        padding: EdgeInsets.all(10),
+        height: 400,
+        child: Column(
+          children: [
+            Flexible(
+              flex: 1,
+              child: Row(
+                children: <Widget>[
+                  Label("Squat", Colors.red),
+                  Expanded(child: SizedBox()),
+                  Label("Deadlift", Colors.blue),
+                ],
+              ),
+            ),
+            SizedBox(height: 5),
+            Flexible(
+              flex: 1,
+              child: Row(
+                children: <Widget>[
+                  Label("Press", Colors.yellow),
+                  Expanded(child: SizedBox()),
+                  Label("Bench", Colors.green),
+                ],
+              ),
+            ),
+            Flexible(
+              flex: 12,
+              child: charts.TimeSeriesChart(
+                seriesList,
+                animate: true,
+                dateTimeFactory: const charts.LocalDateTimeFactory(),
+                domainAxis: Theme.of(context).brightness == Brightness.dark
+                    ? xAxisDarkTheme
+                    : xAxisLightTheme,
+                primaryMeasureAxis:
+                    Theme.of(context).brightness == Brightness.dark
+                        ? yAxisDarkTheme
+                        : yAxisLightTheme,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
