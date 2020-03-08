@@ -31,7 +31,7 @@ class Label extends StatelessWidget {
     return Row(
       children: <Widget>[
         SizedBox(width: 25),
-        Text(_label),
+        Text(_label, style: TextStyle(fontSize: 13)),
         Container(
           width: 100,
           height: 10,
@@ -39,8 +39,8 @@ class Label extends StatelessWidget {
             size: Size(100, 100),
             painter: DrawLine(
               _color,
-              Offset(10, 5),
-              Offset(50, 5),
+              Offset(10, 0),
+              Offset(50, 0),
             ),
           ),
           padding: EdgeInsets.all(8),

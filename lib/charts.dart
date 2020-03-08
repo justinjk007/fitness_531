@@ -4,47 +4,63 @@ import 'package:flutter/material.dart';
 import 'record_time_series.dart';
 import 'line_widget.dart';
 
-class SimpleTimeSeriesChart extends StatelessWidget {
+class SimpleTimeSeriesChart extends StatefulWidget {
   final List<DataBaseRecords> _records;
-  SimpleTimeSeriesChart(this._records); // Constructor
+  SimpleTimeSeriesChart(this._records);
+  @override
+  _SimpleTimeSeriesChartState createState() => _SimpleTimeSeriesChartState();
+}
 
-  var yAxisDarkTheme = charts.NumericAxisSpec(
+class _SimpleTimeSeriesChartState extends State<SimpleTimeSeriesChart> {
+  static charts.TickFormatterSpec _dateStyle =
+      charts.AutoDateTimeTickFormatterSpec(
+    month: charts.TimeFormatterSpec(
+      format: 'MM/yy',
+      transitionFormat: 'MM/yy',
+    ),
+  );
+  static charts.TextStyleSpec _lableStyleLight = charts.TextStyleSpec(
+    fontSize: 10,
+    color: charts.MaterialPalette.black,
+  );
+
+  static charts.TextStyleSpec _lableStyleDark = charts.TextStyleSpec(
+    fontSize: 10,
+    color: charts.MaterialPalette.white,
+  );
+
+  static charts.LineStyleSpec _lineStyle = charts.LineStyleSpec(
+    thickness: 0,
+    color: charts.MaterialPalette.gray.shadeDefault,
+  );
+
+  static var yAxisDarkTheme = charts.NumericAxisSpec(
     renderSpec: charts.GridlineRendererSpec(
-      labelStyle: charts.TextStyleSpec(
-          fontSize: 10, color: charts.MaterialPalette.white),
-      lineStyle: charts.LineStyleSpec(
-          thickness: 0, color: charts.MaterialPalette.gray.shadeDefault),
+      labelStyle: _lableStyleDark,
+      lineStyle: _lineStyle,
     ),
   );
 
   var xAxisDarkTheme = charts.DateTimeAxisSpec(
+    tickFormatterSpec: _dateStyle,
     renderSpec: charts.GridlineRendererSpec(
-      labelStyle: charts.TextStyleSpec(
-        color: charts.MaterialPalette.white,
-      ),
-      lineStyle: charts.LineStyleSpec(
-        color: charts.MaterialPalette.gray.shadeDefault,
-      ),
+      labelStyle: _lableStyleDark,
+      lineStyle: _lineStyle,
     ),
   );
 
   var yAxisLightTheme = charts.NumericAxisSpec(
     renderSpec: charts.GridlineRendererSpec(
-      labelStyle: charts.TextStyleSpec(
-          fontSize: 10, color: charts.MaterialPalette.black),
-      lineStyle: charts.LineStyleSpec(
-          thickness: 0, color: charts.MaterialPalette.gray.shadeDefault),
+      labelStyle: _lableStyleLight,
+      lineStyle: _lineStyle,
     ),
   );
 
   var xAxisLightTheme = charts.DateTimeAxisSpec(
+    tickFormatterSpec: _dateStyle,
     renderSpec: charts.GridlineRendererSpec(
-      labelStyle: charts.TextStyleSpec(
-        color: charts.MaterialPalette.black,
-      ),
-      lineStyle: charts.LineStyleSpec(
-        color: charts.MaterialPalette.gray.shadeDefault,
-      ),
+      labelStyle: _lableStyleLight,
+      lineStyle: _lineStyle,
     ),
   );
 
@@ -73,7 +89,7 @@ class SimpleTimeSeriesChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final parsedData = parse_records(_records);
+    final parsedData = parse_records(widget._records);
 
     final seriesList = [
       /// Create one series with sample hard coded data.
