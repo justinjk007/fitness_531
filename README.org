@@ -45,7 +45,7 @@ For Android: https://console.firebase.google.com/u/1/project/fitness-531/setting
 - [ ] Update the records page so, user can undo deletion ?
 - [ ] Add a chips section to add and remove plates available in the Gym
 - [X] Add time series graphs to show records progress
-- [X] +Update database schema+ Idea is good but don't wanna copy the data now, will keep this in mind for the future
+- [ ] Update database schema
  #+begin_src txt
  # Current database schema
  /{table}/{collection}/{user_id}/{document_id_auto_generated}

@@ -6,12 +6,14 @@ class TimeSeriesRecords {
 }
 
 class DataBaseRecords {
+  final String docID;
   final DateTime date;
   final int squatMax;
   final int benchMax;
   final int deadliftMax;
   final int pressMax;
   DataBaseRecords(
+    this.docID,
     this.date,
     this.squatMax,
     this.benchMax,
@@ -19,7 +21,7 @@ class DataBaseRecords {
     this.pressMax,
   );
 
-  static DataBaseRecords fromMap(Map<String, dynamic> data) {
+  static DataBaseRecords fromMap(Map<String, dynamic> data, String docID) {
     var date = data['date'].toString();
     var dateParsed = DateTime(
       int.parse(date.substring(0, 4)),
@@ -28,6 +30,7 @@ class DataBaseRecords {
     );
 
     return DataBaseRecords(
+      docID,
       dateParsed,
       data['squat'],
       data['bench'],

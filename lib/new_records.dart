@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:rect_getter/rect_getter.dart'; //<--Import rect getter
+import 'package:intl/intl.dart'; // For date time
 import 'setsandreps_widget.dart';
 import 'record_time_series.dart';
 import 'add_record.dart';
@@ -33,6 +34,7 @@ class FirestoreCRUDPage extends StatefulWidget {
 }
 
 class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey();
   String userId = "null";
 
   // https://marcinszalek.pl/flutter/ripple-animation/
@@ -206,78 +208,82 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
     );
   }
 
-  Card buildItem(DocumentSnapshot doc, BuildContext ctxt) {
-    String dateDataWasAdded = doc.data['date'].substring(0, 4) +
-        "-" +
-        doc.data['date'].substring(4, 6) +
-        "-" +
-        doc.data['date'].substring(6, 8);
+  Widget buildCard(DataBaseRecords record, BuildContext ctxt, Animation anim) {
+    // Here each record passed id one of the elements in the list, so parse
+    // that, build a card and return it
 
-    return Card(
-      child: Stack(
-        children: [
-          Container(
-            child: Padding(
-              padding:
-                  EdgeInsets.only(top: 10, right: 20, left: 20, bottom: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    dateDataWasAdded,
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  SizedBox(height: 5),
-                  Row(
-                    children: <Widget>[
-                      SizedBox(width: 7),
-                      Column(
-                        // This is so lines start from the same position
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text("Squat: ${doc.data['squat']} lbs"),
-                          SizedBox(height: 10),
-                          Text("Bench: ${doc.data['bench']} lbs"),
-                        ],
-                      ),
-                      Expanded(child: SizedBox()),
-                      Column(
-                        // This is so lines start from the same position
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text("Deadlift: ${doc.data['deadlift']} lbs"),
-                          SizedBox(height: 10),
-                          Text("Press: ${doc.data['press']} lbs"),
-                        ],
-                      ),
-                      SizedBox(width: 7),
-                    ],
-                  ),
-                ],
+    DateFormat formatter =
+        new DateFormat.yMMMMd("en_US"); // styled like July 10, 1996
+    String dateDataWasAdded = formatter.format(record.date); // July 10, 1996
+
+    return FadeTransition(
+      opacity: anim,
+      child: Card(
+        child: Stack(
+          children: [
+            Container(
+              child: Padding(
+                padding:
+                    EdgeInsets.only(top: 10, right: 20, left: 20, bottom: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      dateDataWasAdded,
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    SizedBox(height: 5),
+                    Row(
+                      children: <Widget>[
+                        SizedBox(width: 7),
+                        Column(
+                          // This is so lines start from the same position
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text("Squat: ${record.squatMax} lbs"),
+                            SizedBox(height: 10),
+                            Text("Bench: ${record.benchMax} lbs"),
+                          ],
+                        ),
+                        Expanded(child: SizedBox()),
+                        Column(
+                          // This is so lines start from the same position
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text("Deadlift: ${record.deadliftMax} lbs"),
+                            SizedBox(height: 10),
+                            Text("Press: ${record.pressMax} lbs"),
+                          ],
+                        ),
+                        SizedBox(width: 7),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          // Inkwell should be placed on the botton to ripple all over
-          Positioned.fill(
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onLongPress: () {
-                  _showEditorDeleteDialog(doc.documentID, ctxt);
-                },
-                onTap: () {
-                  _showRecordDetails(
-                    doc.data['squat'],
-                    doc.data['bench'],
-                    doc.data['deadlift'],
-                    doc.data['press'],
-                    ctxt,
-                  );
-                },
+            // Inkwell should be placed on the botton to ripple all over
+            Positioned.fill(
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onLongPress: () {
+                    _showEditorDeleteDialog(record.docID, ctxt);
+                  },
+                  onTap: () {
+                    _showRecordDetails(
+                      record.squatMax,
+                      record.benchMax,
+                      record.deadliftMax,
+                      record.pressMax,
+                      ctxt,
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -308,8 +314,6 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          // Can't really center this because this is inside a list view so add
-          // padding to the top
           return HelpInfo.syncProblemWidget(context);
         }
         switch (snapshot.connectionState) {
@@ -318,19 +322,30 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
           default:
             {
               List<DataBaseRecords> _records = snapshot.data.documents
-                  .map((doc) => DataBaseRecords.fromMap(doc.data))
+                  .map((doc) => DataBaseRecords.fromMap(
+                        doc.data,
+                        doc.documentID,
+                      ))
                   .toList();
-              return Column(
-                children: [
-                  // This section builds the graph
-                  SimpleTimeSeriesChart(_records),
-                  // This section builds the list of records
-                  Column(
-                    children: snapshot.data.documents
-                        .map((doc) => buildItem(doc, context))
-                        .toList(),
-                  ),
-                ],
+
+              // Here I am messing with the list view add the graph as the first
+              // item in the list. Hence length is +1 and index used is
+              // -1. First item on the list is the Time Series chart. Since
+              // itemBuilder builds item as things as scrolled. Scrolling to the
+              // bottom and back up will have to reload the chart again, which
+              // might cause perfomance issues in the future?
+              return AnimatedList(
+                padding: EdgeInsets.all(8),
+                key: _listKey,
+                initialItemCount: _records.length + 1,
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index, Animation anim) {
+                  if (index == 0) {
+                    return SimpleTimeSeriesChart(_records);
+                  } else {
+                    return buildCard(_records[index - 1], context, anim);
+                  }
+                },
               );
             }
         }
@@ -344,29 +359,21 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
           appBar: AppBar(
             title: Text('Records'),
           ),
-          body: ListView(
-            padding: EdgeInsets.all(8),
-            children: <Widget>[
-              FutureBuilder<bool>(
-                future: AuthHelper.checkIfUserIsLoggedIn(),
-                initialData: false,
-                builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                  if (snapshot.hasError) {
-                    // Can't really center this because this is inside a list view so I add padding to the top
-                    return HelpInfo.syncProblemWidget(context);
-                  } else {
-                    if (snapshot.data == true) {
-                      return loadDataWidget; // User is logged in, he should see records
-                    } else {
-                      // User is not logged in
-                      // Can't really center this because this is inside a list
-                      // view so I add padding to the top
-                      return HelpInfo.pleaseLoginWidget(context);
-                    }
-                  }
-                }, // End of  builder
-              ),
-            ],
+          body: FutureBuilder<bool>(
+            future: AuthHelper.checkIfUserIsLoggedIn(),
+            initialData: false,
+            builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+              if (snapshot.hasError) {
+                return HelpInfo.syncProblemWidget(context);
+              } else {
+                if (snapshot.data == true) {
+                  // return HelpInfo.centerCircularProgressIndicator();
+                  return loadDataWidget; // User is logged in, he should see records
+                } else {
+                  return HelpInfo.pleaseLoginWidget(context);
+                }
+              }
+            }, // End of  builder
           ),
           floatingActionButton: FutureBuilder<bool>(
             future: AuthHelper.checkIfUserIsLoggedIn(),
@@ -385,7 +392,8 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
             }, // End of  builder
           ), // End of FutureBuilder
         ),
-        _ripple(), //<-- Add the ripple widget to the Stack which has the Scaffold
+        _ripple(), // Add the ripple widget to the Stack which has the Scaffold,
+        // for the ripple effect when clicking on the FAB
       ],
     );
   }
