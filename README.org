@@ -45,6 +45,7 @@ For Android: https://console.firebase.google.com/u/1/project/fitness-531/setting
 - [ ] Update the records page so, user can undo deletion ?
 - [ ] Add a chips section to add and remove plates available in the Gym
 - [X] Add time series graphs to show records progress
+- [ ] Replace charts flutter with SyncFusion charts
 - [ ] Update database schema
  #+begin_src txt
  # Current database schema

@@ -358,6 +358,8 @@ class FirestoreCRUDPageState extends State<FirestoreCRUDPage> {
         Scaffold(
           appBar: AppBar(
             title: Text('Records'),
+            // backgroundColor: Colors.transparent, //No more
+            // elevation: 0.0, //Shadow gone
           ),
           body: FutureBuilder<bool>(
             future: AuthHelper.checkIfUserIsLoggedIn(),
