@@ -29,6 +29,7 @@ On android, every size of the splash screen image name
 splash screen is bigger.
 
 ** To get firebase config
+*** For Android
 First add the fingerprint for the new system to firebase and download
 the new google-services.json file Add the projects fingerprint on the
 new system using this
@@ -37,6 +38,11 @@ https://developers.google.com/android/guides/client-auth
 For Android: https://console.firebase.google.com/u/1/project/fitness-531/settings/general/android:com.kaipada.fitness_531
 - put the =json= file under android/app/google-services.json
   
+*** For iOS
+Justin download the =.plist= file
+https://console.firebase.google.com/u/0/project/fitness-531/settings/general/ios:com.kaipada.fitness531
+
+Follow this video to see how to import the file in X-Code: https://youtu.be/3nFIMej3Tvw
 ** References
 - https://exrx.net/WeightTraining/Powerlifting/531
 - https://medium.com/flutter-community/simple-recipes-app-made-in-flutter-firebase-and-google-sign-in-14d1535e9a59
