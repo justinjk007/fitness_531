@@ -2,7 +2,7 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'record_time_series.dart';
-import 'line_widget.dart';
+import 'label_widget.dart';
 
 class SimpleTimeSeriesChart extends StatefulWidget {
   final List<DataBaseRecords> _records;
@@ -130,28 +130,7 @@ class _SimpleTimeSeriesChartState extends State<SimpleTimeSeriesChart> {
         child: Column(
           children: [
             Flexible(
-              flex: 1,
-              child: Row(
-                children: <Widget>[
-                  Label("Squat", Colors.red),
-                  Expanded(child: SizedBox()),
-                  Label("Deadlift", Colors.blue),
-                ],
-              ),
-            ),
-            SizedBox(height: 5),
-            Flexible(
-              flex: 1,
-              child: Row(
-                children: <Widget>[
-                  Label("Press", Colors.yellow),
-                  Expanded(child: SizedBox()),
-                  Label("Bench", Colors.green),
-                ],
-              ),
-            ),
-            Flexible(
-              flex: 12,
+              flex: 15,
               child: charts.TimeSeriesChart(
                 seriesList,
                 animate: true,
@@ -163,6 +142,18 @@ class _SimpleTimeSeriesChartState extends State<SimpleTimeSeriesChart> {
                     Theme.of(context).brightness == Brightness.dark
                         ? yAxisDarkTheme
                         : yAxisLightTheme,
+              ),
+            ),
+            SizedBox(height: 5),
+            Flexible(
+              flex: 1,
+              child: Row(
+                children: <Widget>[
+                  Label("Squat", Colors.red),
+                  Label("Deadlift", Colors.blue),
+                  Label("Press", Colors.yellow),
+                  Label("Bench", Colors.green),
+                ],
               ),
             ),
           ],

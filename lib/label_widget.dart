@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-class DrawLine extends CustomPainter {
+class DrawCircle extends CustomPainter {
   final Color color;
   final Offset from;
-  final Offset to;
-  DrawLine(this.color, this.from, this.to);
+  final double radius;
+  DrawCircle(this.color, this.from, this.radius);
 
   @override
   void paint(Canvas canvas, Size size) {
     final _paint = Paint()
       ..color = color
       ..strokeWidth = 2
-      ..strokeCap = StrokeCap.round;
-    canvas.drawLine(from, to, _paint);
+      ..style = PaintingStyle.fill;
+    canvas.drawCircle(from, radius, _paint);
   }
 
   @override
@@ -20,6 +20,7 @@ class DrawLine extends CustomPainter {
     return false;
   }
 }
+
 
 class Label extends StatelessWidget {
   final String _label;
@@ -33,17 +34,14 @@ class Label extends StatelessWidget {
         SizedBox(width: 25),
         Text(_label, style: TextStyle(fontSize: 13)),
         Container(
-          width: 100,
+          width: 15,
           height: 10,
           child: CustomPaint(
             size: Size(100, 100),
-            painter: DrawLine(
-              _color,
-              Offset(10, 0),
-              Offset(50, 0),
-            ),
+            painter: DrawCircle(_color, Offset(3, -2), 3,),
           ),
           padding: EdgeInsets.all(8),
+          // Enable for debugging
           // decoration: BoxDecoration(border: Border.all(color: _color)),
         ),
       ],
