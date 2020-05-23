@@ -29,38 +29,48 @@ class _SimpleTimeSeriesChartState extends State<SimpleTimeSeriesChart> {
     color: charts.MaterialPalette.white,
   );
 
-  static charts.LineStyleSpec _lineStyle = charts.LineStyleSpec(
+  static charts.LineStyleSpec _y_lineStyle = charts.LineStyleSpec(
     thickness: 0,
-    color: charts.MaterialPalette.gray.shadeDefault,
+    // color: charts.MaterialPalette.gray.shadeDefault,
+    color: charts.MaterialPalette.transparent, // Make the grid lines disappear
+  );
+
+  static charts.LineStyleSpec _x_lineStyle = charts.LineStyleSpec(
+    thickness: 0,
+    color: charts.MaterialPalette.transparent, // Make the grid lines disappear
   );
 
   static var yAxisDarkTheme = charts.NumericAxisSpec(
+    // Make the y-axis start from non-zero
+    tickProviderSpec: charts.BasicNumericTickProviderSpec(zeroBound: false,),
     renderSpec: charts.GridlineRendererSpec(
       labelStyle: _lableStyleDark,
-      lineStyle: _lineStyle,
+      lineStyle: _y_lineStyle,
     ),
   );
 
-  var xAxisDarkTheme = charts.DateTimeAxisSpec(
+  static var yAxisLightTheme = charts.NumericAxisSpec(
+    // Make the y-axis start from non-zero
+    tickProviderSpec: charts.BasicNumericTickProviderSpec(zeroBound: false,),
+    renderSpec: charts.GridlineRendererSpec(
+      labelStyle: _lableStyleLight,
+      lineStyle: _y_lineStyle,
+    ),
+  );
+
+  static var xAxisDarkTheme = charts.DateTimeAxisSpec(
     tickFormatterSpec: _dateStyle,
     renderSpec: charts.GridlineRendererSpec(
       labelStyle: _lableStyleDark,
-      lineStyle: _lineStyle,
+      lineStyle: _x_lineStyle,
     ),
   );
 
-  var yAxisLightTheme = charts.NumericAxisSpec(
-    renderSpec: charts.GridlineRendererSpec(
-      labelStyle: _lableStyleLight,
-      lineStyle: _lineStyle,
-    ),
-  );
-
-  var xAxisLightTheme = charts.DateTimeAxisSpec(
+  static var xAxisLightTheme = charts.DateTimeAxisSpec(
     tickFormatterSpec: _dateStyle,
     renderSpec: charts.GridlineRendererSpec(
       labelStyle: _lableStyleLight,
-      lineStyle: _lineStyle,
+      lineStyle: _x_lineStyle,
     ),
   );
 
