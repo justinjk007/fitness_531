@@ -20,15 +20,18 @@ class _SimpleTimeSeriesChartState extends State<SimpleTimeSeriesChart> {
     ),
   );
 
-  static var _weightFormat = charts.BasicNumericTickFormatterSpec((num value) => '${value.toInt()} lbs');
+  static var _weightFormat = charts.BasicNumericTickFormatterSpec(
+      (num value) => '${value.toInt()} lbs');
 
   static charts.TextStyleSpec _lableStyleLight = charts.TextStyleSpec(
     fontSize: 10,
+    lineHeight: 2, // Add a little space b/w labels and chart
     color: charts.MaterialPalette.black,
   );
 
   static charts.TextStyleSpec _lableStyleDark = charts.TextStyleSpec(
     fontSize: 10,
+    lineHeight: 2, // Add a little space b/w labels and chart
     color: charts.MaterialPalette.white,
   );
 
@@ -45,7 +48,9 @@ class _SimpleTimeSeriesChartState extends State<SimpleTimeSeriesChart> {
 
   static var yAxisDarkTheme = charts.NumericAxisSpec(
     // Make the y-axis start from non-zero
-    tickProviderSpec: charts.BasicNumericTickProviderSpec(zeroBound: false,),
+    tickProviderSpec: charts.BasicNumericTickProviderSpec(
+      zeroBound: false,
+    ),
     tickFormatterSpec: _weightFormat,
     renderSpec: charts.GridlineRendererSpec(
       labelStyle: _lableStyleDark,
@@ -55,7 +60,9 @@ class _SimpleTimeSeriesChartState extends State<SimpleTimeSeriesChart> {
 
   static var yAxisLightTheme = charts.NumericAxisSpec(
     // Make the y-axis start from non-zero
-    tickProviderSpec: charts.BasicNumericTickProviderSpec(zeroBound: false,),
+    tickProviderSpec: charts.BasicNumericTickProviderSpec(
+      zeroBound: false,
+    ),
     renderSpec: charts.GridlineRendererSpec(
       labelStyle: _lableStyleLight,
       lineStyle: _yLineStyle,
@@ -139,7 +146,8 @@ class _SimpleTimeSeriesChartState extends State<SimpleTimeSeriesChart> {
 
     return Card(
       child: Container(
-        padding: EdgeInsets.all(10),
+        // Removed the padding on the right side
+        padding: EdgeInsets.only(left: 10, top: 8, bottom: 8),
         height: 400,
         child: Column(
           children: [
@@ -149,6 +157,10 @@ class _SimpleTimeSeriesChartState extends State<SimpleTimeSeriesChart> {
                 seriesList,
                 animate: true,
                 dateTimeFactory: const charts.LocalDateTimeFactory(),
+                defaultRenderer: charts.LineRendererConfig(
+                  includeArea: true,
+                  stacked: false,
+                ),
                 domainAxis: Theme.of(context).brightness == Brightness.dark
                     ? xAxisDarkTheme
                     : xAxisLightTheme,
@@ -162,6 +174,8 @@ class _SimpleTimeSeriesChartState extends State<SimpleTimeSeriesChart> {
             Flexible(
               flex: 1,
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Label("Squat", Colors.red),
                   Label("Deadlift", Colors.blue),
