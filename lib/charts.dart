@@ -19,6 +19,9 @@ class _SimpleTimeSeriesChartState extends State<SimpleTimeSeriesChart> {
       transitionFormat: 'MM/yy',
     ),
   );
+
+  static var _weightFormat = charts.BasicNumericTickFormatterSpec((num value) => '${value.toInt()} lbs');
+
   static charts.TextStyleSpec _lableStyleLight = charts.TextStyleSpec(
     fontSize: 10,
     color: charts.MaterialPalette.black,
@@ -29,13 +32,13 @@ class _SimpleTimeSeriesChartState extends State<SimpleTimeSeriesChart> {
     color: charts.MaterialPalette.white,
   );
 
-  static charts.LineStyleSpec _y_lineStyle = charts.LineStyleSpec(
+  static charts.LineStyleSpec _yLineStyle = charts.LineStyleSpec(
     thickness: 0,
     // color: charts.MaterialPalette.gray.shadeDefault,
     color: charts.MaterialPalette.transparent, // Make the grid lines disappear
   );
 
-  static charts.LineStyleSpec _x_lineStyle = charts.LineStyleSpec(
+  static charts.LineStyleSpec _xLineStyle = charts.LineStyleSpec(
     thickness: 0,
     color: charts.MaterialPalette.transparent, // Make the grid lines disappear
   );
@@ -43,9 +46,10 @@ class _SimpleTimeSeriesChartState extends State<SimpleTimeSeriesChart> {
   static var yAxisDarkTheme = charts.NumericAxisSpec(
     // Make the y-axis start from non-zero
     tickProviderSpec: charts.BasicNumericTickProviderSpec(zeroBound: false,),
+    tickFormatterSpec: _weightFormat,
     renderSpec: charts.GridlineRendererSpec(
       labelStyle: _lableStyleDark,
-      lineStyle: _y_lineStyle,
+      lineStyle: _yLineStyle,
     ),
   );
 
@@ -54,7 +58,7 @@ class _SimpleTimeSeriesChartState extends State<SimpleTimeSeriesChart> {
     tickProviderSpec: charts.BasicNumericTickProviderSpec(zeroBound: false,),
     renderSpec: charts.GridlineRendererSpec(
       labelStyle: _lableStyleLight,
-      lineStyle: _y_lineStyle,
+      lineStyle: _yLineStyle,
     ),
   );
 
@@ -62,7 +66,7 @@ class _SimpleTimeSeriesChartState extends State<SimpleTimeSeriesChart> {
     tickFormatterSpec: _dateStyle,
     renderSpec: charts.GridlineRendererSpec(
       labelStyle: _lableStyleDark,
-      lineStyle: _x_lineStyle,
+      lineStyle: _xLineStyle,
     ),
   );
 
@@ -70,11 +74,11 @@ class _SimpleTimeSeriesChartState extends State<SimpleTimeSeriesChart> {
     tickFormatterSpec: _dateStyle,
     renderSpec: charts.GridlineRendererSpec(
       labelStyle: _lableStyleLight,
-      lineStyle: _x_lineStyle,
+      lineStyle: _xLineStyle,
     ),
   );
 
-  List<List<TimeSeriesRecords>> parse_records(records) {
+  List<List<TimeSeriesRecords>> parseRecords(records) {
     // Convert DataBaseRecords into TimeSeriesRecords by making each record into
     // 4 records by seperating the different lifts
     List<TimeSeriesRecords> squatRecords = [];
@@ -99,7 +103,7 @@ class _SimpleTimeSeriesChartState extends State<SimpleTimeSeriesChart> {
 
   @override
   Widget build(BuildContext context) {
-    final parsedData = parse_records(widget._records);
+    final parsedData = parseRecords(widget._records);
 
     final seriesList = [
       /// Create one series with sample hard coded data.
