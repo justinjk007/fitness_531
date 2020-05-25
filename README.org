@@ -17,6 +17,8 @@ upto 1 GB of data.
 
 Main icon: https://www.flaticon.com/free-icon/barbell_1690609#term=barbell&page=1&position=23
 
+SVG assets for misc usage: https://undraw.co/illustrations
+
 ** App icons are made like this
 For i-OS
 https://pub.dartlang.org/packages/flutter_launcher_icons

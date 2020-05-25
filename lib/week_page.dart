@@ -108,7 +108,7 @@ class _WeekPageWidgetState extends State<WeekPage> {
       );
     }
 
-    const double avatar_size = 15;
+    const double avatar_size = 12;
     return Scaffold(
       drawer: SideDrawer(callBackWeeksPage: this.update),
       appBar: AppBar(
@@ -117,6 +117,7 @@ class _WeekPageWidgetState extends State<WeekPage> {
           new Builder(builder: (BuildContext ctxt) {
             Widget _loginButton = IconButton(
               icon: Icon(OMIcons.accountCircle),
+              // Icon and avatar seem to be on different scales ?
               iconSize: avatar_size + 12,
               tooltip: 'Login with Google',
               onPressed: () async {
