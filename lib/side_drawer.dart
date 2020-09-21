@@ -2,6 +2,7 @@ import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
+import 'input_chip_example.dart';
 import 'new_records.dart';
 import 'about_page.dart';
 import 'save_state.dart';
@@ -151,6 +152,18 @@ class _SideDrawerState extends State<SideDrawer> {
             onTap: () {
               Navigator.pop(ctxt); // Close the drawer first
               _showBarWeightDialog(ctxt);
+            },
+          ),
+          ListTile(
+            leading: Icon(OMIcons.hdrStrong, color: Colors.red[400]),
+            title: Text('Set plates available'),
+            onTap: () {
+              Navigator.pop(ctxt); // Close the drawer first
+              Navigator.push(
+                ctxt,
+                new MaterialPageRoute(
+                    builder: (ctxt) => new InputChipExample()),
+              );
             },
           ),
           ListTile(
