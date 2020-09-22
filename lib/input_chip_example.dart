@@ -5,8 +5,9 @@ import 'dart:convert';
 class InputChipExampleState extends State<InputChipExample> {
   TextEditingController _textEditingController = new TextEditingController();
 
-  // Here these maps are kept dynamic so serialized
-  Map<String,bool> defaultMap = {
+  // Here these maps are kept dynamic so serialized json does not error out when
+  // read back in, however we only accept bool as keys in design
+  Map<String,dynamic> defaultMap = {
     '2.5': true,
     '5': true,
     '10': true,
@@ -14,7 +15,7 @@ class InputChipExampleState extends State<InputChipExample> {
     '35': false,
     '45': true,
   };
-  Map<String,bool> chipsMap = {'0': true};
+  Map<String,dynamic> chipsMap = {'0': true};
 
   @override
   void dispose() {
@@ -36,10 +37,7 @@ class InputChipExampleState extends State<InputChipExample> {
         // If no data exist return default map
         chipsMap = defaultMap;
       } else {
-        print(foo);
-        print(foo);
-        print(foo);
-        chipsMap = json.decode(foo).cast<Map<String,bool>>();
+        chipsMap = json.decode(foo);
       }
     });
   }
