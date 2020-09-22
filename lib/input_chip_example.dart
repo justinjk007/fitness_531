@@ -1,15 +1,20 @@
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
-
-class InputChipExample extends StatefulWidget {
-  @override
-  InputChipExampleState createState() => new InputChipExampleState();
-}
+import 'dart:convert';
 
 class InputChipExampleState extends State<InputChipExample> {
   TextEditingController _textEditingController = new TextEditingController();
 
-  List<String> _values = new List();
-  List<bool> _selected = new List();
+  // Here these maps are kept dynamic so serialized
+  Map<String,bool> defaultMap = {
+    '2.5': true,
+    '5': true,
+    '10': true,
+    '25': true,
+    '35': false,
+    '45': true,
+  };
+  Map<String,bool> chipsMap = {'0': true};
 
   @override
   void dispose() {
@@ -17,35 +22,64 @@ class InputChipExampleState extends State<InputChipExample> {
     super.dispose();
   }
 
-  Widget buildChips() {
+  @override
+  void initState() {
+    super.initState();
+    _loadDataAsync(); // Load the current bar weight from memory
+  }
+
+  void _loadDataAsync() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      String foo = (prefs.getString("plates_available") ?? null);
+      if (foo == null || foo == "{}") {
+        // If no data exist return default map
+        chipsMap = defaultMap;
+      } else {
+        print(foo);
+        print(foo);
+        print(foo);
+        chipsMap = json.decode(foo).cast<Map<String,bool>>();
+      }
+    });
+  }
+
+  void saveDataToDisk() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String foo = json.encode(chipsMap);
+    prefs.setString("plates_available", foo);
+  }
+
+  Widget _buildChips() {
     List<Widget> chips = new List();
 
-    for (int i = 0; i < _values.length; i++) {
+    for (MapEntry e in chipsMap.entries) {
       InputChip actionChip = InputChip(
-        selected: _selected[i],
-        label: Text(_values[i]),
+        label: Text(e.key),
+        selected: e.value,
         elevation: 10,
         pressElevation: 5,
         onPressed: () {
           setState(() {
-            _selected[i] = !_selected[i];
+            // When pressed, toggle selection state and then reload
+            chipsMap[e.key] = !e.value;
+            saveDataToDisk();
           });
         },
         onDeleted: () {
-          _values.removeAt(i);
-          _selected.removeAt(i);
+          chipsMap.remove(e.key);
           setState(() {
-            _values = _values;
-            _selected = _selected;
+            chipsMap = chipsMap;
+            saveDataToDisk();
           });
         },
       );
       chips.add(actionChip);
     }
 
-    return ListView(
-      // This next line does the trick.
-      scrollDirection: Axis.horizontal,
+    return Wrap(
+      spacing: 2, // gap between adjacent chips
+      runSpacing: 1, // gap between lines
       children: chips,
     );
   }
@@ -60,10 +94,7 @@ class InputChipExampleState extends State<InputChipExample> {
           padding: const EdgeInsets.all(15.0),
           child: Column(
             children: <Widget>[
-              Container(
-                height: 30,
-                child: buildChips(),
-              ),
+              _buildChips(),
               TextFormField(
                 controller: _textEditingController,
               ),
@@ -71,12 +102,11 @@ class InputChipExampleState extends State<InputChipExample> {
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: RaisedButton(
                   onPressed: () {
-                    _values.add(_textEditingController.text);
-                    _selected.add(true);
+                    chipsMap[_textEditingController.text] = true;
                     _textEditingController.clear();
                     setState(() {
-                      _values = _values;
-                      _selected = _selected;
+                      chipsMap = chipsMap;
+                      saveDataToDisk();
                     });
                   },
                   child: Text('Submit'),
@@ -86,4 +116,9 @@ class InputChipExampleState extends State<InputChipExample> {
           )),
     );
   }
+}
+
+class InputChipExample extends StatefulWidget {
+  @override
+  InputChipExampleState createState() => new InputChipExampleState();
 }
