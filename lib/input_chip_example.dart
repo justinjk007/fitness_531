@@ -55,7 +55,7 @@ class InputChipExampleState extends State<InputChipExample> {
       InputChip actionChip = InputChip(
         label: Text(e.key),
         selected: e.value,
-        elevation: 10,
+        // elevation: 10,
         pressElevation: 5,
         onPressed: () {
           setState(() {
