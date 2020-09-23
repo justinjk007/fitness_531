@@ -427,7 +427,7 @@ final ThemeData lightTheme = ThemeData(
       fontStyle: FontStyle.normal,
     ),
     secondarySelectedColor: Color(0x3dde7b7a),
-    selectedColor: Color(0x3d000000),
+    selectedColor: Color(0xfff37a74),
     shape: StadiumBorder(),
   ),
   dialogTheme: DialogTheme(

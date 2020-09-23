@@ -1,5 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart'
     show SharedPreferences;
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 
@@ -56,9 +57,8 @@ class InputChipExampleState extends State<InputChipExample> {
       InputChip inputChip = InputChip(
         label: Text(e.key),
         selected: e.value,
-        pressElevation:5,
+        pressElevation: 5,
         showCheckmark: false,
-        selectedColor: Colors.blue,
         onPressed: () {
           setState(() {
             // When pressed, toggle selection state and then reload
@@ -93,6 +93,13 @@ class InputChipExampleState extends State<InputChipExample> {
           _buildChips(),
           Expanded(child: SizedBox()), // Push the input to the bottom
           TextFormField(
+            decoration: InputDecoration(
+              prefixIcon: Icon(OMIcons.assignment),
+              labelText: "Enter plate weight in lbs",
+              errorStyle: TextStyle(
+                  color: Theme.of(context).errorColor,
+                  fontWeight: FontWeight.bold),
+            ),
             controller: _textEditingController,
           ),
           Row(

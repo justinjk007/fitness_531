@@ -425,7 +425,7 @@ final ThemeData darkTheme = ThemeData(
       fontStyle: FontStyle.normal,
     ),
     secondarySelectedColor: Color(0x3d212121),
-    selectedColor: Color(0x3dffffff),
+    selectedColor: Color(0xfff37a74),
     shape: StadiumBorder(),
   ),
   dialogTheme: DialogTheme(
