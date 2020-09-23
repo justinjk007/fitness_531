@@ -117,6 +117,20 @@ class _SideDrawerState extends State<SideDrawer> {
       );
     }
 
+    // devices context it needs to be rebuild along with the page
+    void _showPlatesAvailableDialog(BuildContext ctxt) {
+      // flutter defined function
+      showDialog(
+        context: ctxt,
+        builder: (ctxt) {
+          return AlertDialog(
+            title: Text('Set plates available'),
+            content: InputChipExample(),
+          );
+        },
+      );
+    }
+
     return Drawer(
       // Add a ListView to the drawer. This ensures the user can scroll
       // through the options in the Drawer if there isn't enough vertical
@@ -159,11 +173,7 @@ class _SideDrawerState extends State<SideDrawer> {
             title: Text('Set plates available'),
             onTap: () {
               Navigator.pop(ctxt); // Close the drawer first
-              Navigator.push(
-                ctxt,
-                new MaterialPageRoute(
-                    builder: (ctxt) => new InputChipExample()),
-              );
+              _showPlatesAvailableDialog(ctxt);
             },
           ),
           ListTile(

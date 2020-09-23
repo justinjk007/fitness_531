@@ -1,4 +1,5 @@
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart'
+    show SharedPreferences;
 import 'package:flutter/material.dart';
 import 'dart:convert';
 
@@ -7,7 +8,7 @@ class InputChipExampleState extends State<InputChipExample> {
 
   // Here these maps are kept dynamic so serialized json does not error out when
   // read back in, however we only accept bool as keys in design
-  Map<String,dynamic> defaultMap = {
+  Map<String, dynamic> defaultMap = {
     '2.5': true,
     '5': true,
     '10': true,
@@ -15,7 +16,7 @@ class InputChipExampleState extends State<InputChipExample> {
     '35': false,
     '45': true,
   };
-  Map<String,dynamic> chipsMap = {'0': true};
+  Map<String, dynamic> chipsMap = {'0': true};
 
   @override
   void dispose() {
@@ -52,11 +53,12 @@ class InputChipExampleState extends State<InputChipExample> {
     List<Widget> chips = new List();
 
     for (MapEntry e in chipsMap.entries) {
-      InputChip actionChip = InputChip(
+      InputChip inputChip = InputChip(
         label: Text(e.key),
         selected: e.value,
-        // elevation: 10,
-        pressElevation: 5,
+        pressElevation:5,
+        showCheckmark: false,
+        selectedColor: Colors.blue,
         onPressed: () {
           setState(() {
             // When pressed, toggle selection state and then reload
@@ -72,46 +74,45 @@ class InputChipExampleState extends State<InputChipExample> {
           });
         },
       );
-      chips.add(actionChip);
+      chips.add(inputChip);
     }
 
     return Wrap(
       spacing: 2, // gap between adjacent chips
-      runSpacing: 1, // gap between lines
+      runSpacing: -5, // gap between lines
       children: chips,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Set plates available'),
-      ),
-      body: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            children: <Widget>[
-              _buildChips(),
-              TextFormField(
-                controller: _textEditingController,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: RaisedButton(
-                  onPressed: () {
-                    chipsMap[_textEditingController.text] = true;
-                    _textEditingController.clear();
-                    setState(() {
-                      chipsMap = chipsMap;
-                      saveDataToDisk();
-                    });
-                  },
-                  child: Text('Submit'),
-                ),
+    return FractionallySizedBox(
+      heightFactor: 0.45,
+      child: Column(
+        children: <Widget>[
+          _buildChips(),
+          Expanded(child: SizedBox()), // Push the input to the bottom
+          TextFormField(
+            controller: _textEditingController,
+          ),
+          Row(
+            children: [
+              Expanded(child: SizedBox()), // Move the button to the right side
+              FlatButton(
+                onPressed: () {
+                  chipsMap[_textEditingController.text] = true;
+                  _textEditingController.clear();
+                  setState(() {
+                    chipsMap = chipsMap;
+                    saveDataToDisk();
+                  });
+                },
+                child: Text('Submit'),
               ),
             ],
-          )),
+          ),
+        ],
+      ),
     );
   }
 }
