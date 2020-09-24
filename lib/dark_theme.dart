@@ -425,7 +425,8 @@ final ThemeData darkTheme = ThemeData(
       fontStyle: FontStyle.normal,
     ),
     secondarySelectedColor: Color(0x3d212121),
-    selectedColor: Color(0xfff37a74),
+    selectedColor: Color(
+        0x80f37a74), // This is the same red color used for toggle button but with 80% alpha
     shape: StadiumBorder(),
   ),
   dialogTheme: DialogTheme(

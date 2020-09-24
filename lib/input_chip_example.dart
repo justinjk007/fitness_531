@@ -55,8 +55,9 @@ class InputChipExampleState extends State<InputChipExample> {
 
     for (MapEntry e in chipsMap.entries) {
       InputChip inputChip = InputChip(
-        label: Text(e.key),
+        label: Text("${e.key} lbs"),
         selected: e.value,
+        elevation: 2,
         pressElevation: 5,
         showCheckmark: false,
         onPressed: () {
@@ -87,7 +88,7 @@ class InputChipExampleState extends State<InputChipExample> {
   @override
   Widget build(BuildContext context) {
     return FractionallySizedBox(
-      heightFactor: 0.45,
+      heightFactor: 0.50,
       child: Column(
         children: <Widget>[
           _buildChips(),
