@@ -9,7 +9,7 @@ void main() {
   WidgetsFlutterBinding
       .ensureInitialized(); // Need to do this after flutter upgrade
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Colors.blue, //or set color with: Color(0xFF0000FF)
+    statusBarColor: Colors.transparent,
   ));
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
