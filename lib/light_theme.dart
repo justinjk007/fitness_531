@@ -41,6 +41,10 @@ final ThemeData lightTheme = ThemeData(
   indicatorColor: Color(0xffcc3433),
   hintColor: Color(0x8a000000),
   errorColor: Color(0xffd32f2f),
+  // appBarTheme: AppBarTheme(
+  //   elevation: 0,
+  //   color: Colors.transparent,
+  // ),
   buttonTheme: ButtonThemeData(
     textTheme: ButtonTextTheme.normal,
     minWidth: 88.0,

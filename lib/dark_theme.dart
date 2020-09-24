@@ -22,6 +22,7 @@ final ThemeData darkTheme = ThemeData(
   accentColorBrightness: Brightness.light,
   canvasColor: Color(0xff303030),
   scaffoldBackgroundColor: Color(0xff303030),
+  // scaffoldBackgroundColor: Colors.transparent,
   bottomAppBarColor: Color(0xff424242),
   cardColor: Color(0xff424242),
   dividerColor: Color(0x1fffffff),
@@ -41,6 +42,10 @@ final ThemeData darkTheme = ThemeData(
   indicatorColor: Color(0xfffd9f99),
   hintColor: Color(0x80ffffff),
   errorColor: Color(0xffd32f2f),
+  appBarTheme: AppBarTheme(
+    elevation: 0,
+    color: Colors.transparent,
+  ),
   buttonTheme: ButtonThemeData(
     textTheme: ButtonTextTheme.normal,
     minWidth: 88.0,
