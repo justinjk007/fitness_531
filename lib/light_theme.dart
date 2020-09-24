@@ -41,10 +41,100 @@ final ThemeData lightTheme = ThemeData(
   indicatorColor: Color(0xffcc3433),
   hintColor: Color(0x8a000000),
   errorColor: Color(0xffd32f2f),
-  // appBarTheme: AppBarTheme(
-  //   elevation: 0,
-  //   color: Colors.transparent,
-  // ),
+  appBarTheme: AppBarTheme(
+    elevation: 0,
+    color: Colors.transparent,
+    actionsIconTheme: IconThemeData(
+      color: Colors.black,
+      opacity: 1.0,
+      size: 24.0,
+    ),
+    iconTheme: IconThemeData(
+      color: Colors.black,
+      opacity: 1.0,
+      size: 24.0,
+    ),
+    textTheme: TextTheme(
+      display4: TextStyle(
+        color: Color(0x8a000000),
+        fontSize: 96.0,
+        fontWeight: FontWeight.w300,
+        fontStyle: FontStyle.normal,
+      ),
+      display3: TextStyle(
+        color: Color(0x8a000000),
+        fontSize: 60.0,
+        fontWeight: FontWeight.w300,
+        fontStyle: FontStyle.normal,
+      ),
+      display2: TextStyle(
+        color: Color(0x8a000000),
+        fontSize: 48.0,
+        fontWeight: FontWeight.w400,
+        fontStyle: FontStyle.normal,
+      ),
+      display1: TextStyle(
+        color: Color(0x8a000000),
+        fontSize: 34.0,
+        fontWeight: FontWeight.w400,
+        fontStyle: FontStyle.normal,
+      ),
+      headline: TextStyle(
+        color: Color(0xdd000000),
+        fontSize: 24.0,
+        fontWeight: FontWeight.w400,
+        fontStyle: FontStyle.normal,
+      ),
+      title: TextStyle(
+        color: Color(0xdd000000),
+        fontSize: 20.0,
+        fontWeight: FontWeight.w500,
+        fontStyle: FontStyle.normal,
+      ),
+      subhead: TextStyle(
+        color: Color(0xdd000000),
+        fontSize: 16.0,
+        fontWeight: FontWeight.w400,
+        fontStyle: FontStyle.normal,
+      ),
+      body2: TextStyle(
+        color: Color(0xdd000000),
+        fontSize: 14.0,
+        fontWeight: FontWeight.w400,
+        fontStyle: FontStyle.normal,
+      ),
+      body1: TextStyle(
+        color: Color(0xdd000000),
+        fontSize: 16.0,
+        fontWeight: FontWeight.w400,
+        fontStyle: FontStyle.normal,
+      ),
+      caption: TextStyle(
+        color: Color(0x8a000000),
+        fontSize: 12.0,
+        fontWeight: FontWeight.w400,
+        fontStyle: FontStyle.normal,
+      ),
+      button: TextStyle(
+        color: Color(0xdd000000),
+        fontSize: 14.0,
+        fontWeight: FontWeight.w500,
+        fontStyle: FontStyle.normal,
+      ),
+      subtitle: TextStyle(
+        color: Color(0xff000000),
+        fontSize: 14.0,
+        fontWeight: FontWeight.w500,
+        fontStyle: FontStyle.normal,
+      ),
+      overline: TextStyle(
+        color: Color(0xff000000),
+        fontSize: 10.0,
+        fontWeight: FontWeight.w400,
+        fontStyle: FontStyle.normal,
+      ),
+    ),
+  ),
   buttonTheme: ButtonThemeData(
     textTheme: ButtonTextTheme.normal,
     minWidth: 88.0,
@@ -431,7 +521,8 @@ final ThemeData lightTheme = ThemeData(
       fontStyle: FontStyle.normal,
     ),
     secondarySelectedColor: Color(0x3dde7b7a),
-    selectedColor: Color(0x80f37a74), // This is the same red color used for toggle button but with 80% alpha
+    selectedColor: Color(
+        0x80f37a74), // This is the same red color used for toggle button but with 80% alpha
     shape: StadiumBorder(),
   ),
   dialogTheme: DialogTheme(
