@@ -91,21 +91,29 @@ class InputChipExampleState extends State<InputChipExample> {
       heightFactor: 0.50,
       child: Column(
         children: <Widget>[
-          _buildChips(),
-          Expanded(child: SizedBox()), // Push the input to the bottom
-          TextFormField(
-            decoration: InputDecoration(
-              prefixIcon: Icon(OMIcons.assignment),
-              labelText: "Enter plate weight in lbs",
-              errorStyle: TextStyle(
-                  color: Theme.of(context).errorColor,
-                  fontWeight: FontWeight.bold),
+          Expanded(
+            flex: 80,
+            child: SingleChildScrollView(
+              child: _buildChips(),
             ),
-            controller: _textEditingController,
+          ),
+          Expanded(child: SizedBox()), // Move the button to the right
+          Padding(
+            padding: EdgeInsets.only(left: 12, right: 12),
+            child: TextFormField(
+              decoration: InputDecoration(
+                prefixIcon: Icon(OMIcons.assignment),
+                labelText: "Enter plate weight in lbs",
+                errorStyle: TextStyle(
+                    color: Theme.of(context).errorColor,
+                    fontWeight: FontWeight.bold),
+              ),
+              controller: _textEditingController,
+            ),
           ),
           Row(
             children: [
-              Expanded(child: SizedBox()), // Move the button to the right side
+              Expanded(child: SizedBox()), // Move the button to the right
               FlatButton(
                 onPressed: () {
                   chipsMap[_textEditingController.text] = true;

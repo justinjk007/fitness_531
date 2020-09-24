@@ -125,6 +125,7 @@ class _SideDrawerState extends State<SideDrawer> {
         builder: (ctxt) {
           return AlertDialog(
             title: Text('Set plates available'),
+            contentPadding:EdgeInsets.zero,
             content: InputChipExample(),
           );
         },
