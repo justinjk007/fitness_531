@@ -15,48 +15,35 @@ class ActivityPage extends StatelessWidget {
       appBar: new AppBar(
         title: new Text("Select today's activity"),
       ),
-      body: Container(
-        padding: EdgeInsets.only(
-          left: 40,
-          right: 40,
-          top: MediaQuery.of(ctxt).size.height / 20,
-          bottom: MediaQuery.of(ctxt).size.height / 20,
-        ),
-        child: new Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                new Activity(
-                  image: 'assets/squat.png',
-                  activity: 'squat',
-                  weekID: weekIDForChild,
-                ),
-                SizedBox(width: 10.0),
-                new Activity(
-                  image: 'assets/bench.png',
-                  activity: 'bench',
-                  weekID: weekIDForChild,
-                ),
-              ],
-            ),
-            SizedBox(height: 10.0),
-            Row(
-              children: <Widget>[
-                new Activity(
-                  image: 'assets/deadlift.png',
-                  activity: 'deadlift',
-                  weekID: weekIDForChild,
-                ),
-                SizedBox(width: 10.0),
-                new Activity(
-                  image: 'assets/press.png',
-                  activity: 'press',
-                  weekID: weekIDForChild,
-                ),
-              ],
-            ),
-          ],
-        ),
+      body: GridView.count(
+        primary: false,
+        padding: const EdgeInsets.only(top: 30, right: 20, left: 20),
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+        crossAxisCount: 2, // Number of rows
+        childAspectRatio: 0.55, // Makes each rows bigger
+        children: <Widget>[
+          Activity(
+            image: 'assets/squat.png',
+            activity: 'squat',
+            weekID: weekIDForChild,
+          ),
+          Activity(
+            image: 'assets/bench.png',
+            activity: 'bench',
+            weekID: weekIDForChild,
+          ),
+          Activity(
+            image: 'assets/deadlift.png',
+            activity: 'deadlift',
+            weekID: weekIDForChild,
+          ),
+          Activity(
+            image: 'assets/press.png',
+            activity: 'press',
+            weekID: weekIDForChild,
+          ),
+        ],
       ),
     );
   }
