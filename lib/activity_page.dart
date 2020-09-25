@@ -21,7 +21,7 @@ class ActivityPage extends StatelessWidget {
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
         crossAxisCount: 2, // Number of rows
-        childAspectRatio: 0.55, // Makes each rows bigger
+        childAspectRatio: 0.60, // Makes each rows bigger
         children: <Widget>[
           Activity(
             image: 'assets/squat.png',

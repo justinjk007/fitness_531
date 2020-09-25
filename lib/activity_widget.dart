@@ -48,69 +48,60 @@ class _ActivityWidgetState extends State<Activity> {
     final double _sizeOfIcon = 0.6 * _sizeOfWidget; // 60 % of the widget
     final double _iconPaddingSize = 0.13 * _sizeOfWidget;
 
-    return new Expanded(
-      // Since this is expanded widget it will take up the fitting width inside
-      // the Row widget which is inside a padding widget so it won't overflow.
-      child: SizedBox(
-        height: _sizeOfWidget,
-        child: Card(
-          child: Stack(
-            children: [
-              // To Center the image
-              Positioned.fill(
-                child: Padding(
-                  padding: EdgeInsets.all(_iconPaddingSize),
-                  child: Image.asset(
-                    widget.image,
-                    fit: BoxFit.scaleDown,
-                  ),
-                ),
+    return new Card(
+      child: Stack(
+        children: [
+          // To Center the image
+          Positioned.fill(
+            child: Padding(
+              padding: EdgeInsets.all(_iconPaddingSize),
+              child: Image.asset(
+                widget.image,
+                fit: BoxFit.scaleDown,
               ),
-              // Since this is a stack, done icon should be placed above the image
-              Center(
-                child: FutureBuilder<bool>(
-                  future: SaveStateHelper.getActivity(
-                    widget.weekID,
-                    widget.activity,
-                  ), // This is where Future is trying to get data from
-                  initialData: false,
-                  builder:
-                      (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                    if (snapshot.hasError) {
-                      return Icon(Icons.beenhere,
-                          color: Colors.red[300].withOpacity(0.5), size: 0);
-                    } else {
-                      if (snapshot.data == true) {
-                        // Item is marked undone
-                        return Icon(Icons.beenhere,
-                            color: Colors.red[300].withOpacity(0.5), size: 0);
-                      } else {
-                        // Item is marked done
-                        return Icon(Icons.beenhere,
-                            color: Colors.red[300].withOpacity(0.5),
-                            size: _sizeOfIcon);
-                      }
-                    }
-                  }, // End of  builder
-                ), // End of FutureBuilder
-              ),
-              Positioned.fill(
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        ctxt,
-                        new MaterialPageRoute(
-                            builder: (ctxt) => getNextScreen()),
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+          // Since this is a stack, done icon should be placed above the image
+          Center(
+            child: FutureBuilder<bool>(
+              future: SaveStateHelper.getActivity(
+                widget.weekID,
+                widget.activity,
+              ), // This is where Future is trying to get data from
+              initialData: false,
+              builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                if (snapshot.hasError) {
+                  return Icon(Icons.beenhere,
+                      color: Colors.red[300].withOpacity(0.5), size: 0);
+                } else {
+                  if (snapshot.data == true) {
+                    // Item is marked undone
+                    return Icon(Icons.beenhere,
+                        color: Colors.red[300].withOpacity(0.5), size: 0);
+                  } else {
+                    // Item is marked done
+                    return Icon(Icons.beenhere,
+                        color: Colors.red[300].withOpacity(0.5),
+                        size: _sizeOfIcon);
+                  }
+                }
+              }, // End of  builder
+            ), // End of FutureBuilder
+          ),
+          Positioned.fill(
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    ctxt,
+                    new MaterialPageRoute(builder: (ctxt) => getNextScreen()),
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
