@@ -42,6 +42,7 @@ final ThemeData lightTheme = ThemeData(
   hintColor: Color(0x8a000000),
   errorColor: Color(0xffd32f2f),
   appBarTheme: AppBarTheme(
+    centerTitle: true,
     elevation: 0,
     color: Colors.transparent,
     actionsIconTheme: IconThemeData(

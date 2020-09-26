@@ -43,6 +43,7 @@ final ThemeData darkTheme = ThemeData(
   hintColor: Color(0x80ffffff),
   errorColor: Color(0xffd32f2f),
   appBarTheme: AppBarTheme(
+    centerTitle: true,
     elevation: 0,
     color: Colors.transparent,
   ),
