@@ -4,7 +4,7 @@ import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 
-class InputChipExampleState extends State<InputChipExample> {
+class PlateSelectionChipsState extends State<PlateSelectionChips> {
   TextEditingController _textEditingController = new TextEditingController();
 
   // Here these maps are kept dynamic so serialized json does not error out when
@@ -87,8 +87,13 @@ class InputChipExampleState extends State<InputChipExample> {
 
   @override
   Widget build(BuildContext context) {
+
+    // Check if the keyboard is up
+    final bool _keyboardNotUp = MediaQuery.of(widget.dialogWindowContext).viewInsets.bottom == 0.0;
+
     return FractionallySizedBox(
-      heightFactor: 0.50,
+      // Use more space if keyword is up so the window is still big
+      heightFactor: _keyboardNotUp ? 0.50 : 0.80,
       child: Column(
         children: <Widget>[
           Expanded(
@@ -133,7 +138,16 @@ class InputChipExampleState extends State<InputChipExample> {
   }
 }
 
-class InputChipExample extends StatefulWidget {
+class PlateSelectionChips extends StatefulWidget {
+
+  PlateSelectionChips({
+    Key key,
+    this.dialogWindowContext,
+  }) : super(key: key);
+
+  // Build context from the dialog window, used to check if the keyboard is up
+  final BuildContext dialogWindowContext;
+
   @override
-  InputChipExampleState createState() => new InputChipExampleState();
+  PlateSelectionChipsState createState() => new PlateSelectionChipsState();
 }

@@ -2,7 +2,7 @@ import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
-import 'input_chip_example.dart';
+import 'plate_selection_chips.dart';
 import 'new_records.dart';
 import 'about_page.dart';
 import 'save_state.dart';
@@ -125,8 +125,8 @@ class _SideDrawerState extends State<SideDrawer> {
         builder: (ctxt) {
           return AlertDialog(
             title: Text('Set plates available'),
-            contentPadding:EdgeInsets.zero,
-            content: InputChipExample(),
+            contentPadding: EdgeInsets.zero,
+            content: PlateSelectionChips(dialogWindowContext: ctxt),
           );
         },
       );

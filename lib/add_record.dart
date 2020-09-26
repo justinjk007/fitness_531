@@ -119,7 +119,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
   @override
   Widget build(BuildContext ctxt) {
     // Don't show fab if keyboard is up
-    final bool _showFab = MediaQuery.of(ctxt).viewInsets.bottom == 0.0;
+    final bool _keyboardNotUp = MediaQuery.of(context).viewInsets.bottom == 0.0;
     final bool _isIOS = Theme.of(ctxt).platform == TargetPlatform.iOS;
 
     return Scaffold(
@@ -211,7 +211,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
         ),
       ),
       floatingActionButton: Builder(builder: (BuildContext ctxt) {
-        return _showFab
+        return _keyboardNotUp
             ? FloatingActionButton(
                 onPressed: () {
                   // Validate will return true if the form is valid, or false if
@@ -233,7 +233,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                 tooltip: "Submit values",
                 backgroundColor: Colors.red[400],
               )
-            : new Container(); // Show null if showFab is false
+            : new Container(); // Show null if _keyboardNotUp is false
       }),
     );
   }
