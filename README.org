@@ -45,6 +45,8 @@ Justin download the =.plist= file
 https://console.firebase.google.com/u/0/project/fitness-531/settings/general/ios:com.kaipada.fitness531
 
 Follow this video to see how to import the file in X-Code: https://youtu.be/3nFIMej3Tvw
+** Setting up code signing
+https://flutter.dev/docs/deployment/android#signing-the-app
 ** References
 - https://exrx.net/WeightTraining/Powerlifting/531
 - https://medium.com/flutter-community/simple-recipes-app-made-in-flutter-firebase-and-google-sign-in-14d1535e9a59
