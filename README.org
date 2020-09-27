@@ -54,6 +54,7 @@ Follow this video to see how to import the file in X-Code: https://youtu.be/3nFI
 - [ ] Add a chips section to add and remove plates available in the Gym
 - [X] Add time series graphs to show records progress
 - [ ] Update database schema
+- [ ] Fix the progress circle not updating without restarting
  #+begin_src txt
  # Current database schema
  /{table}/{collection}/{user_id}/{document_id_auto_generated}
