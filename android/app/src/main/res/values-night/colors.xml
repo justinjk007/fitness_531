@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="scaffoldBackgroundColor">#ff303030</color> <!--Same color from dark_theme.dart-->
+</resources>

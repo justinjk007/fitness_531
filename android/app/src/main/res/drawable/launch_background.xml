@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Modify this file to customize your launch splash screen -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="?android:attr/colorBackground" /> <!-- use white/black splash based on systems darkness setting -->
-    <item >
-        <!-- Name of the icon used for splash screen, an image should be present in all sizes -->
-        <bitmap
-            android:gravity="center"
-            android:src="@mipmap/ic_launcher" />
-    </item>
+  <!-- use white/black splash based on systems darkness setting -->
+  <!-- Colors are defined in values/styles.xml and values-night/styles.xml -->
+  <item android:drawable="?android:attr/colorBackground" />
+  <item >
+    <!-- Name of the icon used for splash screen, an image should be present in all sizes -->
+    <bitmap
+        android:gravity="center"
+        android:src="@mipmap/ic_launcher" />
+  </item>
 </layer-list>
