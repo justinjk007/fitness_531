@@ -17,7 +17,7 @@ class ActivityPage extends StatelessWidget {
       ),
       body: GridView.count(
         primary: false,
-        padding: const EdgeInsets.only(top: 30, right: 20, left: 20),
+        padding: const EdgeInsets.only(top: 30, right: 20, left: 20, bottom: 30),
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
         crossAxisCount: 2, // Number of rows

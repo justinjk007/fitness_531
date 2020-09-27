@@ -112,7 +112,7 @@ class _WeekPageWidgetState extends State<WeekPage> {
     return Scaffold(
       drawer: SideDrawer(callBackWeeksPage: this.update),
       appBar: AppBar(
-        title: Text("Select week in your routine"),
+        title: Text("5/3/1"),
         actions: <Widget>[
           new Builder(builder: (BuildContext ctxt) {
             Widget _loginButton = IconButton(
