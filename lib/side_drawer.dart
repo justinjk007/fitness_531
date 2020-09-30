@@ -1,6 +1,5 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'plate_selection_chips.dart';
 import 'new_records.dart';
@@ -15,15 +14,11 @@ class _SideDrawerState extends State<SideDrawer> {
   @override
   void initState() {
     super.initState();
-    _loadDataAsync(); // Load the current bar weight from memory
-  }
-
-  void _loadDataAsync() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      // If no data exist return 45 meaning 45 lbs
-      _barWeight = (prefs.getDouble("bar_weight") ?? 45);
-    });
+    SaveStateHelper.getBarWeight().then(
+      (data) => setState(() {
+        _barWeight = data;
+      }),
+    );
   }
 
   // user defined function
@@ -60,11 +55,6 @@ class _SideDrawerState extends State<SideDrawer> {
         );
       },
     );
-  }
-
-  void addData(BuildContext ctxt) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setDouble("bar_weight", _barWeight);
   }
 
   @override
@@ -105,7 +95,7 @@ class _SideDrawerState extends State<SideDrawer> {
                   if (_formKey.currentState.validate()) {
                     // If the form is valid, submit data to database
                     _formKey.currentState.save();
-                    addData(ctxt);
+                    SaveStateHelper.setBarWeight(_barWeight);
                     _formKey.currentState.reset();
                     Navigator.of(ctxt).pop();
                   }

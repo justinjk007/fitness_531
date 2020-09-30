@@ -1,6 +1,7 @@
 // For reading and writing data to disk with ease
 // Comes from the shared_preferences 3rd party library
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 // Every function in the class is static, a class is even here just for cleanliness
 
@@ -82,6 +83,22 @@ class SaveStateHelper {
 
   static Future<double> getBarWeight() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+    // If no data exist return 45 meaning 45 lbs
     return prefs.getDouble("bar_weight") ?? 45 ;
   }
+
+  static Future<bool> setBarWeight(double _barWeight) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.setDouble("bar_weight", _barWeight);
+  }
+
+  static Future<double> getPlatesMap() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getDouble("bar_weight") ?? 45 ;
+  }
+
+  // static Future<double> setPlatesMap() async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   return prefs.getDouble("bar_weight") ?? 45 ;
+  // }
 }
