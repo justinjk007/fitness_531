@@ -47,6 +47,8 @@ https://console.firebase.google.com/u/0/project/fitness-531/settings/general/ios
 Follow this video to see how to import the file in X-Code: https://youtu.be/3nFIMej3Tvw
 ** Setting up code signing
 https://flutter.dev/docs/deployment/android#signing-the-app
+** When updating dependencies
+If building iOS breaks after updating flutter dependency go to the ios dir and run =pod update=
 ** References
 - https://exrx.net/WeightTraining/Powerlifting/531
 - https://medium.com/flutter-community/simple-recipes-app-made-in-flutter-firebase-and-google-sign-in-14d1535e9a59
@@ -55,6 +57,7 @@ https://flutter.dev/docs/deployment/android#signing-the-app
 - [ ] Update the records page so, user can undo deletion ?
 - [ ] Add a chips section to add and remove plates available in the Gym
 - [X] Add time series graphs to show records progress
+- [ ] Integrate with google fit
 - [ ] Update database schema
 - [ ] Fix the progress circle not updating without restarting
  #+begin_src txt
