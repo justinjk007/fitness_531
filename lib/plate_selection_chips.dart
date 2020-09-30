@@ -1,22 +1,12 @@
-import 'package:shared_preferences/shared_preferences.dart'
-    show SharedPreferences;
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
+import 'save_state.dart';
 
 class PlateSelectionChipsState extends State<PlateSelectionChips> {
   TextEditingController _textEditingController = new TextEditingController();
 
   // Here these maps are kept dynamic so serialized json does not error out when
   // read back in, however we only accept bool as keys in design
-  Map<String, dynamic> defaultMap = {
-    '2.5': true,
-    '5': true,
-    '10': true,
-    '25': true,
-    '35': false,
-    '45': true,
-  };
   Map<String, dynamic> chipsMap = {'0': true};
 
   @override
@@ -28,26 +18,11 @@ class PlateSelectionChipsState extends State<PlateSelectionChips> {
   @override
   void initState() {
     super.initState();
-    _loadDataAsync(); // Load the current bar weight from memory
-  }
-
-  void _loadDataAsync() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      String foo = (prefs.getString("plates_available") ?? null);
-      if (foo == null || foo == "{}") {
-        // If no data exist return default map
-        chipsMap = defaultMap;
-      } else {
-        chipsMap = json.decode(foo);
-      }
-    });
-  }
-
-  void saveDataToDisk() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String foo = json.encode(chipsMap);
-    prefs.setString("plates_available", foo);
+    SaveStateHelper.getPlatesMap().then(
+      (data) => setState(() {
+        chipsMap = data;
+      }),
+    );
   }
 
   Widget _buildChips() {
@@ -64,14 +39,14 @@ class PlateSelectionChipsState extends State<PlateSelectionChips> {
           setState(() {
             // When pressed, toggle selection state and then reload
             chipsMap[e.key] = !e.value;
-            saveDataToDisk();
+            SaveStateHelper.setPlatesMap(chipsMap);
           });
         },
         onDeleted: () {
           chipsMap.remove(e.key);
           setState(() {
             chipsMap = chipsMap;
-            saveDataToDisk();
+            SaveStateHelper.setPlatesMap(chipsMap);
           });
         },
       );
@@ -87,9 +62,9 @@ class PlateSelectionChipsState extends State<PlateSelectionChips> {
 
   @override
   Widget build(BuildContext context) {
-
     // Check if the keyboard is up
-    final bool _keyboardNotUp = MediaQuery.of(widget.dialogWindowContext).viewInsets.bottom == 0.0;
+    final bool _keyboardNotUp =
+        MediaQuery.of(widget.dialogWindowContext).viewInsets.bottom == 0.0;
 
     return FractionallySizedBox(
       // Use more space if keyword is up so the window is still big
@@ -125,7 +100,7 @@ class PlateSelectionChipsState extends State<PlateSelectionChips> {
                   _textEditingController.clear();
                   setState(() {
                     chipsMap = chipsMap;
-                    saveDataToDisk();
+                    SaveStateHelper.setPlatesMap(chipsMap);
                   });
                 },
                 child: Text('Submit'),
@@ -139,7 +114,6 @@ class PlateSelectionChipsState extends State<PlateSelectionChips> {
 }
 
 class PlateSelectionChips extends StatefulWidget {
-
   PlateSelectionChips({
     Key key,
     this.dialogWindowContext,

@@ -84,7 +84,7 @@ class SaveStateHelper {
   static Future<double> getBarWeight() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     // If no data exist return 45 meaning 45 lbs
-    return prefs.getDouble("bar_weight") ?? 45 ;
+    return prefs.getDouble("bar_weight") ?? 45;
   }
 
   static Future<bool> setBarWeight(double _barWeight) async {
@@ -92,13 +92,32 @@ class SaveStateHelper {
     return prefs.setDouble("bar_weight", _barWeight);
   }
 
-  static Future<double> getPlatesMap() async {
+  static Future<Map<String, dynamic>> getPlatesMap() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getDouble("bar_weight") ?? 45 ;
+
+    // Here these maps are kept dynamic so serialized json does not error out when
+    // read back in, however we only accept bool as keys in design
+    Map<String, dynamic> defaultMap = {
+      '2.5': true,
+      '5': true,
+      '10': true,
+      '25': true,
+      '35': true,
+      '45': true,
+      '55': false,
+    };
+
+    String rawString = (prefs.getString("plates_available") ?? null);
+    if (rawString == null || rawString == "{}") {
+      return defaultMap; // If no data exist return default map
+    } else {
+      return json.decode(rawString);
+    }
   }
 
-  // static Future<double> setPlatesMap() async {
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   return prefs.getDouble("bar_weight") ?? 45 ;
-  // }
+  static Future<bool> setPlatesMap(Map<String, dynamic> chipsMap) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String rawString = json.encode(chipsMap);
+    return prefs.setString("plates_available", rawString);
+  }
 }
