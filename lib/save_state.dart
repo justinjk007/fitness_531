@@ -1,6 +1,7 @@
 // For reading and writing data to disk with ease
 // Comes from the shared_preferences 3rd party library
 import 'package:shared_preferences/shared_preferences.dart';
+import 'plates_and_bar.dart';
 import 'dart:convert';
 
 // Every function in the class is static, a class is even here just for cleanliness
@@ -119,5 +120,33 @@ class SaveStateHelper {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String rawString = json.encode(chipsMap);
     return prefs.setString("plates_available", rawString);
+  }
+
+  // This just sends the combined data of bar weight and plates map in one call
+  static Future<PlatesAndBar> getPlatesAndBar() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    // Here these maps are kept dynamic so serialized json does not error out when
+    // read back in, however we only accept bool as keys in design
+    Map<String, dynamic> defaultMap = {
+      '2.5': true,
+      '5': true,
+      '10': true,
+      '25': true,
+      '35': true,
+      '45': true,
+      '55': false,
+    };
+
+    Map<String, dynamic> platesMap = defaultMap;
+
+    String rawString = (prefs.getString("plates_available") ?? null);
+    if (rawString == null || rawString == "{}") {
+      platesMap = defaultMap; // If no data exist return default map
+    } else {
+      platesMap = json.decode(rawString);
+    }
+    // If no data exist return 45 meaning 45 lbs
+    double barWeight = prefs.getDouble("bar_weight") ?? 45;
+    return PlatesAndBar(platesMap, barWeight); // return the object
   }
 }

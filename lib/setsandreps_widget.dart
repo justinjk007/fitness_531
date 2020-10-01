@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'plates_and_bar.dart';
 import 'save_state.dart';
 import 'calc.dart';
 
 class CustomCard extends StatelessWidget {
   CustomCard({
-      Key key,
-      this.argTitle,
-      this.subTitle,
-      this.setWeight,
+    Key key,
+    this.argTitle,
+    this.subTitle,
+    this.setWeight,
   }) : super(key: key);
 
   final String argTitle;
@@ -19,25 +20,24 @@ class CustomCard extends StatelessWidget {
   }
 
   Widget getPlatesWidget(double weight, BuildContext ctxt) {
-    return FutureBuilder<double>(
+    PlatesAndBar commonSetup = PlatesAndBar.common();
+    return FutureBuilder<PlatesAndBar>(
       // This is where Future is trying to get data from
-      future: SaveStateHelper.getBarWeight(),
-      initialData: 45, // since 45 is the most common bar weight
-      builder:
-      (BuildContext context, AsyncSnapshot<double> snapshot) {
+      future: SaveStateHelper.getPlatesAndBar(),
+      initialData: commonSetup, // default values 
+      builder: (BuildContext context, AsyncSnapshot<PlatesAndBar> snapshot) {
         if (snapshot.hasError) {
           // Failed to load so fall back to 45 pounds as the bar weight
-          return buildPlatesWidget(weight,45,ctxt);
+          return buildPlatesWidget(weight, commonSetup, ctxt);
         } else {
-          return buildPlatesWidget(weight,snapshot.data,ctxt);
+          return buildPlatesWidget(weight, snapshot.data, ctxt);
         }
       }, // End of  builder
     ); // End of FutureBuilder
   }
 
-  Widget buildPlatesWidget(double weight, double barWeight, BuildContext ctxt) {
-
-    Map<double, int> platesMap = Calc.getPlateCalculatorMap(weight,barWeight);
+  Widget buildPlatesWidget(double weight, PlatesAndBar barbell, BuildContext ctxt) {
+    Map<double, int> platesMap = Calc.getPlateCalculatorMap(weight, barbell);
 
     bool noPlatesRequired = true;
 
@@ -60,7 +60,7 @@ class CustomCard extends StatelessWidget {
             ),
             child: Padding(
               padding:
-              EdgeInsets.only(right: 2.5, left: 2.5, top: 4, bottom: 4),
+                  EdgeInsets.only(right: 2.5, left: 2.5, top: 4, bottom: 4),
               child: Text(
                 "No plates required!",
                 style: TextStyle(
@@ -256,21 +256,21 @@ class CustomCard extends StatelessWidget {
         child: Column(
           children: [
             Row(children: [
-                Text(
-                  subTitle,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                  ),
+              Text(
+                subTitle,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
                 ),
-                Expanded(child: SizedBox()),
-                Text(
-                  argTitle,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
+              ),
+              Expanded(child: SizedBox()),
+              Text(
+                argTitle,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
                 ),
+              ),
             ]),
             SizedBox(
               // This is a custom divider
@@ -284,7 +284,7 @@ class CustomCard extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            getPlatesWidget(setWeight,ctxt),
+            getPlatesWidget(setWeight, ctxt),
           ],
         ),
       ),

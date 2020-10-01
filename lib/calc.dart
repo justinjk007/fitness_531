@@ -1,3 +1,5 @@
+import 'plates_and_bar.dart';
+
 class Calc {
   static String getWarmup(int repMax, int setNum) {
     var val = getWarmupVals(repMax, setNum);
@@ -94,7 +96,10 @@ class Calc {
     return weight;
   }
 
-  static Map getPlateCalculatorMap(double weight, double barWeight) {
+  static Map getPlateCalculatorMap(
+    double weight,
+    PlatesAndBar barbell,
+  ) {
     var plates = [45.0, 35.0, 25.0, 10.0, 5.0, 2.5]; // This should have floats
     Map<double, int> platesMap = {
       // key => value
@@ -108,10 +113,10 @@ class Calc {
 
     var plateCount = [0, 0, 0, 0, 0, 0]; // Initial plate count
 
-    if (weight < barWeight) {
+    if (weight < barbell.barWeight) {
       return platesMap;
     }
-    double weightAfterBar = weight - barWeight;
+    double weightAfterBar = weight - barbell.barWeight;
 
     for (int i = 0; i < plates.length; i++) {
       while (weightAfterBar / plates[i] >= 2) {
