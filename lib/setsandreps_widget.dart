@@ -15,14 +15,6 @@ class CustomCard extends StatelessWidget {
   final String subTitle;
   final double setWeight;
 
-  bool checkEqual(int a, int b) {
-    return a == b;
-  }
-
-  bool isEmpty(int a) {
-    return (a == 0 || a == null);
-  }
-
   Widget getPlatesWidget(double weight, BuildContext ctxt) {
     PlatesAndBar commonSetup = PlatesAndBar.common();
     return FutureBuilder<PlatesAndBar>(
@@ -47,6 +39,8 @@ class CustomCard extends StatelessWidget {
     bool noPlatesRequired = true;
 
     for (var plateCount in platesMap.values) {
+      // Go through all the plates, if all the counts are zero then no plates
+      // required at all
       if (plateCount != 0) {
         noPlatesRequired = false;
       }
@@ -79,178 +73,48 @@ class CustomCard extends StatelessWidget {
       );
     }
 
-    return Row(
-      children: [
-        Visibility(
-          visible: !isEmpty(platesMap[45]), // no plates = invisible
-          child: Padding(
-            padding: EdgeInsets.only(right: 2.5, left: 2.5),
-            child: Container(
-              decoration: new BoxDecoration(
-                border: new Border.all(
-                  color: Theme.of(ctxt).dividerColor,
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+    // Make a list of plate widgets by iterating through the map, then put the
+    // list as the child on a Row widget,...full send
+    List<Widget> platesWidgetlist = new List<Widget>();
+    for (MapEntry e in platesMap.entries) {
+      String _plateWeightString;
+      double _plateWeight = e.key;
+      // If the decimal point is truncateble(ie 0) then print 0 decimal places
+      // otherwise print 1 decimal place(eg 2.5)
+      _plateWeightString = _plateWeight.toStringAsFixed(
+          _plateWeight.truncateToDouble() == _plateWeight ? 0 : 1);
+      int _platesCount = e.value;
+
+      if (_platesCount != 0) {
+        Widget platesWidget = Padding(
+          padding: EdgeInsets.only(right: 2.5, left: 2.5),
+          child: Container(
+            decoration: new BoxDecoration(
+              border: new Border.all(
+                color: Theme.of(ctxt).dividerColor,
+                width: 2,
               ),
-              child: Row(
-                children: [
-                  SizedBox(width: 2.5), // Padding on each side to look better
-                  Text(
-                    "${platesMap[45]} x 45",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
+              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            ),
+            child: Row(
+              children: [
+                SizedBox(width: 2.5), // Padding on each side to look better
+                Text(
+                  "$_plateWeightString x $_platesCount",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
                   ),
-                  SizedBox(width: 2.5), // Padding on each side to look better
-                ],
-              ),
+                ),
+                SizedBox(width: 2.5), // Padding on each side to look better
+              ],
             ),
           ),
-        ),
-        Visibility(
-          visible: !isEmpty(platesMap[35]), // no plates = invisible
-          child: Padding(
-            padding: EdgeInsets.only(right: 2.5, left: 2.5),
-            child: Container(
-              decoration: new BoxDecoration(
-                border: new Border.all(
-                  color: Theme.of(ctxt).dividerColor,
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              ),
-              child: Row(
-                children: [
-                  SizedBox(width: 2.5), // Padding on each side to look better
-                  Text(
-                    "${platesMap[35]} x 35",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                  SizedBox(width: 2.5), // Padding on each side to look better
-                ],
-              ),
-            ),
-          ),
-        ), // Visibility widget ends her
-        Visibility(
-          visible: !isEmpty(platesMap[25]), // no plates = invisible
-          child: Padding(
-            padding: EdgeInsets.only(right: 2.5, left: 2.5),
-            child: Container(
-              decoration: new BoxDecoration(
-                border: new Border.all(
-                  color: Theme.of(ctxt).dividerColor,
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              ),
-              child: Row(
-                children: [
-                  SizedBox(width: 2.5), // Padding on each side to look better
-                  Text(
-                    "${platesMap[25]} x 25",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                  SizedBox(width: 2.5), // Padding on each side to look better
-                ],
-              ),
-            ),
-          ),
-        ), // Visibility widget ends her
-        Visibility(
-          visible: !isEmpty(platesMap[10]), // no plates = invisible
-          child: Padding(
-            padding: EdgeInsets.only(right: 2.5, left: 2.5),
-            child: Container(
-              decoration: new BoxDecoration(
-                border: new Border.all(
-                  color: Theme.of(ctxt).dividerColor,
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              ),
-              child: Row(
-                children: [
-                  SizedBox(width: 2.5), // Padding on each side to look better
-                  Text(
-                    "${platesMap[10]} x 10",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                  SizedBox(width: 2.5), // Padding on each side to look better
-                ],
-              ),
-            ),
-          ),
-        ), // Visibility widget ends her
-        Visibility(
-          visible: !isEmpty(platesMap[5]), // no plates = invisible
-          child: Padding(
-            padding: EdgeInsets.only(right: 2.5, left: 2.5),
-            child: Container(
-              decoration: new BoxDecoration(
-                border: new Border.all(
-                  color: Theme.of(ctxt).dividerColor,
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              ),
-              child: Row(
-                children: [
-                  SizedBox(width: 2.5), // Padding on each side to look better
-                  Text(
-                    "${platesMap[5]} x 5",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                  SizedBox(width: 2.5), // Padding on each side to look better
-                ],
-              ),
-            ),
-          ),
-        ), // Visibility widget ends her
-        Visibility(
-          visible: !isEmpty(platesMap[2.5]), // no plates = invisible
-          child: Padding(
-            padding: EdgeInsets.only(right: 2.5, left: 2.5),
-            child: Container(
-              decoration: new BoxDecoration(
-                border: new Border.all(
-                  color: Theme.of(ctxt).dividerColor,
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              ),
-              child: Row(
-                children: [
-                  SizedBox(width: 2.5), // Padding on each side to look better
-                  Text(
-                    "${platesMap[2.5]} x 2.5",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                  SizedBox(width: 2.5), // Padding on each side to look better
-                ],
-              ),
-            ),
-          ),
-        ), // Visibility widget ends her
-      ],
-    );
+        );
+        platesWidgetlist.add(platesWidget);
+      }
+    }
+    return new Row(children: platesWidgetlist);
   }
 
   @override
