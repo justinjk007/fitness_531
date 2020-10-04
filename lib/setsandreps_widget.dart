@@ -19,12 +19,16 @@ class CustomCard extends StatelessWidget {
     return a == b;
   }
 
+  bool isEmpty(int a) {
+    return (a == 0 || a == null);
+  }
+
   Widget getPlatesWidget(double weight, BuildContext ctxt) {
     PlatesAndBar commonSetup = PlatesAndBar.common();
     return FutureBuilder<PlatesAndBar>(
       // This is where Future is trying to get data from
       future: SaveStateHelper.getPlatesAndBar(),
-      initialData: commonSetup, // default values 
+      initialData: commonSetup, // default values
       builder: (BuildContext context, AsyncSnapshot<PlatesAndBar> snapshot) {
         if (snapshot.hasError) {
           // Failed to load so fall back to 45 pounds as the bar weight
@@ -36,7 +40,8 @@ class CustomCard extends StatelessWidget {
     ); // End of FutureBuilder
   }
 
-  Widget buildPlatesWidget(double weight, PlatesAndBar barbell, BuildContext ctxt) {
+  Widget buildPlatesWidget(
+      double weight, PlatesAndBar barbell, BuildContext ctxt) {
     Map<double, int> platesMap = Calc.getPlateCalculatorMap(weight, barbell);
 
     bool noPlatesRequired = true;
@@ -77,7 +82,7 @@ class CustomCard extends StatelessWidget {
     return Row(
       children: [
         Visibility(
-          visible: !checkEqual(platesMap[45], 0), // no plates = invisible
+          visible: !isEmpty(platesMap[45]), // no plates = invisible
           child: Padding(
             padding: EdgeInsets.only(right: 2.5, left: 2.5),
             child: Container(
@@ -105,7 +110,7 @@ class CustomCard extends StatelessWidget {
           ),
         ),
         Visibility(
-          visible: !checkEqual(platesMap[35], 0), // no plates = invisible
+          visible: !isEmpty(platesMap[35]), // no plates = invisible
           child: Padding(
             padding: EdgeInsets.only(right: 2.5, left: 2.5),
             child: Container(
@@ -133,7 +138,7 @@ class CustomCard extends StatelessWidget {
           ),
         ), // Visibility widget ends her
         Visibility(
-          visible: !checkEqual(platesMap[25], 0), // no plates = invisible
+          visible: !isEmpty(platesMap[25]), // no plates = invisible
           child: Padding(
             padding: EdgeInsets.only(right: 2.5, left: 2.5),
             child: Container(
@@ -161,7 +166,7 @@ class CustomCard extends StatelessWidget {
           ),
         ), // Visibility widget ends her
         Visibility(
-          visible: !checkEqual(platesMap[10], 0), // no plates = invisible
+          visible: !isEmpty(platesMap[10]), // no plates = invisible
           child: Padding(
             padding: EdgeInsets.only(right: 2.5, left: 2.5),
             child: Container(
@@ -189,7 +194,7 @@ class CustomCard extends StatelessWidget {
           ),
         ), // Visibility widget ends her
         Visibility(
-          visible: !checkEqual(platesMap[5], 0), // no plates = invisible
+          visible: !isEmpty(platesMap[5]), // no plates = invisible
           child: Padding(
             padding: EdgeInsets.only(right: 2.5, left: 2.5),
             child: Container(
@@ -217,7 +222,7 @@ class CustomCard extends StatelessWidget {
           ),
         ), // Visibility widget ends her
         Visibility(
-          visible: !checkEqual(platesMap[2.5], 0), // no plates = invisible
+          visible: !isEmpty(platesMap[2.5]), // no plates = invisible
           child: Padding(
             padding: EdgeInsets.only(right: 2.5, left: 2.5),
             child: Container(

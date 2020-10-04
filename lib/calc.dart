@@ -1,5 +1,4 @@
 import 'plates_and_bar.dart';
-import "dart:collection";
 
 class Calc {
   static String getWarmup(int repMax, int setNum) {
@@ -98,53 +97,25 @@ class Calc {
   }
 
   static Map getPlateCalculatorMap(double weight, PlatesAndBar barbell) {
-    // SplayTreeMap<double, int> platesMap = SplayTreeMap<double, int>();
-    // List<double> plates = [];
-    // List<int> plateCount = [];
+    Map<double, int> platesMap = {};
+    List<double> plates = [];
+    List<int> plateCount = [];
 
-    // for (MapEntry e in barbell.platesMap.entries) {
-    //   // If the plate is selected, ie the plate chip is active then add the item
-    //   // to the map.
-    //   if (e.value) {
-    //     try {
-    //       platesMap[double.parse(e.key)] = 0; // for example {45: 0}
-    //       plates.add(double.parse(e.key)); // for example [45]
-    //       plateCount.add(0); // initial plate count is 0
-    //     } on FormatException {
-    //       continue; // double couldn't be parsed from string so assume a
-    //       // malformed chips input and skip
-    //     }
-    //   }
-    // }
-
-    // TODO: Need to sort platesMap so everytime the biggest plate is iterated first
-
-    // print('\n*****************\n');
-    // print(platesMap);
-    // print('------------------\n');
-    // print(plates);
-    // print('------------------\n');
-    // print(plateCount);
-    // print('*****************\n');
-
-    Map<double, int> platesMap = {
-      // key => value
-      45: 0,
-      35: 0,
-      25: 0,
-      10: 0,
-      5: 0,
-      2.5: 0,
-    };
-    List<double> plates = [
-      45.0,
-      35.0,
-      25.0,
-      10.0,
-      5.0,
-      2.5
-    ]; // This should have floats
-    List<int> plateCount = [0, 0, 0, 0, 0, 0]; // Initial plate count
+    for (MapEntry e in barbell.platesMap.entries) {
+      // If the plate is selected, ie the plate chip is active then add the item
+      // to the map.
+      if (e.value) {
+        try {
+          platesMap[double.parse(e.key)] = 0; // for example {45: 0}
+          plates.add(double.parse(e.key)); // for example [45]
+          plateCount.add(0); // initial plate count is 0
+        } on FormatException {
+          continue; // double couldn't be parsed from string so assume a
+          // malformed chips input and skip
+        }
+      }
+    }
+    plates.sort((b,a) => a.compareTo(b)); // sort descending
 
     if (weight < barbell.barWeight) {
       return platesMap;
@@ -162,6 +133,7 @@ class Calc {
         platesMap[plates[j]] = plateNum;
       }
     }
+
     return platesMap;
   }
 }
