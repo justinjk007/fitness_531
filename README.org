@@ -55,10 +55,10 @@ If building iOS breaks after updating flutter dependency go to the ios dir and r
 ** TODOs
 - [ ] Update the records page so, when deleting a record it animates it
 - [ ] Update the records page so, user can undo deletion ?
-- [ ] Add a chips section to add and remove plates available in the Gym
+- [X] Add a chips section to add and remove plates available in the Gym
 - [X] Add time series graphs to show records progress
 - [ ] Integrate with google fit
-- [ ] Update database schema
+- [X] Update database schema
 - [ ] Fix the progress circle not updating without restarting
  #+begin_src txt
  # Current database schema
