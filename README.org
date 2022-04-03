@@ -35,6 +35,10 @@ the new google-services.json file Add the projects fingerprint on the
 new system using this
 https://developers.google.com/android/guides/client-auth
 
+#+begin_src sh
+keytool -list -v -alias androiddebugkey -keystore %USERPROFILE%\.android\debug.keystore
+#+end_src
+
 For Android: https://console.firebase.google.com/u/1/project/fitness-531/settings/general/android:com.kaipada.fitness_531
 - put the =json= file under android/app/google-services.json
   
